@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+
+
+
+    <!--BUTTONS-->
+
+    <!--DEFAULT-->
+    <style name="dashDefaultButton" parent="@android:style/Widget.Button">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@drawable/dashboard_text_color_button</item>
+        <item name="android:textSize">13dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="dashBlackButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_black_button</item>
+    </style>
+    <style name="dashDarkBlueButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_dark_blue_button</item>
+    </style>
+    <style name="dashGoldButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_gold_button</item>
+    </style>
+    <style name="dashGreenButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_green_button</item>
+    </style>
+    <style name="dashLiteBlueButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_lite_blue_button</item>
+    </style>
+    <style name="dashOliveButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_olive_button</item>
+    </style>
+    <style name="dashOrangeButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_orange_button</item>
+    </style>
+    <style name="dashPurpleButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_purple_button</item>
+    </style>
+    <style name="dashRedButton" parent="style/dashDefaultButton">
+        <item name="android:background">@drawable/dashboard_red_button</item>
+    </style>
+</resources>

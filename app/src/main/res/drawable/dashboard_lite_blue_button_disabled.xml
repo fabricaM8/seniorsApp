@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid
+        android:color="#334a8de2" />
+    <padding android:left="@dimen/dashboard_button_padding"
+        android:top="@dimen/dashboard_button_padding"
+        android:right="@dimen/dashboard_button_padding"
+        android:bottom="@dimen/dashboard_button_padding" />
+    <corners android:topLeftRadius="@dimen/dashboard_button_radius" />
+
+</shape>
