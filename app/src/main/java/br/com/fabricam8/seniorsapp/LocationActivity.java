@@ -29,6 +29,7 @@ import android.content.IntentSender;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -150,7 +151,6 @@ public class LocationActivity extends BaseActivity implements
      */
     @Override
     public void onStop() {
-
         // If the client is connected
         if (mLocationClient.isConnected()) {
             stopPeriodicUpdates();
@@ -293,12 +293,10 @@ public class LocationActivity extends BaseActivity implements
 
         // If Google Play Services is available
         if (servicesConnected()) {
-
             // Get the current location
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mLocationClient);
             if(currentLocation != null) {
                 // Display the current location in the UI
-                //mLatLng.setText(LocationUtils.getLatLng(this, currentLocation));
                 return currentLocation;
             }
         }
@@ -419,12 +417,29 @@ public class LocationActivity extends BaseActivity implements
      */
     @Override
     public void onLocationChanged(Location location) {
-
         // Report to the UI that the location was updated
         mConnectionStatus.setText(R.string.location_updated);
         // In the UI, set the latitude and longitude to the value received
         mLastLocation = location;
         setAddress();
+    }
+
+    /**
+     * Inviked when user wants to see their location on maps.
+     *
+     * @param v The button which invoked the action.
+     */
+    public void viewOnMap(View v) {
+        if(mLastLocation != null) {
+            String uri = String.format(Locale.ENGLISH, "geo:%f,%f",
+                    mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            this.startActivity(intent);
+        }
+        else
+        {
+            // show error
+        }
     }
 
     /**
@@ -531,19 +546,10 @@ public class LocationActivity extends BaseActivity implements
                 // Get the first address
                 Address address = addresses.get(0);
 
-                // Format the first line of address
-                String addressText = getString(R.string.address_output_string,
-
-                        // If there's a street address, add it
-                        address.getMaxAddressLineIndex() > 0 ?
-                                address.getAddressLine(0) : "",
-
-                        // Locality is usually a city
-                        address.getLocality(),
-
-                        // The country of the address
-                        address.getCountryName()
-                );
+                String addressText = "";
+                for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
+                    addressText += address.getAddressLine(i) + "\n";
+                }
 
                 // Return the text
                 return addressText;
@@ -560,7 +566,6 @@ public class LocationActivity extends BaseActivity implements
          */
         @Override
         protected void onPostExecute(String address) {
-
             // Turn off the progress bar
             mActivityIndicator.setVisibility(View.GONE);
 

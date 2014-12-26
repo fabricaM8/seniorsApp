@@ -10,6 +10,24 @@
 
     <!--BUTTONS-->
 
+    <!--ACTIVITIES-->
+
+    <style name="defaultButton" parent="@android:style/Widget.Button">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">@drawable/dashboard_text_color_button</item>
+        <item name="android:textSize">20dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/default_button</item>
+    </style>
+
+
+    <!--DASH-->
+
     <!--DEFAULT-->
     <style name="dashDefaultButton" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>

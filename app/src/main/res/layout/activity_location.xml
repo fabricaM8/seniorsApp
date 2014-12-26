@@ -32,7 +32,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="0.7"
+        android:layout_weight="0.2"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
@@ -40,9 +40,11 @@
 
         <TextView
             android:id="@+id/address"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textIsSelectable="true"/>
 
         <ProgressBar
@@ -53,6 +55,32 @@
             android:indeterminate="true"
             android:visibility="gone" />
 
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_weight="0.4"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/locationButtonShare"
+            style="@style/defaultButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_users"
+            android:text="Enviar localização"/>
+
+        <Button
+            android:id="@+id/locationButtonMap"
+            style="@style/defaultButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_maps"
+            android:onClick="viewOnMap"
+            android:text="Ver no mapa"/>
     </LinearLayout>
 
     <!--footer -->
