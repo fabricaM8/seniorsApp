@@ -128,24 +128,7 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_weight="0.05"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="SeniorsApp - Fabrica · M8"
-            android:textColor="#222222"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textAlignment="center"/>
-    </LinearLayout>
-
-
+    <!--footer -->
+    <include layout="@layout/app_footer_layout"></include>
 
 </LinearLayout>

@@ -1,6 +1,9 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class DashboardActivity extends BaseActivity {
 
@@ -8,5 +11,15 @@ public class DashboardActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+
+        Button btGps = (Button) findViewById(R.id.dashButtonGps);
+        btGps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, LocationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
