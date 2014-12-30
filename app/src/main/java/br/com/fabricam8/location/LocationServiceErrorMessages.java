@@ -26,7 +26,7 @@ import br.com.fabricam8.seniorsapp.R;
  * Map error codes to error messages.
  */
 public class LocationServiceErrorMessages {
-    //teste git
+    //teste git +1
     // Don't allow instantiation
     private LocationServiceErrorMessages() {}
 
