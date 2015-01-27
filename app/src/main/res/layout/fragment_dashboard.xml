@@ -24,7 +24,8 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:drawableTop="@drawable/ic_help"
-            android:text="Medicação"/>
+            android:text="Medicação"
+            android:onClick="runMeds"/>
 
         <Button
             android:id="@+id/dashButtonGps"
