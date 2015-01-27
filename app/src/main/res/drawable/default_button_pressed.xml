@@ -4,10 +4,10 @@
     android:shape="rectangle">
     <solid
         android:color="#55777777" />
-    <padding android:left="10dp"
-        android:top="10dp"
-        android:right="10dp"
-        android:bottom="10dp" />
+    <padding android:left="@dimen/dashboard_button_padding"
+        android:top="@dimen/dashboard_button_padding"
+        android:right="@dimen/dashboard_button_padding"
+        android:bottom="@dimen/dashboard_button_padding" />
     <corners android:radius="@dimen/dashboard_button_radius" />
 
 </shape>

@@ -2,16 +2,13 @@
 <resources>
 
     <!-- Application identifiers -->
-    <string name="app_name">Seniors App</string>
+    <string name="app_name">Senior\'s App</string>
     <string name="app_tag">SeniorsApp</string>
-    <string name="app_description">
-        Aplicativo para acompanhamento de atividades e melhoria de qualidade de vida.
-    </string>
+    <string name="app_description">Aplicativo para acompanhamento de atividades e melhoria de qualidade de vida.</string>
 
     <!-- User interface labels and strings -->
     <string name="action_settings">Configurações</string>
     <string name="title_activity_location">Minha localização</string>
-
 
     <!-- Address format -->
     <string name="address_output_string">%1$s %2$s %3$s</string>
@@ -24,36 +21,34 @@
     <string name="connection_error_code_unknown">Código de erro de conexão desconhecido:  %1$d</string>
     <string name="connection_failed">A conexão falhou</string>
     <string name="disconnected">Cliente disconectado</string>
-    <string name="illegal_argument_exception">
-        Argumentos inválidos: Latitude %1$.8f Longitude %2$.8f
-    </string>
+    <string name="illegal_argument_exception"> Argumentos inválidos: Latitude %1$.8f Longitude %2$.8f</string>
     <string name="invalid_action">Ação inválida %1$s</string>
-    <string name="invalid_integer_id">Invalid integer request ID: %1$s</string>
+    <string name="invalid_integer_id">Requisição inválida: %1$s</string>
     <string name="IO_Exception_getFromLocation">IO Exception in Geocoder.getFromLocation()</string>
     <string name="location_requested">Atualizações de localização solicitadas</string>
     <string name="location_updated">Localização atualizada</string>
-    <string name="location_update_error">tualização de localização falhou</string>
-    <string name="location_update_error_detail">
-        Erro na atualização da localização. Código %1$d mensagem %2$s
-    </string>
-    <string name="location_update_missing_update">
-        Erro na atulização de localização. Localização indisponível.
-    </string>
+    <string name="location_update_error">Atualização de localização falhou</string>
+    <string name="location_update_error_detail">Erro na atualização da localização. Código %1$d mensagem %2$s</string>
+    <string name="location_update_missing_update">Erro na atulização de localização. Localização indisponível.</string>
     <string name="location_updates_stopped">Atualizações períodicas pararam</string>
     <string name="log_new_location">Nova locaização: %1$s</string>
     <string name="no_address_found">Endereço não encontrado</string>
     <string name="no_connection">Sem conexão: Não é possivel solicitar conexão.</string>
-    <string name="no_geocoder_available">Não é possível solicitar endereço. Geocoder não disponível..</string>
+    <string name="no_geocoder_available">Não é possível solicitar endereço. Geocoder não disponível.</string>
     <string name="no_location_available">Localização não está disponível.</string>
     <string name="resolved">Erro solucionado. Por favor, tente novamente.</string>
-    <string name="no_resolution">Google Play services: unable to resolve connection error.</string>
+    <string name="no_resolution">Google Play: não foi possível identificar erro de conexão.</string>
     <string name="periodic_update_stop">Parando atualizações de localização</string>
-    <string name="play_services_available">Google Play services is available</string>
-    <string name="request_location_updates_in_progress">
-        Can\'t request location updates, previous request hasn\'t finished
-    </string>
-    <string name="unknown">--Unknown--</string>
-    <string name="unknown_activity_request_code">
-        Código de solicitação desconhecido %1$d em onActivityResult.
-    </string>
+    <string name="play_services_available">Serviço de localização indisponível.</string>
+    <string name="request_location_updates_in_progress">Impossível requisitar nova localização (anterior ainda não finalizou)</string>
+    <string name="unknown">--Desconhecido--</string>
+    <string name="unknown_activity_request_code">Código de solicitação desconhecido %1$d em onActivityResult.</string>
+
+
+    <string name="nav_medicacao">Medicação</string>
+    <string name="nav_atividades">Atividades Físiscas</string>
+    <string name="nav_consultas">Consultas Agendadas</string>
+    <string name="navigation_drawer_open">Abrir gaveta</string>
+    <string name="navigation_drawer_close">Fechar gaveta</string>
+
 </resources>

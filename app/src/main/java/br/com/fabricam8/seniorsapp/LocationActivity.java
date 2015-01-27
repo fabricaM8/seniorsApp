@@ -17,15 +17,12 @@
 package br.com.fabricam8.seniorsapp;
 
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -33,19 +30,19 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,7 +60,7 @@ import br.com.fabricam8.location.LocationUtils;
  */
 public class LocationActivity extends BaseActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
-        LocationListener{
+        LocationListener {
 
     // A request to connect to Location Services
     private LocationRequest mLocationRequest;
@@ -105,9 +102,6 @@ public class LocationActivity extends BaseActivity implements
         mActivityIndicator = (ProgressBar) findViewById(R.id.address_progress);
         mConnectionState = (TextView) findViewById(R.id.text_connection_state);
         mConnectionStatus = (TextView) findViewById(R.id.text_connection_status);
-
-        // setting layout header title
-        setHeaderTitle(getString(R.string.title_activity_location));
 
         // Create a new global location parameters object
         mLocationRequest = LocationRequest.create();
