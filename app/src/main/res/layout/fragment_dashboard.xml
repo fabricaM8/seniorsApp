@@ -47,6 +47,10 @@
         android:layout_gravity="center_horizontal">
 
         <!--inserir outros botoes-->
+        <TextView
+            android:id="@+id/txtCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

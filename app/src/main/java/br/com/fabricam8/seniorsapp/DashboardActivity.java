@@ -2,21 +2,23 @@ package br.com.fabricam8.seniorsapp;
 
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
+import android.widget.TextView;
 
 import br.com.fabricam8.dal.MedicationDAL;
 import br.com.fabricam8.domain.Medication;
@@ -74,28 +76,29 @@ public class DashboardActivity extends ActionBarActivity
      * @param v The button which invoked the action.
      */
     public void runMeds(View v) {
+        Context context = this;
 
-        MedicationDAL db = MedicationDAL.getInstance(this);
-
-        /**
-         * CRUD Operations
-         * */
-        // Inserting Contacts
-        Log.d("Insert: ", "Inserting ..");
+        MedicationDAL db = MedicationDAL.getInstance(context);
         db.create(new Medication("Lexotan", "Tomar em jejum 1"));
-        db.create(new Medication("Tandrilax", "Tomar em jejum 2"));
-        db.create(new Medication("Paracetamol", "Tomar em jejum 3"));
-        db.create(new Medication("Viagra", "Tomar em jejum 4"));
+        ((TextView)findViewById(R.id.txtCount)).setText("Medicamentos cadastrados: " + db.count());
 
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all...");
-        List<Medication> meds = db.findAll();
+       AlarmManager alarmMgr;
+       PendingIntent alarmIntent;
 
-        for (Medication cn : meds) {
-            String log = "Id: " + cn.getID() + " ,Name: " + cn.getName() + ", Description: " + cn.getDescription();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
+        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, DashboardActivity.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+
+        // Set the alarm to start at approximately 2:00 p.m.
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(Calendar.HOUR_OF_DAY, 13);
+//        calendar.set(Calendar.MINUTE, 53);
+//
+//        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
+        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
+                10 * 1000, alarmIntent);
     }
 
 
