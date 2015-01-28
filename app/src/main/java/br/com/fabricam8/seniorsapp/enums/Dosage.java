@@ -1,4 +1,4 @@
-package br.com.fabricam8.enums;
+package br.com.fabricam8.seniorsapp.enums;
 
 /**
  * Created by Aercio on 1/27/15.

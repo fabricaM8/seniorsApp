@@ -1,4 +1,4 @@
-package br.com.fabricam8.domain;
+package br.com.fabricam8.seniorsapp.domain;
 
 import android.content.ContentValues;
 

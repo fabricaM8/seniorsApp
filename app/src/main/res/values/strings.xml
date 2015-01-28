@@ -50,5 +50,6 @@
     <string name="nav_consultas">Consultas Agendadas</string>
     <string name="navigation_drawer_open">Abrir gaveta</string>
     <string name="navigation_drawer_close">Fechar gaveta</string>
+    <string name="alarm_service_label">hora de acordar!!!!</string>
 
 </resources>

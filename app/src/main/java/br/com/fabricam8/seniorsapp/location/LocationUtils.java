@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package br.com.fabricam8.location;
+package br.com.fabricam8.seniorsapp.location;
 
 import android.content.Context;
 import android.location.Location;
@@ -31,11 +31,11 @@ public final class LocationUtils {
 
     // Name of shared preferences repository that stores persistent state
     public static final String SHARED_PREFERENCES =
-            "br.com.fabricam8.location.SHARED_PREFERENCES";
+            "br.com.fabricam8.seniorsapp.location.SHARED_PREFERENCES";
 
     // Key for storing the "updates requested" flag in shared preferences
     public static final String KEY_UPDATES_REQUESTED =
-            "br.com.fabricam8.location.KEY_UPDATES_REQUESTED";
+            "br.com.fabricam8.seniorsapp.location.KEY_UPDATES_REQUESTED";
 
     /*
      * Define a request code to send to Google Play services

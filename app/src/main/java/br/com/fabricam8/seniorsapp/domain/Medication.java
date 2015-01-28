@@ -1,8 +1,8 @@
-package br.com.fabricam8.domain;
+package br.com.fabricam8.seniorsapp.domain;
 
 import android.content.ContentValues;
 
-import br.com.fabricam8.enums.Dosage;
+import br.com.fabricam8.seniorsapp.enums.Dosage;
 
 /**
  * Created by Aercio on 1/27/15.

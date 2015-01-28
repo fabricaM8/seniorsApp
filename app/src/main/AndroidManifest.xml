@@ -3,7 +3,7 @@
     package="br.com.fabricam8.seniorsapp" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="16"
         android:targetSdkVersion="21" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -12,13 +12,14 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-    <android:uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -44,6 +45,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
+
+        <service android:name=".alarm.NotificationEventService" android:enabled="true" />
+        <service android:name=".alarm.AlarmPlayerService" android:enabled="true" />
+        <receiver android:process=":remote" android:name=".alarm.NotificationEventReceiver"></receiver>
     </application>
 
 </manifest>

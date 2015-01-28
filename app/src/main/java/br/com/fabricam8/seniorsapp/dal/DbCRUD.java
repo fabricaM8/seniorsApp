@@ -1,4 +1,4 @@
-package br.com.fabricam8.dal;
+package br.com.fabricam8.seniorsapp.dal;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.List;
 
-import br.com.fabricam8.domain.DbEntity;
+import br.com.fabricam8.seniorsapp.domain.DbEntity;
 
 /**
  * Created by Aercio on 1/27/15.
@@ -67,7 +67,7 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
 //
 //
 //
-//package br.com.fabricam8.dal;
+//package br.com.fabricam8.seniorsapp.dal;
 //
 //        import java.util.ArrayList;
 //        import java.util.List;
@@ -78,7 +78,7 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
 //        import android.database.sqlite.SQLiteDatabase;
 //        import android.database.sqlite.SQLiteOpenHelper;
 //
-//        import br.com.fabricam8.domain.DbEntity;
+//        import br.com.fabricam8.seniorsapp.domain.DbEntity;
 //
 ///**
 // * Created by Aercio on 1/27/15.

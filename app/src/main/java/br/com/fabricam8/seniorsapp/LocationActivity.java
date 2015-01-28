@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import br.com.fabricam8.location.LocationUtils;
+import br.com.fabricam8.seniorsapp.location.LocationUtils;
 
 /**
  * This the app location Activity. It provides ways for requesting the various features of location

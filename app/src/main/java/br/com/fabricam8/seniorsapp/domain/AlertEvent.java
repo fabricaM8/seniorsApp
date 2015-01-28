@@ -1,4 +1,4 @@
-package br.com.fabricam8.domain;
+package br.com.fabricam8.seniorsapp.domain;
 
 import java.util.Date;
 

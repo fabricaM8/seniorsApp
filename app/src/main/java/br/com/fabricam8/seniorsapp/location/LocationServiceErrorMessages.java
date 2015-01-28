@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package br.com.fabricam8.location;
+package br.com.fabricam8.seniorsapp.location;
 
-import com.google.android.gms.common.ConnectionResult;
 import android.content.Context;
 import android.content.res.Resources;
+
+import com.google.android.gms.common.ConnectionResult;
 
 import br.com.fabricam8.seniorsapp.R;
 

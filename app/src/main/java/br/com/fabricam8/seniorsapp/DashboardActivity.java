@@ -2,12 +2,9 @@ package br.com.fabricam8.seniorsapp;
 
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -20,8 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import br.com.fabricam8.dal.MedicationDAL;
-import br.com.fabricam8.domain.Medication;
+import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
+import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
+import br.com.fabricam8.seniorsapp.domain.Medication;
 
 public class DashboardActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -50,6 +49,13 @@ public class DashboardActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // stopping alarm - if any
+        this.stopService(new Intent(this, AlarmPlayerService.class));
     }
 
     @Override
@@ -82,31 +88,14 @@ public class DashboardActivity extends ActionBarActivity
         db.create(new Medication("Lexotan", "Tomar em jejum 1"));
         ((TextView)findViewById(R.id.txtCount)).setText("Medicamentos cadastrados: " + db.count());
 
-       AlarmManager alarmMgr;
-       PendingIntent alarmIntent;
-
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, DashboardActivity.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-
-
-        // Set the alarm to start at approximately 2:00 p.m.
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(System.currentTimeMillis());
-//        calendar.set(Calendar.HOUR_OF_DAY, 13);
-//        calendar.set(Calendar.MINUTE, 53);
-//
-//        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, calendar.getTimeInMillis(), alarmIntent);
-        alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() +
-                10 * 1000, alarmIntent);
+        NotificationEventService.setupAlarm(this);
     }
 
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar//.setDisplayShowTitleEnabled(true);
-        .setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
 
