@@ -48,7 +48,7 @@ public class NotificationEventService extends Service
         // Initializing notification manager
         mManager = (NotificationManager) mContext.getSystemService(mContext.NOTIFICATION_SERVICE);
 
-        Intent i = new Intent(this.getApplicationContext(), DashboardActivity.class);
+        Intent i = new Intent(mContext, DashboardActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pni = PendingIntent

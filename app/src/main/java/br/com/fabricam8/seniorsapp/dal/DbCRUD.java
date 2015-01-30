@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "seniors_db";
@@ -34,10 +35,10 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
      */
 
     // Adding new entity
-    public abstract void create(T entity);
+    public abstract long create(T entity);
 
     // Getting single entity
-    public abstract T findOne(int id);
+    public abstract T findOne(long id);
 
     // Getting All entities
     public abstract  List<T> findAll();
@@ -46,105 +47,32 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
     public abstract int update(T entity);
 
     // Deleting single entity
-    public  abstract void remove(T entity);
+    public  abstract int remove(T entity);
 
     // Getting entities Count
     public int count() {
-        String countQuery = "SELECT  * FROM " + getTableName();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
+        int iRetVal = 0;
 
-        int count = cursor.getCount();
-        cursor.close();
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            String countQuery = "SELECT * FROM " + getTableName();
+            db = this.getReadableDatabase();
+            cursor = db.rawQuery(countQuery, null);
+            // getting count
+            iRetVal = cursor.getCount();
+        }
+        catch(Exception ex) {
+            Log.e("Seniors DB - count", ex.getMessage());
+        }
+        finally {
+            if(cursor != null)
+                cursor.close();
 
-        // return count
-        return count;
+            if(db != null && db.isOpen())
+                db.close();
+        }
+
+        return iRetVal;
     }
 }
-//
-//
-//
-//
-//
-//
-//package br.com.fabricam8.seniorsapp.dal;
-//
-//        import java.util.ArrayList;
-//        import java.util.List;
-//
-//        import android.content.ContentValues;
-//        import android.content.Context;
-//        import android.database.Cursor;
-//        import android.database.sqlite.SQLiteDatabase;
-//        import android.database.sqlite.SQLiteOpenHelper;
-//
-//        import br.com.fabricam8.seniorsapp.domain.DbEntity;
-//
-///**
-// * Created by Aercio on 1/27/15.
-// */
-//public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
-//
-//    // All Static variables
-//    // Database Version
-//    private static final int DATABASE_VERSION = 1;
-//
-//    // Database Name
-//    private static final String DATABASE_NAME = "seniors_db";
-//
-//    // Entity Known Columns names
-//    private static final String KEY_ID = "id";
-//
-//    public DbCRUD(Context context) {
-//
-//        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-//    }
-//
-//    /**
-//     * Returns the table name for this structure
-//     * @return
-//     */
-//    public abstract String getTableName();
-//
-//    /**
-//     * All CRUD(Create, Read, Update, Delete) Operations
-//     */
-//
-//    // Adding new entity
-//    T create(T entity) {
-//
-//    }
-//
-//    // Getting single entity
-//    T findOne(int id) {
-//
-//    }
-//
-//    // Getting All Entities
-//    public List<T> findAll() {
-//
-//    }
-//
-//    // Updating single entity
-//    public int update(T entity) {
-//
-//    }
-//
-//    // Deleting single entity
-//    public void remove(DbEntity entity) {
-//
-//    }
-//
-//
-//    // Getting contacts Count
-//    public int count() {
-//        String countQuery = "SELECT  * FROM " + getTableName();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(countQuery, null);
-//        cursor.close();
-//
-//        // return count
-//        return cursor.getCount();
-//    }
-//
-//}

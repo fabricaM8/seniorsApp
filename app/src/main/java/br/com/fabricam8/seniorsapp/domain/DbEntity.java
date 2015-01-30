@@ -7,12 +7,14 @@ import android.content.ContentValues;
  */
 public abstract class DbEntity {
 
+    // Entity Columns names
+    public static final String KEY_ID = "id";
+
     private int id;
 
     public DbEntity() {}
 
     public abstract ContentValues getContentValues();
-
 
     public int getID() {
         return this.id;

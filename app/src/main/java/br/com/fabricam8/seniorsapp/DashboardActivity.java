@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
-import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.enums.Dosage;
 
 public class DashboardActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -85,10 +88,24 @@ public class DashboardActivity extends ActionBarActivity
         Context context = this;
 
         MedicationDAL db = MedicationDAL.getInstance(context);
-        db.create(new Medication("Lexotan", "Tomar em jejum 1"));
+
+        Medication med = new Medication();
+        med.setName("Buscopan");
+        med.setDosage(2);
+        med.setDosageType(Dosage.COMPRIMIDO);
+        med.setPeriodicity(6);
+        med.setDuration(7);
+        med.setNextAlert(Calendar.getInstance().getTime());
+        // creating
+        long id = db.create(med);
+
+        Log.i("Seniors - med", med.toString());
+
         ((TextView)findViewById(R.id.txtCount)).setText("Medicamentos cadastrados: " + db.count());
 
-        NotificationEventService.setupAlarm(this);
+        Medication dbMed = db.findOne(id);
+        Log.i("Seniors - db med", dbMed.toString());
+        //NotificationEventService.setupAlarm(this);
     }
 
 

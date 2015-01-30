@@ -7,17 +7,20 @@ import java.util.Date;
  */
 public abstract class AlertEvent extends DbEntity {
 
+    // Entity Columns names
+    public static final String KEY_CLOUD_ID = "cloud_id";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_NEXT_ALERT = "next_alert";
+
+    // Entity attributes
     private int cloudId;
 
     private String name;
 
     private Date nextAlert;
 
-
     // ctor
-    public AlertEvent() {
-    }
-
+    public AlertEvent() {}
 
     public int getCloudId() {
         return cloudId;
