@@ -8,6 +8,9 @@
 
     <!-- User interface labels and strings -->
     <string name="action_settings">Configurações</string>
+    <string name="action_save">Salvar</string>
+    <string name="action_help">Ajuda</string>
+    <string name="action_cancel">Cancelar</string>
     <string name="title_activity_location">Minha localização</string>
 
     <!-- Address format -->
@@ -43,13 +46,25 @@
     <string name="request_location_updates_in_progress">Impossível requisitar nova localização (anterior ainda não finalizou)</string>
     <string name="unknown">--Desconhecido--</string>
     <string name="unknown_activity_request_code">Código de solicitação desconhecido %1$d em onActivityResult.</string>
-
-
     <string name="nav_medicacao">Medicação</string>
     <string name="nav_atividades">Atividades Físiscas</string>
     <string name="nav_consultas">Consultas Agendadas</string>
     <string name="navigation_drawer_open">Abrir gaveta</string>
     <string name="navigation_drawer_close">Fechar gaveta</string>
     <string name="alarm_service_label">hora de acordar!!!!</string>
+    <string name="title_activity_medication_form">MedicationFormActivity</string>
 
+
+    <string name="dosage_prompt">Selecione uma dosagem</string>
+    <string-array name="arr_Dosage">
+        <item>Selecione</item>
+        <item>Ampola</item>
+        <item>Cápsula</item>
+        <item>Colher</item>
+        <item>Comprimido</item>
+        <item>Drágea</item>
+        <item>Gota</item>
+        <item>Envelope</item>
+        <item>Supositório</item>
+    </string-array>
 </resources>

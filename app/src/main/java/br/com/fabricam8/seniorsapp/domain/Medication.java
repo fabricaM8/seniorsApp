@@ -111,7 +111,8 @@ public class Medication extends AlertEvent {
 
     @Override
     public String toString() {
-        return String.format("Tomar %1$d %2$s de %5$s, a cada %3$d horas, por %4$s dias",
-                getDosage(), getDosageType().toString(), getPeriodicity(), getDuration(), getName());
+        return String.format("Tomar %1$d %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
+                getDosage(), getDosageType().toString(), getPeriodicity(), getDuration(), getName(),
+                    getNextAlert().toString());
     }
 }

@@ -31,6 +31,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -58,7 +59,7 @@ import br.com.fabricam8.seniorsapp.location.LocationUtils;
  *
  * The update interval is hard-coded to be 5 seconds.
  */
-public class LocationActivity extends BaseActivity implements
+public class LocationActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
