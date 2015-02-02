@@ -3,6 +3,7 @@ package br.com.fabricam8.seniorsapp.util;
 import android.app.Activity;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 /**
@@ -28,6 +29,18 @@ public class FormHelper {
         }
 
         return strRetVal;
+    }
+
+    public static boolean getCheckBoxValue(Activity ctx, int viewId)
+    {
+        boolean fRetVal = false;
+
+        View v = ctx.findViewById(viewId);
+        if(v != null && v instanceof CheckBox) {
+            fRetVal = ((CheckBox) v).isChecked();
+        }
+
+        return fRetVal;
     }
 
     public static int getTextBoxValueAsInt(Activity ctx, int viewId) {

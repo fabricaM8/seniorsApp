@@ -46,7 +46,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
                 + Medication.KEY_DOSAGE_TYPE + " INTEGER,"
                 + Medication.KEY_PERIODICITY + " INTEGER,"
                 + Medication.KEY_DURATION + " INTEGER,"
-                + Medication.KEY_NEXT_ALERT + " INTEGER"
+                + Medication.KEY_NEXT_ALERT + " INTEGER,"
+                + Medication.KEY_CONTINUOUS + " BIT"
                 + ")";
         db.execSQL(tableSchema);
     }
@@ -107,7 +108,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
                     Medication.KEY_DOSAGE_TYPE,
                     Medication.KEY_PERIODICITY,
                     Medication.KEY_DURATION,
-                    Medication.KEY_NEXT_ALERT
+                    Medication.KEY_NEXT_ALERT,
+                    Medication.KEY_CONTINUOUS
             }, Medication.KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
 
             if (cursor != null)
@@ -117,13 +119,15 @@ public class MedicationDAL extends DbCRUD<Medication> {
             oRetVal.setID(Integer.parseInt(cursor.getString(0)));
             oRetVal.setName(cursor.getString(1));
             oRetVal.setDescription(cursor.getString(2));
-            oRetVal.setDosage(cursor.isNull(3) ? -1 : Integer.parseInt(cursor.getString(3)));
-            oRetVal.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(Integer.parseInt(cursor.getString(4))));
-            oRetVal.setPeriodicity(cursor.isNull(5) ? -1 : Integer.parseInt(cursor.getString(5)));
-            oRetVal.setDuration(cursor.isNull(6) ? -1 : Integer.parseInt(cursor.getString(6)));
+            oRetVal.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
+            oRetVal.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
+            oRetVal.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
+            oRetVal.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
+            if(!cursor.isNull(7)) {
+                oRetVal.setNextAlert(new Date(cursor.getLong(7)));
 
-            if(!cursor.isNull(7))
-                oRetVal.setNextAlert(new Date(Long.parseLong(cursor.getString(7))));
+            oRetVal.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+            }
         }
         catch(Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -152,7 +156,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
                     + getTableName();
             selectQuery = String.format(selectQuery, Medication.KEY_ID, Medication.KEY_NAME,
                     Medication.KEY_DESCRIPTION, Medication.KEY_DOSAGE, Medication.KEY_DOSAGE_TYPE,
-                    Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_NEXT_ALERT);
+                    Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_NEXT_ALERT,
+                    Medication.KEY_CONTINUOUS);
             Log.i("Seniors db - query" , selectQuery);
 
             db = this.getWritableDatabase();
@@ -162,16 +167,18 @@ public class MedicationDAL extends DbCRUD<Medication> {
             if (cursor.moveToFirst()) {
                 do {
                     Medication entity = new Medication();
-                    entity.setID(Integer.parseInt(cursor.getString(0)));
+                    entity.setID(cursor.getInt(0));
                     entity.setName(cursor.getString(1));
                     entity.setDescription(cursor.getString(2));
-                    entity.setDosage(cursor.isNull(3) ? -1 : Integer.parseInt(cursor.getString(3)));
-                    entity.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(Integer.parseInt(cursor.getString(4))));
-                    entity.setPeriodicity(cursor.isNull(5) ? -1 : Integer.parseInt(cursor.getString(5)));
-                    entity.setDuration(cursor.isNull(6) ? -1 : Integer.parseInt(cursor.getString(6)));
+                    entity.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
+                    entity.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
+                    entity.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
+                    entity.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
 
                     if(!cursor.isNull(7))
-                        entity.setNextAlert(new Date(Long.parseLong(cursor.getString(7))));
+                        entity.setNextAlert(new Date(cursor.getLong(7)));
+
+                    entity.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
 
                     // Adding entity to list
                     lstRetVal.add(entity);

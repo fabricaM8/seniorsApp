@@ -17,7 +17,7 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
 
     // Database Name
     private static final String DATABASE_NAME = "seniors_db";

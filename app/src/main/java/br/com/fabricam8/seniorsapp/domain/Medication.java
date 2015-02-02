@@ -21,6 +21,7 @@ public class Medication extends AlertEvent {
     public static final String KEY_DOSAGE_TYPE = "dosage_type";
     public static final String KEY_PERIODICITY = "periodicity";
     public static final String KEY_DURATION = "duration";
+    public static final String KEY_CONTINUOUS = "continuous";
 
     // Entity attributes
     private String description;
@@ -32,6 +33,8 @@ public class Medication extends AlertEvent {
     private int periodicity;
 
     private int duration;
+
+    private boolean continuosUse;
 
     // constructors
     public Medication()
@@ -63,6 +66,7 @@ public class Medication extends AlertEvent {
         values.put(KEY_PERIODICITY, getPeriodicity());
         values.put(KEY_DURATION, getDuration());
         values.put(KEY_NEXT_ALERT, getNextAlert().getTime());
+        values.put(KEY_CONTINUOUS, isContinuosUse() ? 1 : 0);
 
         return values;
     }
@@ -103,6 +107,13 @@ public class Medication extends AlertEvent {
         this.duration = duration;
     }
 
+    public boolean isContinuosUse() {
+        return continuosUse;
+    }
+
+    public void setContinuosUse(boolean continuosUse) {
+        this.continuosUse = continuosUse;
+    }
 
     @Override
     public int hashCode() {
@@ -113,6 +124,6 @@ public class Medication extends AlertEvent {
     public String toString() {
         return String.format("Tomar %1$d %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
                 getDosage(), getDosageType().toString(), getPeriodicity(), getDuration(), getName(),
-                    getNextAlert().toString());
+                getNextAlert().toString());
     }
 }

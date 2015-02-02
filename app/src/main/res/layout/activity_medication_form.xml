@@ -125,6 +125,55 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <!--Duracao-->
+
+    <RelativeLayout
+        android:id="@+id/ltMed_Duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ltMed_Posology"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="35dp">
+
+        <TextView
+            android:id="@+id/lbMed_RepeteDuring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Repetir durante"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+        <CheckBox
+            android:id="@+id/cbMed_ContUse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uso contínuo?"
+            android:layout_toRightOf="@id/lbMed_RepeteDuring"
+            android:layout_alignBottom="@id/lbMed_RepeteDuring"/>
+
+        <EditText
+            android:id="@+id/txtMed_Duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:ems="10"
+            android:maxLength="2"
+            android:layout_below="@+id/lbMed_RepeteDuring"
+            android:layout_alignParentLeft="true"
+            android:width="40dp" />
+
+        <TextView
+            android:id="@+id/lbMed_Days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="dias"
+            android:layout_toRightOf="@+id/txtMed_Duration"
+            android:layout_alignBottom="@+id/txtMed_Duration"
+            android:paddingLeft="5dp"/>
+    </RelativeLayout>
+
     <!--Inicio Tratamento-->
 
     <TextView
@@ -133,7 +182,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Inicio do Tratamento"
-        android:layout_below="@+id/ltMed_Posology"
+        android:layout_below="@+id/ltMed_Duration"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="35dp" />
 

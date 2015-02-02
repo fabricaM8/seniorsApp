@@ -63,6 +63,16 @@ public class MedicationFormActivity extends ActionBarActivity
     }
 
 
+    public void toggleIsContinuos(View v) {
+        boolean fIsContinuous = FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse);
+        if(fIsContinuous) {
+            findViewById(R.id.txtMed_Duration).setEnabled(false);
+            FormHelper.setTextBoxValue(this, R.id.txtMed_Duration, "");
+        }
+        else {
+            findViewById(R.id.txtMed_Duration).setEnabled(true);
+        }
+    }
 
     public void cancel(View v) {
         // end activity
@@ -79,8 +89,16 @@ public class MedicationFormActivity extends ActionBarActivity
         med.setDosageType(Dosage.fromInt(1)); // TODO change values
         med.setDosage(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Dosage));
         med.setPeriodicity(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition));
-        med.setDuration(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition)); // TODO adicionar campo
         med.setNextAlert(selectedDate.getTime());
+
+        med.setContinuosUse(FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse));
+        if(!med.isContinuosUse()) {
+            med.setDuration(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Duration));
+        }
+        else {
+            med.setDuration(-1);
+        }
+
         // creating
         long id = db.create(med);
 
