@@ -150,7 +150,8 @@
             android:layout_height="wrap_content"
             android:text="Uso contínuo?"
             android:layout_toRightOf="@id/lbMed_RepeteDuring"
-            android:layout_alignBottom="@id/lbMed_RepeteDuring"/>
+            android:layout_alignBottom="@id/lbMed_RepeteDuring"
+            android:onClick="toggleIsContinuos"/>
 
         <EditText
             android:id="@+id/txtMed_Duration"
