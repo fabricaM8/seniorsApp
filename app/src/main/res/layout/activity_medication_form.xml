@@ -143,6 +143,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         android:hint="Clique para marcar"
+        android:enabled="false"
         android:layout_below="@id/lbMed_Start"
         android:onClick="showTimePickerDialog" />
 

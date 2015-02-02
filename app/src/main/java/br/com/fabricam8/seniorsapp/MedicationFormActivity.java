@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
@@ -113,7 +114,8 @@ public class MedicationFormActivity extends ActionBarActivity
         this.selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
         this.selectedDate.set(Calendar.MINUTE, minute);
 
-        FormHelper.setTextBoxValue(this, R.id.txtMed_StartTime, this.selectedDate.getTime().toString());
+        SimpleDateFormat target = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+        FormHelper.setTextBoxValue(this, R.id.txtMed_StartTime, target.format(this.selectedDate.getTime()));
     }
 
 
