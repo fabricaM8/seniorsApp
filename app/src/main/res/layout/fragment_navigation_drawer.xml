@@ -3,4 +3,6 @@
     android:layout_height="match_parent" android:choiceMode="singleChoice"
     android:divider="@android:color/transparent" android:dividerHeight="0dp"
     android:background="#cccc"
-    tools:context="br.com.fabricam8.seniorsapp.NavigationDrawerFragment" />
+    tools:context="br.com.fabricam8.seniorsapp.NavigationDrawerFragment"
+    />
+
