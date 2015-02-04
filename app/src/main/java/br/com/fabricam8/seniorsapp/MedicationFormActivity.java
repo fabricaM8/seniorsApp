@@ -240,6 +240,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
         SimpleDateFormat target = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         FormHelper.setTextBoxValue(this, R.id.txtMed_StartTime, target.format(this.selectedDate.getTime()));
+        mFirstCalendarCal = true; // rehabilitando campo
     }
 
 
