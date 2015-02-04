@@ -43,7 +43,6 @@ public class NotificationEventService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         int retVal = super.onStartCommand(intent, flags, startId);
 
-
         // Retrieving app context
         Context mContext = this.getApplicationContext();
         // Initializing notification manager

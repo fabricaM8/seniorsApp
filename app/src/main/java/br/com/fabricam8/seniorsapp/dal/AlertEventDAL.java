@@ -33,32 +33,6 @@ public class AlertEventDAL extends DbCRUD<AlertEvent> {
         super(context);
     }
 
-//
-//    // Creating Tables
-//    public void createTable(SQLiteDatabase db) {
-//        Log.i("Senior' app", "Creating alert table");
-//
-//        String tableSchema = "CREATE TABLE " + getTableName() + "("
-//                + AlertEvent.KEY_ID + " INTEGER PRIMARY KEY,"
-//                + AlertEvent.KEY_ENTITY_ID + " INTEGER,"
-//                + AlertEvent.KEY_ENTITY_CLASS + " TEXT,"
-//                + AlertEvent.KEY_EVENT + " TEXT,"
-//                + AlertEvent.KEY_MAX_ALARMS + " INTEGER,"
-//                + AlertEvent.KEY_ALARMS_PLAYED + " INTEGER,"
-//                + AlertEvent.KEY_NEXT_ALERT + " INTEGER"
-//                + ")";
-//        db.execSQL(tableSchema);
-//    }
-//
-//    // Upgrading database
-//    public void upgradeSchema(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        // Drop older table if existed
-//        db.execSQL("DROP TABLE IF EXISTS " + getTableName());
-//
-//        // Create tables again
-//        onCreate(db);
-//    }
-
     public String getTableName() {
         return TABLE_NAME;
     }

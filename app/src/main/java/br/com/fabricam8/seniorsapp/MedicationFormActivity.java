@@ -128,7 +128,7 @@ public class MedicationFormActivity extends ActionBarActivity
                     AlertEvent alert = new AlertEvent();
                     alert.setEntityId(id);
                     alert.setEntityClass(Medication.class.getName());
-                    alert.setName(med.getName());
+                    alert.setEvent(med.getName());
                     // setando numero de alarmes
                     int numAlarms = med.getNumOfAlarms() > 0 ? med.getNumOfAlarms() : 1;
                     alert.setMaxAlarms(numAlarms);

@@ -34,33 +34,6 @@ public class MedicationDAL extends DbCRUD<Medication> {
         super(context);
     }
 
-
-//    // Creating Tables
-//    public void createTable(SQLiteDatabase db) {
-//        String tableSchema = "CREATE TABLE " + getTableName() + "("
-//                + Medication.KEY_ID + " INTEGER PRIMARY KEY,"
-//                + Medication.KEY_CLOUD_ID + " INTEGER,"
-//                + Medication.KEY_NAME + " TEXT,"
-//                + Medication.KEY_DESCRIPTION + " TEXT,"
-//                + Medication.KEY_DOSAGE + " INTEGER,"
-//                + Medication.KEY_DOSAGE_TYPE + " INTEGER,"
-//                + Medication.KEY_PERIODICITY + " INTEGER,"
-//                + Medication.KEY_DURATION + " INTEGER,"
-//                + Medication.KEY_START_DATE + " INTEGER,"
-//                + Medication.KEY_CONTINUOUS + " BIT"
-//                + ")";
-//        db.execSQL(tableSchema);
-//    }
-//
-//    // Upgrading database
-//    public void upgradeSchema(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        // Drop older table if existed
-//        db.execSQL("DROP TABLE IF EXISTS " + getTableName());
-//
-//        // Create tables again
-//        onCreate(db);
-//    }
-
     public String getTableName() {
         return TABLE_NAME;
     }
