@@ -2,18 +2,19 @@ package br.com.fabricam8.seniorsapp.domain;
 
 import android.content.ContentValues;
 
+import java.util.Date;
+
 import br.com.fabricam8.seniorsapp.enums.Dosage;
 
 /**
  * Created by Aercio on 1/27/15.
- *
- *
+ * <p/>
+ * <p/>
  * Tomar 1 Comprimido, a cada 8 horas, durante 7 dias
- *       |       |            |                |
- *   Dosagem   Tipo Dose   Periodicidade      Duracao
- *
+ * |       |            |                |
+ * Dosagem   Tipo Dose   Periodicidade      Duracao
  */
-public class Medication extends AlertEvent {
+public class Medication extends DbEntity {
 
     // Entity Columns names
     public static final String KEY_DESCRIPTION = "description";
@@ -22,33 +23,28 @@ public class Medication extends AlertEvent {
     public static final String KEY_PERIODICITY = "periodicity";
     public static final String KEY_DURATION = "duration";
     public static final String KEY_CONTINUOUS = "continuous";
+    public static final String KEY_START_DATE = "start_date";
 
     // Entity attributes
     private String description;
-
     private Dosage dosageType;
-
     private int dosage;
-
     private int periodicity;
-
     private int duration;
-
+    private Date startDate;
     private boolean continuosUse;
 
     // constructors
-    public Medication()
-    {
+    public Medication() {
         this("", "");
     }
 
     // constructors
-    public Medication(String name, String description)
-    {
+    public Medication(String name, String description) {
         this(0, name, description);
     }
-    public Medication(int id, String name, String description)
-    {
+
+    public Medication(int id, String name, String description) {
         setID(id);
         setName(name);
         setDescription(description);
@@ -65,7 +61,7 @@ public class Medication extends AlertEvent {
         values.put(KEY_DOSAGE_TYPE, getDosageType().getValue());
         values.put(KEY_PERIODICITY, getPeriodicity());
         values.put(KEY_DURATION, getDuration());
-        values.put(KEY_NEXT_ALERT, getNextAlert().getTime());
+        values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_CONTINUOUS, isContinuosUse() ? 1 : 0);
 
         return values;
@@ -79,9 +75,13 @@ public class Medication extends AlertEvent {
         this.description = description;
     }
 
-    public int getDosage() { return dosage; }
+    public int getDosage() {
+        return dosage;
+    }
 
-    public void setDosage(int dosage) { this.dosage = dosage; }
+    public void setDosage(int dosage) {
+        this.dosage = dosage;
+    }
 
     public Dosage getDosageType() {
         return dosageType;
@@ -115,15 +115,34 @@ public class Medication extends AlertEvent {
         this.continuosUse = continuosUse;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public int getNumOfAlarms() {
+        if (isContinuosUse())
+            return -1;
+
+        int intakePerDay = 0;
+        if (getPeriodicity() <= 24)
+            intakePerDay = getDosage() * (24 / getPeriodicity());
+
+        return getDuration() * intakePerDay;
+    }
+
     @Override
     public int hashCode() {
-        return getID() * (getDuration()>0?getDuration():1) * getName().length() ;
+        return (int) getID() * (getDuration() > 0 ? getDuration() : 1) * getName().length();
     }
 
     @Override
     public String toString() {
         return String.format("Tomar %1$d %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
                 getDosage(), getDosageType().toString(), getPeriodicity(), getDuration(), getName(),
-                getNextAlert().toString());
+                getStartDate().toString());
     }
 }

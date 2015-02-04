@@ -64,20 +64,20 @@ public class DashboardActivity extends ActionBarActivity
 
     /**
      * Invoked when clicked on the dashboard.
+     *
      * @param v The button which invoked the action.
      */
-    public void openLocation(View v)
-    {
+    public void openLocation(View v) {
         Intent i = new Intent(DashboardActivity.this, LocationActivity.class);
         startActivity(i);
     }
 
     /**
      * Invoked when clicked on the dashboard.
+     *
      * @param v The button which invoked the action.
      */
-    public void runMeds(View v)
-    {
+    public void runMeds(View v) {
         Intent i = new Intent(DashboardActivity.this, MedicationFormActivity.class);
         startActivity(i);
     }

@@ -13,19 +13,31 @@ import br.com.fabricam8.seniorsapp.domain.DbEntity;
 /**
  * Created by Aercio on 1/27/15.
  */
-public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
+public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 8;
 
     // Database Name
     private static final String DATABASE_NAME = "seniors_db";
 
-
+    Context mContext;
+    
     public DbCRUD(Context context) {
-
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.mContext = context;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        SchemaHelper.createTable(db);
+    }
+
+    // Upgrading database
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        SchemaHelper.upgradeSchema(db, oldVersion, newVersion);
     }
 
     public abstract String getTableName();
@@ -41,13 +53,13 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
     public abstract T findOne(long id);
 
     // Getting All entities
-    public abstract  List<T> findAll();
+    public abstract List<T> findAll();
 
     // Updating single entity
     public abstract int update(T entity);
 
     // Deleting single entity
-    public  abstract int remove(T entity);
+    public abstract int remove(T entity);
 
     // Getting entities Count
     public int count() {
@@ -61,15 +73,13 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper{
             cursor = db.rawQuery(countQuery, null);
             // getting count
             iRetVal = cursor.getCount();
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             Log.e("Seniors DB - count", ex.getMessage());
-        }
-        finally {
-            if(cursor != null)
+        } finally {
+            if (cursor != null)
                 cursor.close();
 
-            if(db != null && db.isOpen())
+            if (db != null && db.isOpen())
                 db.close();
         }
 

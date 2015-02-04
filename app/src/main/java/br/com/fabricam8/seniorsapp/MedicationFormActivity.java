@@ -19,7 +19,10 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
+import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
+import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.enums.Dosage;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
@@ -41,7 +44,6 @@ public class MedicationFormActivity extends ActionBarActivity
         spnDosage.setAdapter(new CustomAdapter<>(this, R.layout.custom_spinner, Dosage.values()));
 
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,7 +70,12 @@ public class MedicationFormActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Event chamado quando checkbox de uso contínuo é clicado.
+     * <p>
+     * Controla a habilitação ou desabilitação do campo de duração.
+     * </p>
+     */
     public void toggleIsContinuos(View v) {
         boolean fIsContinuous = FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse);
         if (fIsContinuous) {
@@ -79,6 +86,12 @@ public class MedicationFormActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Evento chamado quando botão cancelar é apertado.
+     * <p>
+     * Finaliza a Activity e retorna para tela anterior.
+     * </p>
+     */
     public void cancel(View v) {
         // end activity
         finish();
@@ -98,7 +111,7 @@ public class MedicationFormActivity extends ActionBarActivity
                 med.setDosageType(((Dosage) ((Spinner) findViewById(R.id.spnMedDosageType)).getSelectedItem()));
                 med.setDosage(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Dosage));
                 med.setPeriodicity(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition));
-                med.setNextAlert(selectedDate.getTime());
+                med.setStartDate(selectedDate.getTime());
 
                 med.setContinuosUse(FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse));
                 if (!med.isContinuosUse()) {
@@ -107,21 +120,46 @@ public class MedicationFormActivity extends ActionBarActivity
                     med.setDuration(-1);
                 }
 
-                // creating
+                // creating medication
                 long id = db.create(med);
 
-                if (id > 0)
-                    Toast.makeText(this, "Medicação cadastrada com sucesso!", Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(this, "Medicação não foi cadastrada.", Toast.LENGTH_LONG).show();
+                if (id > 0) {
+                    // criando alarme
+                    AlertEvent alert = new AlertEvent();
+                    alert.setEntityId(id);
+                    alert.setEntityClass(Medication.class.getName());
+                    alert.setName(med.getName());
+                    // setando numero de alarmes
+                    int numAlarms = med.getNumOfAlarms() > 0 ? med.getNumOfAlarms() : 1;
+                    alert.setMaxAlarms(numAlarms);
+                    alert.setAlarmsPlayed(0);
+                    alert.setNextAlert(med.getStartDate());
+
+                    AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
+                    long alertId = dbAlert.create(alert);
+
+                    // setando id para enviar pra servico de alarme
+                    alert.setID(alertId);
+
+                    // setando alarme
+                    NotificationEventService.setupAlarm(this, alert);
+
+                    Toast.makeText(this, getString(R.string.success_form_submit), Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
+                }
             }
         } catch (Exception ex) {
-            Toast.makeText(this, "Ocorreu um problema e a medicação não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
         }
 
-        //NotificationEventService.setupAlarm(this);
     }
 
+    /**
+     * Efetua a validação do formulário.
+     *
+     * @return Retorna falso se algo está errado com o formulário e indica erro na tela.
+     */
     private boolean validateForm() {
         // validating name
         if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Name, getString(R.string.validation_error_message)))
@@ -152,6 +190,11 @@ public class MedicationFormActivity extends ActionBarActivity
         return true;
     }
 
+    /**
+     * Efetua a validação do combo box.
+     *
+     * @return Retorna falso se combo não tiver sido selecionado.
+     */
     private boolean validateSpinner() {
         Spinner spn = (Spinner) findViewById(R.id.spnMedDosageType);
         if (spn.getSelectedItemId() <= 0) {
@@ -171,6 +214,9 @@ public class MedicationFormActivity extends ActionBarActivity
         newFragment.show(getFragmentManager(), "Selecione a data");
     }
 
+    /**
+     * Evento chamado após seleção da data. Esse evento também abre o dialog de seleção da hora.
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if (mFirstCalendarCal) {
@@ -184,6 +230,9 @@ public class MedicationFormActivity extends ActionBarActivity
         }
     }
 
+    /**
+     * Evento chamado após seleção de tempo.
+     */
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         this.selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -194,9 +243,9 @@ public class MedicationFormActivity extends ActionBarActivity
     }
 
 
-    // // // // //
-    // FRAGMENTS
-    // // // // //
+    // // // // // // // // // // // // // // // // // // // // // // // // //
+    // FRAGMENTS - utilizados para mostrar dialógos de data e hora
+    // // // // // // // // // // // // // // // // // // // // // // // // //
 
     public static class TimePickerFragment extends DialogFragment {
 

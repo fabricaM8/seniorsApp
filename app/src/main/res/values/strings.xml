@@ -56,6 +56,9 @@
 
 
     <string name="validation_error_message">Campo obrigatório</string>
+    <string name="error_form_submit">Ocorreu um problema e a medicação não pode ser cadastrada.</string>
+    <string name="success_form_submit">Medicação cadastrada com sucesso!</string>
+
 
 
 </resources>

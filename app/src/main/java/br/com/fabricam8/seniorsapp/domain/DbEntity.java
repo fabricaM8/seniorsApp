@@ -9,18 +9,43 @@ public abstract class DbEntity {
 
     // Entity Columns names
     public static final String KEY_ID = "id";
+    public static final String KEY_CLOUD_ID = "cloud_id";
+    public static final String KEY_NAME = "name";
 
-    private int id;
+    private long id;
+    private int cloudId;
+    private String name;
 
-    public DbEntity() {}
+
+    public DbEntity() {
+    }
+
 
     public abstract ContentValues getContentValues();
 
-    public int getID() {
+
+    public long getID() {
         return this.id;
     }
 
-    public void setID(int id) {
-         this.id = id;
+    public void setID(long id) {
+        this.id = id;
     }
+
+    public int getCloudId() {
+        return cloudId;
+    }
+
+    public void setCloudId(int cloudId) {
+        this.cloudId = cloudId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

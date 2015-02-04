@@ -55,8 +55,8 @@ import br.com.fabricam8.seniorsapp.location.LocationUtils;
  * This the app location Activity. It provides ways for requesting the various features of location
  * services: displays the current location, the current address, and the status of the location client
  * and updating services.
- *
- *
+ * <p/>
+ * <p/>
  * The update interval is hard-coded to be 5 seconds.
  */
 public class LocationActivity extends ActionBarActivity implements
@@ -156,6 +156,7 @@ public class LocationActivity extends ActionBarActivity implements
 
         super.onStop();
     }
+
     /*
      * Called when the Activity is going into the background.
      * Parts of the UI may be visible, but the Activity is inactive.
@@ -181,6 +182,7 @@ public class LocationActivity extends ActionBarActivity implements
          */
         mLocationClient.connect();
     }
+
     /*
      * Called when the system detects that this Activity is now visible.
      */
@@ -214,7 +216,7 @@ public class LocationActivity extends ActionBarActivity implements
         switch (requestCode) {
 
             // If the request code matches the code sent in onConnectionFailed
-            case LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST :
+            case LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST:
 
                 switch (resultCode) {
                     // If Google Play services resolved the problem
@@ -281,7 +283,7 @@ public class LocationActivity extends ActionBarActivity implements
 
     /**
      * Invoked by the "Get Location" button.
-     *
+     * <p/>
      * Calls getLastLocation() to get the current location
      */
     public Location getLocation() {
@@ -290,7 +292,7 @@ public class LocationActivity extends ActionBarActivity implements
         if (servicesConnected()) {
             // Get the current location
             Location currentLocation = LocationServices.FusedLocationApi.getLastLocation(mLocationClient);
-            if(currentLocation != null) {
+            if (currentLocation != null) {
                 // Display the current location in the UI
                 return currentLocation;
             }
@@ -425,14 +427,12 @@ public class LocationActivity extends ActionBarActivity implements
      * @param v The button which invoked the action.
      */
     public void viewOnMap(View v) {
-        if(mLastLocation != null) {
+        if (mLastLocation != null) {
             String uri = String.format(Locale.ENGLISH, "geo:%f,%f",
                     mLastLocation.getLatitude(), mLastLocation.getLongitude());
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             this.startActivity(intent);
-        }
-        else
-        {
+        } else {
             // show error
         }
     }
@@ -460,7 +460,7 @@ public class LocationActivity extends ActionBarActivity implements
      * An AsyncTask that calls getFromLocation() in the background.
      * The class uses the following generic types:
      * Location - A {@link android.location.Location} object containing the current location,
-     *            passed as the input parameter to doInBackground()
+     * passed as the input parameter to doInBackground()
      * Void     - indicates that progress units are not used by this subclass
      * String   - An address passed to onPostExecute()
      */
@@ -494,7 +494,7 @@ public class LocationActivity extends ActionBarActivity implements
             Location location = params[0];
 
             // Create a list to contain the result address
-            List <Address> addresses = null;
+            List<Address> addresses = null;
 
             // Try to get an address for the current location. Catch IO or network problems.
             try {

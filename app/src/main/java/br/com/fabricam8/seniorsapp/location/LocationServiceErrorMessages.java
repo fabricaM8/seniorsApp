@@ -27,9 +27,10 @@ import br.com.fabricam8.seniorsapp.R;
  * Map error codes to error messages.
  */
 public class LocationServiceErrorMessages {
-    
+
     // Don't allow instantiation
-    private LocationServiceErrorMessages() {}
+    private LocationServiceErrorMessages() {
+    }
 
     public static String getErrorString(Context context, int errorCode) {
 

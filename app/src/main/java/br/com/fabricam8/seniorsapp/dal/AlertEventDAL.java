@@ -10,44 +10,42 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.Dosage;
+import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 
 /**
  * Created by Aercio on 1/27/15.
  */
-public class MedicationDAL extends DbCRUD<Medication> {
+public class AlertEventDAL extends DbCRUD<AlertEvent> {
 
-    public static final String TABLE_NAME = "Medication";
+    public static final String TABLE_NAME = "AlertEvent";
 
-    private static MedicationDAL _instance;
+    private static AlertEventDAL _instance;
 
-    public static synchronized MedicationDAL getInstance(Context context) {
+    public static synchronized AlertEventDAL getInstance(Context context) {
         if (_instance == null) {
-            _instance = new MedicationDAL(context);
+            _instance = new AlertEventDAL(context);
         }
 
         return _instance;
     }
 
-    private MedicationDAL(Context context) {
+    private AlertEventDAL(Context context) {
         super(context);
     }
 
-
+//
 //    // Creating Tables
 //    public void createTable(SQLiteDatabase db) {
+//        Log.i("Senior' app", "Creating alert table");
+//
 //        String tableSchema = "CREATE TABLE " + getTableName() + "("
-//                + Medication.KEY_ID + " INTEGER PRIMARY KEY,"
-//                + Medication.KEY_CLOUD_ID + " INTEGER,"
-//                + Medication.KEY_NAME + " TEXT,"
-//                + Medication.KEY_DESCRIPTION + " TEXT,"
-//                + Medication.KEY_DOSAGE + " INTEGER,"
-//                + Medication.KEY_DOSAGE_TYPE + " INTEGER,"
-//                + Medication.KEY_PERIODICITY + " INTEGER,"
-//                + Medication.KEY_DURATION + " INTEGER,"
-//                + Medication.KEY_START_DATE + " INTEGER,"
-//                + Medication.KEY_CONTINUOUS + " BIT"
+//                + AlertEvent.KEY_ID + " INTEGER PRIMARY KEY,"
+//                + AlertEvent.KEY_ENTITY_ID + " INTEGER,"
+//                + AlertEvent.KEY_ENTITY_CLASS + " TEXT,"
+//                + AlertEvent.KEY_EVENT + " TEXT,"
+//                + AlertEvent.KEY_MAX_ALARMS + " INTEGER,"
+//                + AlertEvent.KEY_ALARMS_PLAYED + " INTEGER,"
+//                + AlertEvent.KEY_NEXT_ALERT + " INTEGER"
 //                + ")";
 //        db.execSQL(tableSchema);
 //    }
@@ -66,7 +64,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public long create(Medication entity) {
+    public long create(AlertEvent entity) {
         long iRetVal = -1;
 
         SQLiteDatabase db = null;
@@ -89,8 +87,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public Medication findOne(long id) {
-        Medication oRetVal = null;
+    public AlertEvent findOne(long id) {
+        AlertEvent oRetVal = null;
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
@@ -98,32 +96,27 @@ public class MedicationDAL extends DbCRUD<Medication> {
             db = this.getReadableDatabase();
 
             cursor = db.query(getTableName(), new String[]{
-                    Medication.KEY_ID,
-                    Medication.KEY_NAME,
-                    Medication.KEY_DESCRIPTION,
-                    Medication.KEY_DOSAGE,
-                    Medication.KEY_DOSAGE_TYPE,
-                    Medication.KEY_PERIODICITY,
-                    Medication.KEY_DURATION,
-                    Medication.KEY_START_DATE,
-                    Medication.KEY_CONTINUOUS
-            }, Medication.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+                    AlertEvent.KEY_ID,
+                    AlertEvent.KEY_ENTITY_ID,
+                    AlertEvent.KEY_ENTITY_CLASS,
+                    AlertEvent.KEY_EVENT,
+                    AlertEvent.KEY_MAX_ALARMS,
+                    AlertEvent.KEY_ALARMS_PLAYED,
+                    AlertEvent.KEY_NEXT_ALERT
+            }, AlertEvent.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             if (cursor != null)
                 cursor.moveToFirst();
 
-            oRetVal = new Medication();
+            oRetVal = new AlertEvent();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setName(cursor.getString(1));
-            oRetVal.setDescription(cursor.getString(2));
-            oRetVal.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
-            oRetVal.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
-            oRetVal.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
-            oRetVal.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
-            if (!cursor.isNull(7))
-                oRetVal.setStartDate(new Date(cursor.getLong(7)));
-
-            oRetVal.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+            oRetVal.setEntityId(cursor.getInt(1));
+            oRetVal.setEntityClass(cursor.getString(2));
+            oRetVal.setEvent(cursor.getString(3));
+            oRetVal.setMaxAlarms(cursor.getInt(4));
+            oRetVal.setAlarmsPlayed(cursor.getInt(5));
+            if (!cursor.isNull(6))
+                oRetVal.setNextAlert(new Date(cursor.getLong(6)));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -140,19 +133,18 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public List<Medication> findAll() {
-        List<Medication> lstRetVal = new ArrayList<>();
+    public List<AlertEvent> findAll() {
+        List<AlertEvent> lstRetVal = new ArrayList<>();
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Medication.KEY_ID, Medication.KEY_NAME,
-                    Medication.KEY_DESCRIPTION, Medication.KEY_DOSAGE, Medication.KEY_DOSAGE_TYPE,
-                    Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_START_DATE,
-                    Medication.KEY_CONTINUOUS);
+            selectQuery = String.format(selectQuery, AlertEvent.KEY_ID, AlertEvent.KEY_ENTITY_ID,
+                    AlertEvent.KEY_ENTITY_CLASS, AlertEvent.KEY_EVENT, AlertEvent.KEY_MAX_ALARMS,
+                    AlertEvent.KEY_ALARMS_PLAYED, AlertEvent.KEY_NEXT_ALERT);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -161,19 +153,15 @@ public class MedicationDAL extends DbCRUD<Medication> {
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
-                    Medication entity = new Medication();
+                    AlertEvent entity = new AlertEvent();
                     entity.setID(cursor.getInt(0));
-                    entity.setName(cursor.getString(1));
-                    entity.setDescription(cursor.getString(2));
-                    entity.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
-                    entity.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
-                    entity.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
-                    entity.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
-
-                    if (!cursor.isNull(7))
-                        entity.setStartDate(new Date(cursor.getLong(7)));
-
-                    entity.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+                    entity.setEntityId(cursor.getInt(1));
+                    entity.setEntityClass(cursor.getString(2));
+                    entity.setEvent(cursor.getString(3));
+                    entity.setMaxAlarms(cursor.getInt(4));
+                    entity.setAlarmsPlayed(cursor.getInt(5));
+                    if (!cursor.isNull(6))
+                        entity.setNextAlert(new Date(cursor.getLong(6)));
 
                     // Adding entity to list
                     lstRetVal.add(entity);
@@ -196,7 +184,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public int update(Medication entity) {
+    public int update(AlertEvent entity) {
         int iRetVal = 0;
 
         SQLiteDatabase db = null;
@@ -205,7 +193,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
 
             ContentValues values = entity.getContentValues();
             // updating row
-            iRetVal = db.update(getTableName(), values, Medication.KEY_ID + " = ?",
+            iRetVal = db.update(getTableName(), values, AlertEvent.KEY_ID + " = ?",
                     new String[]{String.valueOf(entity.getID())});
         } catch (Exception ex) {
             Log.e("Seniors DB - update", ex.getMessage());
@@ -218,14 +206,14 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public int remove(Medication entity) {
+    public int remove(AlertEvent entity) {
         int iRetVal = 0;
 
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
 
-            iRetVal = db.delete(getTableName(), Medication.KEY_ID + " = ?",
+            iRetVal = db.delete(getTableName(), AlertEvent.KEY_ID + " = ?",
                     new String[]{String.valueOf(entity.getID())});
         } catch (Exception ex) {
             Log.e("Seniors DB - delete", ex.getMessage());
