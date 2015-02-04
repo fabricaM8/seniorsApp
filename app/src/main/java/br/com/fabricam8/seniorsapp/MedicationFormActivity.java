@@ -8,12 +8,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +35,11 @@ public class MedicationFormActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication_form);
+
+        // setting up dosage array
+        Spinner spnDosage = (Spinner) findViewById(R.id.spnMedDosageType);
+        spnDosage.setAdapter(new CustomAdapter<>(this, R.layout.custom_spinner, Dosage.values()));
+
     }
 
 
@@ -65,11 +71,10 @@ public class MedicationFormActivity extends ActionBarActivity
 
     public void toggleIsContinuos(View v) {
         boolean fIsContinuous = FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse);
-        if(fIsContinuous) {
+        if (fIsContinuous) {
             findViewById(R.id.txtMed_Duration).setEnabled(false);
             FormHelper.setTextBoxValue(this, R.id.txtMed_Duration, "");
-        }
-        else {
+        } else {
             findViewById(R.id.txtMed_Duration).setEnabled(true);
         }
     }
@@ -82,31 +87,83 @@ public class MedicationFormActivity extends ActionBarActivity
     public void saveMedication(View v) {
         Context context = this;
 
-        MedicationDAL db = MedicationDAL.getInstance(context);
+        try {
+            MedicationDAL db = MedicationDAL.getInstance(context);
 
-        Medication med = new Medication();
-        med.setName(FormHelper.getTextBoxValue(this, R.id.txtMed_Name));
-        med.setDosageType(Dosage.fromInt(1)); // TODO change values
-        med.setDosage(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Dosage));
-        med.setPeriodicity(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition));
-        med.setNextAlert(selectedDate.getTime());
+            if (validateForm()) {
 
-        med.setContinuosUse(FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse));
-        if(!med.isContinuosUse()) {
-            med.setDuration(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Duration));
+                Medication med = new Medication();
+                med.setName(FormHelper.getTextBoxValue(this, R.id.txtMed_Name));
+
+                med.setDosageType(((Dosage) ((Spinner) findViewById(R.id.spnMedDosageType)).getSelectedItem()));
+                med.setDosage(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Dosage));
+                med.setPeriodicity(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition));
+                med.setNextAlert(selectedDate.getTime());
+
+                med.setContinuosUse(FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse));
+                if (!med.isContinuosUse()) {
+                    med.setDuration(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Duration));
+                } else {
+                    med.setDuration(-1);
+                }
+
+                // creating
+                long id = db.create(med);
+
+                if (id > 0)
+                    Toast.makeText(this, "Medicação cadastrada com sucesso!", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(this, "Medicação não foi cadastrada.", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception ex) {
+            Toast.makeText(this, "Ocorreu um problema e a medicação não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
-        else {
-            med.setDuration(-1);
-        }
 
-        // creating
-        long id = db.create(med);
-
-        Log.i("Seniors - med", med.toString());
-
-        Medication dbMed = db.findOne(id);
-        Log.i("Seniors - db med", dbMed.toString());
         //NotificationEventService.setupAlarm(this);
+    }
+
+    private boolean validateForm() {
+        // validating name
+        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Name, getString(R.string.validation_error_message)))
+            return false;
+
+        // validating Dosage
+        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Dosage, getString(R.string.validation_error_message)))
+            return false;
+
+        // validating Repetition
+        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Repetition, getString(R.string.validation_error_message)))
+            return false;
+
+        // validating spinner
+        if (!validateSpinner())
+            return false;
+
+        // validating duration
+        if (!FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse) &&
+                !FormHelper.validateFormTextInput(this, R.id.txtMed_Duration, getString(R.string.validation_error_message))) {
+            return false;
+        }
+
+        // validating start date
+        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_StartTime, getString(R.string.validation_error_message)))
+            return false;
+
+        return true;
+    }
+
+    private boolean validateSpinner() {
+        Spinner spn = (Spinner) findViewById(R.id.spnMedDosageType);
+        if (spn.getSelectedItemId() <= 0) {
+            spn.setFocusableInTouchMode(true);
+            spn.requestFocus();
+
+            CustomAdapter adapter = (CustomAdapter) spn.getAdapter();
+            View view = spn.getSelectedView();
+            adapter.setError(view, getString(R.string.validation_error_message));
+            return false;
+        }
+        return true;
     }
 
     public void showTimePickerDialog(View v) {
@@ -116,7 +173,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        if(mFirstCalendarCal) {
+        if (mFirstCalendarCal) {
             mFirstCalendarCal = false;
 
             this.selectedDate = Calendar.getInstance();
@@ -151,12 +208,12 @@ public class MedicationFormActivity extends ActionBarActivity
             int minute = c.get(Calendar.MINUTE);
 
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), (MedicationFormActivity)getActivity(), hour,
+            return new TimePickerDialog(getActivity(), (MedicationFormActivity) getActivity(), hour,
                     minute, DateFormat.is24HourFormat(getActivity()));
         }
     }
 
-    public static class DatePickerFragment extends DialogFragment{
+    public static class DatePickerFragment extends DialogFragment {
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -167,8 +224,9 @@ public class MedicationFormActivity extends ActionBarActivity
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), (MedicationFormActivity)getActivity(), year,
+            return new DatePickerDialog(getActivity(), (MedicationFormActivity) getActivity(), year,
                     month, day);
         }
     }
+
 }

@@ -81,8 +81,6 @@
                 android:id="@+id/spnMedDosageType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/arr_Dosage"
-                android:prompt="@string/dosage_prompt"
                 android:layout_toRightOf="@+id/txtMed_Dosage"
                 android:layout_alignBottom="@+id/txtMed_Dosage"/>
         </RelativeLayout>

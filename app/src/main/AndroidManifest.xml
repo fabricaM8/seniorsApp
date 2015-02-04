@@ -47,7 +47,8 @@
 
         <activity
             android:name=".DashboardActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +59,8 @@
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location"
-            android:parentActivityName=".DashboardActivity" >
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -68,7 +70,8 @@
         <activity
             android:name=".MedicationFormActivity"
             android:label="@string/title_activity_medication_form"
-            android:parentActivityName=".DashboardActivity" >
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

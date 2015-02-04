@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -25,7 +26,7 @@ public class FormHelper {
 
         View v = ctx.findViewById(viewId);
         if(v != null && v instanceof TextView) {
-            strRetVal = ((TextView) v).getText().toString();
+            strRetVal = ((TextView) v).getText().toString().trim();
         }
 
         return strRetVal;
@@ -60,4 +61,14 @@ public class FormHelper {
         return iRetVal;
     }
 
+    public static boolean validateFormTextInput(Activity ctx, int resourceId, String errMessage) {
+        if(getTextBoxValue(ctx, resourceId).length() == 0) {
+            EditText v = (EditText)ctx.findViewById(resourceId);
+            v.setFocusableInTouchMode(true);
+            v.requestFocus();
+            v.setError(errMessage);
+            return false;
+        }
+        return true;
+    }
 }

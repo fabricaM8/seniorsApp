@@ -26,10 +26,6 @@ public enum Dosage {
     public int getValue() {
         return value;
     }
-    public String toString(){
-        return name;
-    }
-
     public boolean equalsName(String otherName){
         return (otherName == null)? false:name.equals(otherName);
     }
@@ -43,5 +39,10 @@ public enum Dosage {
             if (d.getValue() == i) { return d; }
         }
         return null;
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

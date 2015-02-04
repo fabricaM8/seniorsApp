@@ -52,19 +52,10 @@
     <string name="navigation_drawer_open">Abrir gaveta</string>
     <string name="navigation_drawer_close">Fechar gaveta</string>
     <string name="alarm_service_label">hora de acordar!!!!</string>
-    <string name="title_activity_medication_form">MedicationFormActivity</string>
+    <string name="title_activity_medication_form">Cadastrar medicação</string>
 
 
-    <string name="dosage_prompt">Selecione uma dosagem</string>
-    <string-array name="arr_Dosage">
-        <item>Selecione</item>
-        <item>Ampola</item>
-        <item>Cápsula</item>
-        <item>Colher</item>
-        <item>Comprimido</item>
-        <item>Drágea</item>
-        <item>Gota</item>
-        <item>Envelope</item>
-        <item>Supositório</item>
-    </string-array>
+    <string name="validation_error_message">Campo obrigatório</string>
+
+
 </resources>
