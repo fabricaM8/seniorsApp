@@ -2,7 +2,6 @@ package br.com.fabricam8.seniorsapp;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +17,7 @@ import android.view.ViewGroup;
 
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
 
-public class DashboardActivity extends ActionBarActivity
+public class DashboardActivityHome extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -74,7 +73,7 @@ public class DashboardActivity extends ActionBarActivity
      */
     public void openLocation(View v)
     {
-        Intent i = new Intent(DashboardActivity.this, LocationActivity.class);
+        Intent i = new Intent(DashboardActivityHome.this, LocationActivity.class);
         startActivity(i);
     }
 
@@ -84,7 +83,7 @@ public class DashboardActivity extends ActionBarActivity
      */
     public void runMeds(View v)
     {
-        Intent i = new Intent(DashboardActivity.this, MedicationFormActivity.class);
+        Intent i = new Intent(DashboardActivityHome.this, MedicationFormActivity.class);
         startActivity(i);
     }
 
