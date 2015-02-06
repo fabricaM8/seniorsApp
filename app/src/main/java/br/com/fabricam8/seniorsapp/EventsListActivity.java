@@ -30,6 +30,10 @@ public class EventsListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_list);
+    }
+
+    protected void onResume() {
+        super.onResume();
 
         showMedications(null);
     }
