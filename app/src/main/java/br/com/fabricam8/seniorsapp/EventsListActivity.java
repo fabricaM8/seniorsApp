@@ -31,18 +31,16 @@ public class EventsListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_list);
 
-        runList2(null);
+        showMedications(null);
     }
 
-    public void runList1(View v) {
+    public void showAllEvents(View v) {
         listView = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> array = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, todos);
         listView.setAdapter(array);
-
     }
 
-    public void runList2(View v) {
-
+    public void showMedications(View v) {
         MedicationDAL db = MedicationDAL.getInstance(this);
         List<Medication> lstMeds = db.findAll();
 
@@ -56,8 +54,7 @@ public class EventsListActivity extends ActionBarActivity {
         listView.setAdapter(array);
     }
 
-    public void runList3(View v) {
-
+    public void showActivities(View v) {
         listView = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> array2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ativadades);
         listView.setAdapter(array2);
@@ -87,10 +84,9 @@ public class EventsListActivity extends ActionBarActivity {
 
         switch(item.getItemId()) {
             case R.id.action_help_events_list:
-
-                viewMedicationForm(null);
                 break;
             case R.id.action_events_new_med:
+                viewMedicationForm(null);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
