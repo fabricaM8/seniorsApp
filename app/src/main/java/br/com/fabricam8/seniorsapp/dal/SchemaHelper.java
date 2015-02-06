@@ -45,7 +45,7 @@ public class SchemaHelper {
 
     // Upgrading database
     public static void upgradeSchema(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(newVersion > oldVersion) {
+        if (newVersion > oldVersion) {
             Log.i("Senior' app", "Upgrading table schemas");
 
             // Drop older table if existed

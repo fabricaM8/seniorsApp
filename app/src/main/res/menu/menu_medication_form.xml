@@ -4,10 +4,19 @@
     tools:context="br.com.fabricam8.seniorsapp.MedicationFormActivity">
 
 
-    <item android:id="@+id/action_help_medication" android:title="@string/action_help"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_save_medication" android:title="@string/action_save"
-        android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_cancel_medication" android:title="@string/action_cancel"
-        android:orderInCategory="100" app:showAsAction="never" />
+    <item
+        android:id="@+id/action_help_medication"
+        android:orderInCategory="100"
+        android:title="@string/action_help"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_save_medication"
+        android:orderInCategory="100"
+        android:title="@string/action_save"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cancel_medication"
+        android:orderInCategory="100"
+        android:title="@string/action_cancel"
+        app:showAsAction="never" />
 </menu>

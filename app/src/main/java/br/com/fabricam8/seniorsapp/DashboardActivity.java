@@ -2,7 +2,6 @@ package br.com.fabricam8.seniorsapp;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,12 +44,8 @@ public class DashboardActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
-
-
-
-
-
 
     @Override
     public void onResume() {
@@ -83,8 +78,8 @@ public class DashboardActivity extends ActionBarActivity
      *
      * @param v The button which invoked the action.
      */
-    public void runMeds(View v) {
-        Intent i = new Intent(DashboardActivity.this, MedicationFormActivity.class);
+    public void viewEvents(View v) {
+        Intent i = new Intent(DashboardActivity.this, EventsListActivity.class);
         startActivity(i);
     }
 
@@ -135,6 +130,9 @@ public class DashboardActivity extends ActionBarActivity
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        public PlaceholderFragment() {
+        }
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
@@ -145,9 +143,6 @@ public class DashboardActivity extends ActionBarActivity
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
-        }
-
-        public PlaceholderFragment() {
         }
 
         @Override

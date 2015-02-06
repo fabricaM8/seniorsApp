@@ -63,32 +63,26 @@ public class LocationActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    // A request to connect to Location Services
-    private LocationRequest mLocationRequest;
-
-    // Stores the current instantiation of the location client in this object
-    private GoogleApiClient mLocationClient;
-
-    private Location mLastLocation;
-
-    // Handles to UI widgets
-    private TextView mAddress;
-    private ProgressBar mActivityIndicator;
-    private TextView mConnectionState;
-    private TextView mConnectionStatus;
-
     // Handle to SharedPreferences for this app
     SharedPreferences mPrefs;
-
     // Handle to a SharedPreferences editor
     SharedPreferences.Editor mEditor;
-
     /*
      * Note if updates have been turned on. Starts out as "false"; is set to "true" in the
      * method handleRequestSuccess of LocationUpdateReceiver.
      *
      */
     boolean mUpdatesRequested = false;
+    // A request to connect to Location Services
+    private LocationRequest mLocationRequest;
+    // Stores the current instantiation of the location client in this object
+    private GoogleApiClient mLocationClient;
+    private Location mLastLocation;
+    // Handles to UI widgets
+    private TextView mAddress;
+    private ProgressBar mActivityIndicator;
+    private TextView mConnectionState;
+    private TextView mConnectionStatus;
 
     /*
      * Initialize the Activity
@@ -457,6 +451,69 @@ public class LocationActivity extends ActionBarActivity implements
     }
 
     /**
+     * Show a dialog returned by Google Play services for the
+     * connection error code
+     *
+     * @param errorCode An error code returned from onConnectionFailed
+     */
+    private void showErrorDialog(int errorCode) {
+
+        // Get the error dialog from Google Play services
+        Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+                errorCode,
+                this,
+                LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+        // If Google Play services can provide an error dialog
+        if (errorDialog != null) {
+
+            // Create a new DialogFragment in which to show the error dialog
+            ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+
+            // Set the dialog in the DialogFragment
+            errorFragment.setDialog(errorDialog);
+
+            // Show the error dialog in the DialogFragment
+            errorFragment.show(getSupportFragmentManager(), LocationUtils.APPTAG);
+        }
+    }
+
+    /**
+     * Define a DialogFragment to display the error dialog generated in
+     * showErrorDialog.
+     */
+    public static class ErrorDialogFragment extends DialogFragment {
+
+        // Global field to contain the error dialog
+        private Dialog mDialog;
+
+        /**
+         * Default constructor. Sets the dialog field to null
+         */
+        public ErrorDialogFragment() {
+            super();
+            mDialog = null;
+        }
+
+        /**
+         * Set the dialog to display
+         *
+         * @param dialog An error dialog
+         */
+        public void setDialog(Dialog dialog) {
+            mDialog = dialog;
+        }
+
+        /*
+         * This method must return a Dialog to the DialogFragment.
+         */
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return mDialog;
+        }
+    }
+
+    /**
      * An AsyncTask that calls getFromLocation() in the background.
      * The class uses the following generic types:
      * Location - A {@link android.location.Location} object containing the current location,
@@ -566,69 +623,6 @@ public class LocationActivity extends ActionBarActivity implements
 
             // Set the address in the UI
             mAddress.setText(address);
-        }
-    }
-
-    /**
-     * Show a dialog returned by Google Play services for the
-     * connection error code
-     *
-     * @param errorCode An error code returned from onConnectionFailed
-     */
-    private void showErrorDialog(int errorCode) {
-
-        // Get the error dialog from Google Play services
-        Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-                errorCode,
-                this,
-                LocationUtils.CONNECTION_FAILURE_RESOLUTION_REQUEST);
-
-        // If Google Play services can provide an error dialog
-        if (errorDialog != null) {
-
-            // Create a new DialogFragment in which to show the error dialog
-            ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-
-            // Set the dialog in the DialogFragment
-            errorFragment.setDialog(errorDialog);
-
-            // Show the error dialog in the DialogFragment
-            errorFragment.show(getSupportFragmentManager(), LocationUtils.APPTAG);
-        }
-    }
-
-    /**
-     * Define a DialogFragment to display the error dialog generated in
-     * showErrorDialog.
-     */
-    public static class ErrorDialogFragment extends DialogFragment {
-
-        // Global field to contain the error dialog
-        private Dialog mDialog;
-
-        /**
-         * Default constructor. Sets the dialog field to null
-         */
-        public ErrorDialogFragment() {
-            super();
-            mDialog = null;
-        }
-
-        /**
-         * Set the dialog to display
-         *
-         * @param dialog An error dialog
-         */
-        public void setDialog(Dialog dialog) {
-            mDialog = dialog;
-        }
-
-        /*
-         * This method must return a Dialog to the DialogFragment.
-         */
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return mDialog;
         }
     }
 }

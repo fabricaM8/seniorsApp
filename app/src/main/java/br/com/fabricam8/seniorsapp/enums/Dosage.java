@@ -23,6 +23,15 @@ public enum Dosage {
         name = s;
     }
 
+    public static Dosage fromInt(int i) {
+        for (Dosage d : Dosage.values()) {
+            if (d.getValue() == i) {
+                return d;
+            }
+        }
+        return null;
+    }
+
     public int getValue() {
         return value;
     }
@@ -33,15 +42,6 @@ public enum Dosage {
 
     public boolean equals(Dosage d) {
         return this.value == d.value;
-    }
-
-    public static Dosage fromInt(int i) {
-        for (Dosage d : Dosage.values()) {
-            if (d.getValue() == i) {
-                return d;
-            }
-        }
-        return null;
     }
 
     @Override

@@ -30,6 +30,18 @@ public class NotificationEventService extends Service {
 
     private NotificationManager mManager;
 
+    public static void setupAlarm(Context context, AlertEvent event) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(event.getNextAlert().getTime());
+
+        Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
+        alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID() + "");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
@@ -61,7 +73,7 @@ public class NotificationEventService extends Service {
             if (data != null) {
                 AlertEventDAL db = AlertEventDAL.getInstance(mContext);
                 alert = db.findOne(Long.parseLong(data));
-                if(alert != null) {
+                if (alert != null) {
                     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String d = dateFormatter.format(alert.getNextAlert());
 
@@ -99,7 +111,7 @@ public class NotificationEventService extends Service {
 
         Intent i = new Intent(mContext, DashboardActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        if(alert != null)
+        if (alert != null)
             i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
 
         PendingIntent pni = PendingIntent
@@ -129,18 +141,6 @@ public class NotificationEventService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    public static void setupAlarm(Context context, AlertEvent event) {
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(event.getNextAlert().getTime());
-
-        Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
-        alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID() + "");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }
 

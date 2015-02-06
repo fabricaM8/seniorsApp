@@ -23,7 +23,7 @@ public abstract class DbCRUD<T extends DbEntity> extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "seniors_db";
 
     Context mContext;
-    
+
     public DbCRUD(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.mContext = context;

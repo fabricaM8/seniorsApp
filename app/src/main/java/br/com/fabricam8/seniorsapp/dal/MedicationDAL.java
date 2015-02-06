@@ -22,16 +22,16 @@ public class MedicationDAL extends DbCRUD<Medication> {
 
     private static MedicationDAL _instance;
 
+    private MedicationDAL(Context context) {
+        super(context);
+    }
+
     public static synchronized MedicationDAL getInstance(Context context) {
         if (_instance == null) {
             _instance = new MedicationDAL(context);
         }
 
         return _instance;
-    }
-
-    private MedicationDAL(Context context) {
-        super(context);
     }
 
     public String getTableName() {

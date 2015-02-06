@@ -21,16 +21,16 @@ public class AlertEventDAL extends DbCRUD<AlertEvent> {
 
     private static AlertEventDAL _instance;
 
+    private AlertEventDAL(Context context) {
+        super(context);
+    }
+
     public static synchronized AlertEventDAL getInstance(Context context) {
         if (_instance == null) {
             _instance = new AlertEventDAL(context);
         }
 
         return _instance;
-    }
-
-    private AlertEventDAL(Context context) {
-        super(context);
     }
 
     public String getTableName() {

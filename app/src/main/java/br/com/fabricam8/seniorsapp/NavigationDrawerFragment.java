@@ -11,7 +11,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 
 
 /**
@@ -117,6 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
+
     /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
@@ -203,7 +202,7 @@ public class NavigationDrawerFragment extends Fragment {
             mCallbacks.onNavigationDrawerItemSelected(position);
         }
         if (mDrawerListView != null) {
-            String  selectedFromList = (String)  (mDrawerListView.getItemAtPosition(position));
+            String selectedFromList = (String) (mDrawerListView.getItemAtPosition(position));
             Toast.makeText(getActivity(), selectedFromList, Toast.LENGTH_SHORT).show();
         }
     }
@@ -253,10 +252,10 @@ public class NavigationDrawerFragment extends Fragment {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Ação", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+//        if (item.getItemId() == R.id.action_example) {
+//            Toast.makeText(getActivity(), "Ação", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
