@@ -45,16 +45,31 @@
 
         <!--Activities-->
 
+
         <activity
             android:name=".DashboardActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
+            android:label="@string/app_name" >
+
+        </activity>
+
+
+        <activity
+            android:name=".DashboardActivityHome"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!--Testar activity aqui-->
+
+
+
         </activity>
+
+
 
         <activity
             android:name=".LocationActivity"
