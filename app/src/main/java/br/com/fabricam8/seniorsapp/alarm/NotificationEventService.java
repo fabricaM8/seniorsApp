@@ -17,7 +17,9 @@ import java.util.Calendar;
 import br.com.fabricam8.seniorsapp.DashboardActivity;
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
+import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
+import br.com.fabricam8.seniorsapp.domain.Medication;
 
 /**
  * Created by Aercio on 1/27/15.
@@ -50,13 +52,15 @@ public class NotificationEventService extends Service {
 
         String notificationMessage = "Você possui um novo evento!";
 
+        AlertEvent alert = null;
+
         // recuperando bundle - id do alert esta aqui
         Bundle extras = intent.getExtras();
         if (extras != null) {
             String data = extras.getString(BUNDLE_ALERT_ID);
             if (data != null) {
                 AlertEventDAL db = AlertEventDAL.getInstance(mContext);
-                AlertEvent alert = db.findOne(Long.parseLong(data));
+                alert = db.findOne(Long.parseLong(data));
                 if(alert != null) {
                     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String d = dateFormatter.format(alert.getNextAlert());
@@ -65,15 +69,38 @@ public class NotificationEventService extends Service {
 
                     int iAlarmsPlayed = alert.getAlarmsPlayed();
                     alert.setAlarmsPlayed(++iAlarmsPlayed);
+                    // se ainda puder tocar...
+                    if (iAlarmsPlayed < alert.getMaxAlarms()
+                            || alert.getMaxAlarms() == AlertEvent.FOREVER) {
+                        if (alert.getEntityClass().equals(Medication.class.getName())) {
+                            MedicationDAL medDb = MedicationDAL.getInstance(mContext);
+                            Medication m = medDb.findOne(alert.getEntityId());
+                            if (m != null) {
+                                int delay = m.getPeriodicity();
+
+                                Calendar c = Calendar.getInstance();
+                                c.setTimeInMillis(alert.getNextAlert().getTime());
+                                c.add(Calendar.HOUR, delay);
+
+                                // set next alert
+                                alert.setNextAlert(c.getTime());
+                            }
+                        }
+
+                        // resetting alarm
+                        setupAlarm(mContext, alert);
+                    }
+
                     // updating database
                     db.update(alert);
-                    // todo update next alarm!
                 }
             }
         }
 
         Intent i = new Intent(mContext, DashboardActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if(alert != null)
+            i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
 
         PendingIntent pni = PendingIntent
                 .getActivity(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);

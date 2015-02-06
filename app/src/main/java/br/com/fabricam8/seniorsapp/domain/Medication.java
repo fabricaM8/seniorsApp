@@ -125,7 +125,7 @@ public class Medication extends DbEntity {
 
     public int getNumOfAlarms() {
         if (isContinuosUse())
-            return -1;
+            return AlertEvent.FOREVER;
 
         int intakePerDay = 0;
         if (getPeriodicity() <= 24)

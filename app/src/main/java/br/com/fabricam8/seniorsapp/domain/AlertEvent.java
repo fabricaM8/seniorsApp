@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class AlertEvent extends DbEntity {
 
+    public static final int FOREVER = -1;
+
     // Entity Columns names
     public static final String KEY_EVENT = "event";
     public static final String KEY_ENTITY_CLASS = "entity_class";
