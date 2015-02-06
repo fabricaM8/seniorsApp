@@ -145,6 +145,8 @@ public class MedicationFormActivity extends ActionBarActivity
                     NotificationEventService.setupAlarm(this, alert);
 
                     Toast.makeText(this, getString(R.string.success_form_submit), Toast.LENGTH_LONG).show();
+                    Thread.sleep(1500);
+                    finish();
                 } else {
                     Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
                 }
