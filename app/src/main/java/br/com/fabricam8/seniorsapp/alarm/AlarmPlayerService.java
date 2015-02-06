@@ -7,6 +7,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by Aercio on 1/27/15.
  */
@@ -23,6 +26,14 @@ public class AlarmPlayerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         this.ringtone = RingtoneManager.getRingtone(this, getAvailabeSound());
         ringtone.play();
+
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                ringtone.stop();
+                timer.cancel();
+            }
+        }, 5000);
         return START_NOT_STICKY;
     }
 
