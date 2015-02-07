@@ -55,7 +55,7 @@
     <string name="validation_error_message">Campo obrigatório</string>
     <!-- Itens de menu lateral(Navigation Drawer -->
     <string name="nav_medicacao">Medicação</string>
-    <string name="nav_atividades">Atividades Físiscas</string>
+    <string name="nav_atividades">Atividades Físicas</string>
     <string name="nav_consultas">Consultas Agendadas</string>
     <string name="nav_outros">Outros</string>
     <string name="navigation_drawer_open">Abrir gaveta</string>
