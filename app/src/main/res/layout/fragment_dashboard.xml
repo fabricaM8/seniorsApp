@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-
     tools:context="br.com.fabricam8.seniorsapp.DashboardActivityHome">
-
 
     <!--Posologia-->
 
@@ -155,7 +152,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@drawable/bg_bar_bottom" />
+        android:src="@drawable/bg_bar_top" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -279,7 +276,7 @@
         android:text="Ver todas..."
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#FFF"
-        android:textSize="24dp"
+        android:textSize="16dp"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>

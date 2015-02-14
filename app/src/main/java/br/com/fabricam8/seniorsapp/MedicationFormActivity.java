@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,9 @@ public class MedicationFormActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication_form);
+        // setting toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
+        setSupportActionBar(toolbar);
 
         // setting up dosage array
         Spinner spnDosage = (Spinner) findViewById(R.id.spnMedDosageType);

@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -91,6 +92,10 @@ public class LocationActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+
+        // setting toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
+        setSupportActionBar(toolbar);
 
         // Get handles to the UI view objects
         mAddress = (TextView) findViewById(R.id.address);
