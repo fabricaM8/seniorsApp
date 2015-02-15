@@ -1,44 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?><!-- File created by the Android Action Bar Style Generator
-
-     Copyright (C) 2011 The Android Open Source Project
-     Copyright (C) 2012 readyState Software Ltd
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-  
-          http://www.apache.org/licenses/LICENSE-2.0
-  
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
+<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
 
-    <style name="Theme.Seniors" parent="@style/Theme.AppCompat.Light">
-        <item name="colorPrimary">@drawable/ab_solid_seniors</item>
-        <item name="colorPrimaryDark">@drawable/ab_stacked_solid_seniors</item>
-        <item name="colorAccent">@drawable/ab_solid_seniors</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-
+    <style name="Theme.Seniors" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_seniors</item>
         <item name="popupMenuStyle">@style/PopupMenu.Seniors</item>
         <item name="dropDownListViewStyle">@style/DropDownListView.Seniors</item>
         <item name="actionBarTabStyle">@style/ActionBarTabStyle.Seniors</item>
         <item name="actionDropDownStyle">@style/DropDownNav.Seniors</item>
-        <item name="actionBarStyle">@style/ActionBar.Solid.Seniors</item>
         <item name="actionModeBackground">@drawable/cab_background_top_seniors</item>
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_seniors</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Seniors</item>
-    </style>
 
-    <style name="ActionBar.Solid.Seniors" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="background">@drawable/ab_solid_seniors</item>
+        <item name="colorPrimary">#EF6C00</item>
+        <item name="colorPrimaryDark">#EF5511</item>
+        <item name="colorAccent">#EF6C00</item>
+        <item name="actionMenuTextColor">@color/abc_primary_text_material_dark</item>
+        <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
+        <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
+
         <item name="backgroundStacked">@drawable/ab_stacked_solid_seniors</item>
         <item name="backgroundSplit">@drawable/ab_bottom_solid_seniors</item>
         <item name="progressBarStyle">@style/ProgressBar.Seniors</item>

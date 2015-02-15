@@ -34,6 +34,7 @@ public class EventsListActivity extends ActionBarActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
         setSupportActionBar(toolbar);
+        //toolbar.setNavigationIcon(android.R.drawable.ic_u);
 
     }
 
