@@ -2,8 +2,8 @@ package br.com.fabricam8.seniorsapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +14,7 @@ import java.util.List;
 
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
 public class EventsListActivity extends ActionBarActivity {
@@ -32,9 +33,8 @@ public class EventsListActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
-        setSupportActionBar(toolbar);
-        //toolbar.setNavigationIcon(android.R.drawable.ic_u);
+        // create toolbar
+        ToolbarBuilder.build(this, true);
 
     }
 
@@ -93,6 +93,9 @@ public class EventsListActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch(item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
             case R.id.action_help_events_list:
                 break;
             case R.id.action_events_new_med:
@@ -104,6 +107,5 @@ public class EventsListActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 }

@@ -4,11 +4,11 @@ package br.com.fabricam8.seniorsapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 public class DashboardActivity extends ActionBarActivity {
 
@@ -17,8 +17,8 @@ public class DashboardActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
-        setSupportActionBar(toolbar);
+        // create toolbar
+        ToolbarBuilder.build(this, false);
     }
 
     @Override

@@ -6,8 +6,8 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +27,7 @@ import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.enums.Dosage;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
 public class MedicationFormActivity extends ActionBarActivity
@@ -39,9 +40,9 @@ public class MedicationFormActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medication_form);
-        // setting toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
-        setSupportActionBar(toolbar);
+
+        // create toolbar
+        ToolbarBuilder.build(this, true);
 
         // setting up dosage array
         Spinner spnDosage = (Spinner) findViewById(R.id.spnMedDosageType);
@@ -58,18 +59,16 @@ public class MedicationFormActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_save_medication) {
-            return true;
-        } else if (id == R.id.action_cancel_medication) {
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+            case R.id.action_cancel_medication:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_save_medication:
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
 
         return super.onOptionsItemSelected(item);
     }

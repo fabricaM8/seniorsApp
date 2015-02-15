@@ -31,9 +31,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -51,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 import br.com.fabricam8.seniorsapp.location.LocationUtils;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 /**
  * This the app location Activity. It provides ways for requesting the various features of location
@@ -93,9 +95,8 @@ public class LocationActivity extends ActionBarActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        // setting toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.seniors_toolbar);
-        setSupportActionBar(toolbar);
+        // create toolbar
+        ToolbarBuilder.build(this, true);
 
         // Get handles to the UI view objects
         mAddress = (TextView) findViewById(R.id.address);
@@ -324,6 +325,17 @@ public class LocationActivity extends ActionBarActivity implements
                 // Start the background task
                 (new GetAddressTask(this)).execute(currentLocation);
             }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
