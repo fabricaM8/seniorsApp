@@ -10,13 +10,15 @@ import br.com.fabricam8.seniorsapp.R;
  */
 public class ToolbarBuilder {
 
-    public static void build(ActionBarActivity context, boolean navigateToParent) {
+    public static Toolbar build(ActionBarActivity context, boolean navigateToParent) {
         Toolbar toolbar = (Toolbar) context.findViewById(R.id.seniors_toolbar);
         context.setSupportActionBar(toolbar);
         if(navigateToParent) {
             toolbar.setNavigationIcon(R.drawable.ic_action_back);
 
         }
+
+        return toolbar;
     }
 
 }

@@ -208,21 +208,25 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btCancelMedication"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:onClick="cancel"
-                android:text="Cancelar" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_action_cancel"
+                android:background="@drawable/bt_round_grey"
+                android:onClick="cancel"/>
 
-            <Button
+            <View android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageButton
                 android:id="@+id/btSaveMedication"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:onClick="saveMedication"
-                android:text="Salvar" />
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_action_confirm"
+                android:background="@drawable/bt_round"
+                android:onClick="saveMedication" />
         </LinearLayout>
 
     </LinearLayout>

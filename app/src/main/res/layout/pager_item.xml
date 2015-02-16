@@ -6,20 +6,16 @@
     android:layout_height="match_parent"
     tools:context="br.com.fabricam8.seniorsapp.EventsListActivity">
 
-    <include layout="@layout/seniors_toolbar"/>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tabs"
+    <TextView android:id="@+id/empty_list"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="1" />
-
+        android:layout_height="match_parent"
+        android:text="Sem eventos para mostrar"
+        android:padding="6dip" />
 </LinearLayout>
 
 
