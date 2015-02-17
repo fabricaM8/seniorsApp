@@ -81,7 +81,10 @@ public class EventsListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    public void showActivities(View v) {
+        Intent i = new Intent(EventsListActivity.this,activity_form.class);
+        startActivity(i);
+    }
     /**
      * Tab adapter
      */
