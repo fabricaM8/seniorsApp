@@ -1,4 +1,4 @@
-package layout;
+package br.com.fabricam8.seniorsapp;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
