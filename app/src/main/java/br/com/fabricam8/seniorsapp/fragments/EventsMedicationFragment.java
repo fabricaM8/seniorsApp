@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.MedicationFormActivity;
+import br.com.fabricam8.seniorsapp.MedicationInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.adapters.MedicationEventItemAdaper;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
@@ -57,7 +57,7 @@ public class EventsMedicationFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Medication entry =  (Medication) parent.getItemAtPosition(position);
-                Intent intent = new Intent(mContext, MedicationFormActivity.class);
+                Intent intent = new Intent(mContext, MedicationInfoActivity.class);
                 intent.putExtra("_ID_", entry.getID());
                 startActivity(intent);
             }

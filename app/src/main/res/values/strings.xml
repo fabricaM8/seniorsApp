@@ -12,6 +12,9 @@
     <string name="action_help">Ajuda</string>
     <string name="action_cancel">Cancelar</string>
     <string name="title_activity_location">Minha localização</string>
+    <string name="title_activity_medication_form">Cadastrar medicação</string>
+    <string name="title_activity_medication_info">Resumo</string>
+
 
     <!-- Address format -->
     <string name="address_output_string">%1$s %2$s %3$s</string>
@@ -49,7 +52,6 @@
 
 
     <string name="alarm_service_label">hora de acordar!!!!</string>
-    <string name="title_activity_medication_form">Cadastrar medicação</string>
 
 
     <string name="validation_error_message">Campo obrigatório</string>
