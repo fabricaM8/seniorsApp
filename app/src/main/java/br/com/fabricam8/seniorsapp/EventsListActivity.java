@@ -20,6 +20,7 @@ import br.com.fabricam8.seniorsapp.fragments.EventsAppointmentsFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsMedicationFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPhysicalActivitiesFragment;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
+import br.com.fabricam8.seniorsapp.activity_form;
 
 
 public class EventsListActivity extends ActionBarActivity {
@@ -81,7 +82,10 @@ public class EventsListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    public void showActivities(View v) {
+        Intent i = new Intent(EventsListActivity.this, activity_form.class);
+        startActivity(i);
+    }
     /**
      * Tab adapter
      */
