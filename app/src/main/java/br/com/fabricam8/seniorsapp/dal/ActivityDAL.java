@@ -1,20 +1,5 @@
 package br.com.fabricam8.seniorsapp.dal;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import br.com.fabricam8.seniorsapp.domain.DbEntity;
-import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.Dosage;
-
 
 /**
  * Created by laecy_000 on 17/02/2015.

@@ -88,7 +88,7 @@ public class NotificationEventService extends Service {
                             MedicationDAL medDb = MedicationDAL.getInstance(mContext);
                             Medication m = medDb.findOne(alert.getEntityId());
                             if (m != null) {
-                                int delay = m.getPeriodicity();
+                                int delay = 1;//m.getPeriodicity();
 
                                 Calendar c = Calendar.getInstance();
                                 c.setTimeInMillis(alert.getNextAlert().getTime());

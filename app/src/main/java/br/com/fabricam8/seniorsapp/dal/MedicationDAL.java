@@ -11,7 +11,9 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.Dosage;
+import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
+import br.com.fabricam8.seniorsapp.enums.Duration;
+import br.com.fabricam8.seniorsapp.enums.Periodicity;
 
 /**
  * Created by Aercio on 1/27/15.
@@ -78,6 +80,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
                     Medication.KEY_DOSAGE_TYPE,
                     Medication.KEY_PERIODICITY,
                     Medication.KEY_DURATION,
+                    Medication.KEY_DURATION_TYPE,
                     Medication.KEY_START_DATE,
                     Medication.KEY_CONTINUOUS
             }, Medication.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
@@ -89,14 +92,15 @@ public class MedicationDAL extends DbCRUD<Medication> {
             oRetVal.setID(cursor.getInt(0));
             oRetVal.setName(cursor.getString(1));
             oRetVal.setDescription(cursor.getString(2));
-            oRetVal.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
-            oRetVal.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
-            oRetVal.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
+            oRetVal.setDosage(cursor.getString(3));
+            oRetVal.setDosageMeasureType(cursor.isNull(4) ? DosageMeasure.NONE : DosageMeasure.fromInt(cursor.getInt(4)));
+            oRetVal.setPeriodicity(cursor.isNull(5) ? Periodicity.NONE : Periodicity.fromInt(cursor.getInt(5)));
             oRetVal.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
-            if (!cursor.isNull(7))
-                oRetVal.setStartDate(new Date(cursor.getLong(7)));
+            oRetVal.setDurationType(cursor.isNull(7) ? Duration.NONE : Duration.fromInt(cursor.getInt(7)));
+            if (!cursor.isNull(8))
+                oRetVal.setStartDate(new Date(cursor.getLong(8)));
 
-            oRetVal.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+            oRetVal.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -120,7 +124,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s FROM "
                     + getTableName();
             selectQuery = String.format(selectQuery, Medication.KEY_ID, Medication.KEY_NAME,
                     Medication.KEY_DESCRIPTION, Medication.KEY_DOSAGE, Medication.KEY_DOSAGE_TYPE,
@@ -138,15 +142,16 @@ public class MedicationDAL extends DbCRUD<Medication> {
                     entity.setID(cursor.getInt(0));
                     entity.setName(cursor.getString(1));
                     entity.setDescription(cursor.getString(2));
-                    entity.setDosage(cursor.isNull(3) ? -1 : cursor.getInt(3));
-                    entity.setDosageType(cursor.isNull(4) ? Dosage.NONE : Dosage.fromInt(cursor.getInt(4)));
-                    entity.setPeriodicity(cursor.isNull(5) ? -1 : cursor.getInt(5));
+                    entity.setDosage(cursor.getString(3));
+                    entity.setDosageMeasureType(cursor.isNull(4) ? DosageMeasure.NONE : DosageMeasure.fromInt(cursor.getInt(4)));
+                    entity.setPeriodicity(cursor.isNull(5) ? Periodicity.NONE : Periodicity.fromInt(cursor.getInt(5)));
                     entity.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
+                    entity.setDurationType(cursor.isNull(7) ? Duration.NONE : Duration.fromInt(cursor.getInt(7)));
 
-                    if (!cursor.isNull(7))
-                        entity.setStartDate(new Date(cursor.getLong(7)));
+                    if (!cursor.isNull(8))
+                        entity.setStartDate(new Date(cursor.getLong(8)));
 
-                    entity.setContinuosUse(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+                    entity.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
 
                     // Adding entity to list
                     lstRetVal.add(entity);

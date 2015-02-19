@@ -28,8 +28,8 @@ public class activity_form extends ActionBarActivity
         setContentView(R.layout.activity_activity_form);
         aOpcoes = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, opcoes);
         // capturando o spinner do xml pela id
-        spinner = (Spinner) findViewById(R.id.spnOpcoes);
-        spinner.setAdapter(aOpcoes);
+//        spinner = (Spinner) findViewById(R.id.spnOpcoes);
+//        spinner.setAdapter(aOpcoes);
 
 
     }
