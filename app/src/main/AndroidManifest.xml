@@ -81,6 +81,17 @@
         </activity>
 
         <activity
+            android:name=".ExerciseFormActivity"
+            android:label="@string/title_activity_exercise_form"
+            android:parentActivityName=".EventsListActivity"
+            android:screenOrientation="portrait">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EventsListActivity" />
+        </activity>
+
+        <activity
             android:name=".MedicationInfoActivity"
             android:label="@string/title_activity_medication_info"
             android:parentActivityName=".EventsListActivity"

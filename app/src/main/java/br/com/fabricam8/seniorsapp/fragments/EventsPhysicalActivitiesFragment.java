@@ -36,7 +36,7 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pager_item, container, false);
+        View rootView = inflater.inflate(R.layout.pager_events_activity, container, false);
         load(rootView);
         ViewCompat.setElevation(rootView, 50);
         return rootView;

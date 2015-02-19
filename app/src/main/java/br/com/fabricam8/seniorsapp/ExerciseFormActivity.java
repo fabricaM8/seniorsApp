@@ -9,18 +9,13 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-public class activity_form extends ActionBarActivity
-
+public class ExerciseFormActivity extends ActionBarActivity
 {
-
-
     // criando o Array de String
     private static final String[] opcoes = { "Correr","Andar", "Banhar" };
     ArrayAdapter<String> aOpcoes;
     // Declarando variavel do tipo Spinner
     Spinner spinner;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +23,8 @@ public class activity_form extends ActionBarActivity
         setContentView(R.layout.activity_activity_form);
         aOpcoes = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, opcoes);
         // capturando o spinner do xml pela id
-//        spinner = (Spinner) findViewById(R.id.spnOpcoes);
-//        spinner.setAdapter(aOpcoes);
+        spinner = (Spinner) findViewById(R.id.spnOpcoes);
+        spinner.setAdapter(aOpcoes);
 
 
     }

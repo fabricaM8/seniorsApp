@@ -13,6 +13,7 @@
     <string name="action_cancel">Cancelar</string>
     <string name="title_activity_location">Minha localização</string>
     <string name="title_activity_medication_form">Cadastrar medicação</string>
+    <string name="title_activity_exercise_form">Cadastrar atividade</string>
     <string name="title_activity_medication_info">Resumo</string>
 
 
