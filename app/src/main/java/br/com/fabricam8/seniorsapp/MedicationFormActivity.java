@@ -37,11 +37,10 @@ import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 public class MedicationFormActivity extends ActionBarActivity
         implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private Calendar selectedDate;
-    private boolean mFirstCalendarCal = true;
-
     private static String[] PICKER_QUANTITY_DEC = {
-            ",0", ",1", ",2", ",3", ",4", "1/2", ",6", ",7", ",9", "1/4", "3/4" };
+            ",0", ",1", ",2", ",3", ",4", "1/2",
+            ",6", ",7", ",9", "1/4", "3/4"
+    };
 
     private Medication sessionMedication;
 
@@ -60,10 +59,12 @@ public class MedicationFormActivity extends ActionBarActivity
         // recuperando id passada no clique
         long medicationId = getIntent().getLongExtra("_ID_", -1);
         if (medicationId == -1) {
-            this.sessionMedication = initMedication();//new Medication();
+            this.sessionMedication = initMedication();
         } else {
             this.sessionMedication = MedicationDAL.getInstance(this).findOne(medicationId);
         }
+        // atulizando a view de medicamento
+        updateMedicationView();
     }
 
     private Medication initMedication() {
@@ -71,8 +72,14 @@ public class MedicationFormActivity extends ActionBarActivity
 
         oRetVal.setDosage("1,0");
         oRetVal.setDosageMeasureType(DosageMeasure.COMPRIMIDO);
+        oRetVal.setPeriodicity(Periodicity.DIAx3);
         oRetVal.setDuration(7);
         oRetVal.setDurationType(Duration.DIA);
+
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 6);
+        c.set(Calendar.MINUTE, 30);
+        oRetVal.setStartDate(c.getTime());
 
         return oRetVal;
     }
@@ -83,6 +90,13 @@ public class MedicationFormActivity extends ActionBarActivity
 
         String duration = sessionMedication.getDuration() + " x " + sessionMedication.getDurationType().toString();
         FormHelper.setTextBoxValue(this, R.id.med_form_during, duration);
+
+        FormHelper.setTextBoxValue(this, R.id.med_form_periodicity, sessionMedication.getPeriodicity().toString());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        FormHelper.setTextBoxValue(this, R.id.med_form_starting, dateFormat.format(sessionMedication.getStartDate()));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        FormHelper.setTextBoxValue(this, R.id.med_form_time, timeFormat.format(sessionMedication.getStartDate()));
     }
 
     @Override
@@ -249,40 +263,9 @@ public class MedicationFormActivity extends ActionBarActivity
         return true;
     }
 
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "Selecione a data");
-    }
-
     /**
-     * Evento chamado após seleção da data. Esse evento também abre o dialog de seleção da hora.
+     * Evento chamado para abertura de dialog de quantidade de remedios
      */
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        if (mFirstCalendarCal) {
-            mFirstCalendarCal = false;
-
-            this.selectedDate = Calendar.getInstance();
-            this.selectedDate.set(year, monthOfYear, dayOfMonth);
-
-            DialogFragment newFragment = new TimePickerFragment();
-            newFragment.show(getFragmentManager(), "Selecione a hora");
-        }
-    }
-
-    /**
-     * Evento chamado após seleção de tempo.
-     */
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        this.selectedDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        this.selectedDate.set(Calendar.MINUTE, minute);
-
-        SimpleDateFormat target = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-//        FormHelper.setTextBoxValue(this, R.id.txtMed_StartTime, target.format(this.selectedDate.getTime()));
-        mFirstCalendarCal = true; // rehabilitando campo
-    }
-
     public void openDialogQuantity(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
@@ -297,7 +280,6 @@ public class MedicationFormActivity extends ActionBarActivity
         // montando dialog
         builder.setTitle("Escolha a quantidade")
                 .setView(dialogView)
-                        // Add action buttons
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -319,6 +301,9 @@ public class MedicationFormActivity extends ActionBarActivity
                 }).create().show();
     }
 
+    /**
+     * Evento chamado para abertura de dialog de tipo de medida (comprimido, dragea, ml, etc)
+     */
     public void openDialogMeasure(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
@@ -332,7 +317,6 @@ public class MedicationFormActivity extends ActionBarActivity
         // montando dialog
         builder.setTitle("Escolha a medida")
                 .setView(dialogView)
-                        // Add action buttons
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -348,12 +332,15 @@ public class MedicationFormActivity extends ActionBarActivity
                 }).create().show();
     }
 
+    /**
+     * Evento chamado para abertura de dialog de frequencia (1 x ao dia, etc)
+     */
     public void openDialogPeriodicity(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         // Pass null as the parent view because its going in the dialog layout
-        View dialogView = inflater.inflate(R.layout.dialog_med_periodicity, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_med_periodicity, null);
 
         String[] arrValues = Periodicity.getStringValues();
         FormHelper.setupPicker(dialogView, R.id.dg_md_periodicity, 0, arrValues.length-1, arrValues, 0);
@@ -361,42 +348,92 @@ public class MedicationFormActivity extends ActionBarActivity
         // montando dialog
         builder.setTitle("Escolha a frequência")
                 .setView(dialogView)
-                        // Add action buttons
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        int freq = FormHelper.getPickerValue(dialogView, R.id.dg_md_periodicity);
+                        sessionMedication.setPeriodicity(Periodicity.fromInt(freq + 1));
+                        updateMedicationView();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // faz nada...
+                        dialog.cancel();
                     }
                 }).create().show();
     }
 
+    /**
+     * Evento chamado para abertura de dialog de repeticao (7 dias, uma semana, etc)
+     */
     public void openDialogRepetition(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialogView = inflater.inflate(R.layout.dialog_med_periodicity, null);
+
+        String[] arrValues = Periodicity.getStringValues();
+        FormHelper.setupPicker(dialogView, R.id.dg_md_periodicity, 0, arrValues.length-1, arrValues, 0);
+
+        // montando dialog
+        builder.setTitle("Escolha o período")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+//                        int freq = FormHelper.getPickerValue(dialogView, R.id.dg_md_periodicity);
+//                        sessionMedication.setPeriodicity(Periodicity.fromInt(freq + 1));
+//                        updateMedicationView();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
     }
 
+    public void openDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "Selecione a data");
+    }
+
+    public void openTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "Selecione a hora");
+    }
+
+    /**
+     * Evento chamado após seleção da data. Esse evento também abre o dialog de seleção da hora.
+     */
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(sessionMedication.getStartDate());
+        c.set(year, monthOfYear, dayOfMonth);
+        // reajustando dat ade inicio
+        sessionMedication.setStartDate(c.getTime());
+        updateMedicationView();
+    }
+
+    /**
+     * Evento chamado após seleção de tempo.
+     */
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.setTime(sessionMedication.getStartDate());
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        // reajustando dat ade inicio
+        sessionMedication.setStartDate(c.getTime());
+        updateMedicationView();
+    }
 
     // // // // // // // // // // // // // // // // // // // // // // // // //
     // FRAGMENTS - utilizados para mostrar dialógos de data e hora
     // // // // // // // // // // // // // // // // // // // // // // // // //
-
-    public static class TimePickerFragment extends DialogFragment {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current time as the default values for the picker
-            final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);
-
-            // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), (MedicationFormActivity) getActivity(), hour,
-                    minute, DateFormat.is24HourFormat(getActivity()));
-        }
-    }
 
     public static class DatePickerFragment extends DialogFragment {
 
@@ -411,6 +448,16 @@ public class MedicationFormActivity extends ActionBarActivity
             // Create a new instance of DatePickerDialog and return it
             return new DatePickerDialog(getActivity(), (MedicationFormActivity) getActivity(), year,
                     month, day);
+        }
+    }
+
+    public static class TimePickerFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), (MedicationFormActivity) getActivity(), 6,
+                    30, DateFormat.is24HourFormat(getActivity()));
         }
     }
 

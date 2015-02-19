@@ -120,7 +120,9 @@
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
             android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey" />
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:clickable="true"
+            android:onClick="openDialogRepetition" />
 
         <!--A PARTIR DE-->
 
@@ -147,7 +149,9 @@
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
             android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey" />
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:clickable="true"
+            android:onClick="openDatePickerDialog"/>
 
         <!--tomar às-->
 
@@ -174,7 +178,9 @@
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
             android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey" />
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:clickable="true"
+            android:onClick="openTimePickerDialog"/>
 
         <LinearLayout
             android:layout_width="match_parent"
