@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
+import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
+import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
@@ -96,15 +99,24 @@ public class MedicationInfoActivity extends ActionBarActivity {
                         if (medicationId > 0) {
                             MedicationDAL db = MedicationDAL.getInstance(_this);
                             Medication mObj = db.findOne(medicationId);
+                            long objId = mObj.getID();
                             if (db.remove(mObj) > 0) {
+                                // agora remove alarme, se tiver algum cadastrado
+                                AlertEventDAL alertDb = AlertEventDAL.getInstance(_this);
+                                AlertEvent alert = alertDb.findOneByEntityIdAndType(objId, Medication.class.getName());
+                                if (alert != null) {
+                                    Log.i("Seniors - Medication Info", "Removendo alarme");
+                                    alertDb.remove(alert);
+                                }
+
                                 Toast.makeText(_this, getString(R.string.success_medication_deletion), Toast.LENGTH_LONG).show();
                                 finish();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(_this, getString(R.string.fail_medication_deletion), Toast.LENGTH_LONG).show();
                             }
                         }
-                    }})
+                    }
+                })
                 .setNegativeButton(android.R.string.no, null).show();
     }
 

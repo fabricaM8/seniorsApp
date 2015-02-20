@@ -58,22 +58,21 @@ public class NotificationEventService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         int retVal = super.onStartCommand(intent, flags, startId);
 
-        // Retrieving app context
-        Context mContext = this.getApplicationContext();
-        // Initializing notification manager
-        mManager = (NotificationManager) mContext.getSystemService(mContext.NOTIFICATION_SERVICE);
-
-        String notificationMessage = "Você possui um novo evento!";
-
-        AlertEvent alert = null;
-
         // recuperando bundle - id do alert esta aqui
         Bundle extras = intent.getExtras();
         if (extras != null) {
+
+            // Retrieving app context
+            Context mContext = this.getApplicationContext();
+            // Initializing notification manager
+            mManager = (NotificationManager) mContext.getSystemService(mContext.NOTIFICATION_SERVICE);
+
+            String notificationMessage = "Você possui um novo evento!";
+
             String data = extras.getString(BUNDLE_ALERT_ID);
             if (data != null) {
                 AlertEventDAL db = AlertEventDAL.getInstance(mContext);
-                alert = db.findOne(Long.parseLong(data));
+                AlertEvent alert = db.findOne(Long.parseLong(data));
                 if (alert != null) {
                     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String d = dateFormatter.format(alert.getNextAlert());
@@ -101,46 +100,47 @@ public class NotificationEventService extends Service {
 
                     // updating database
                     db.update(alert);
+
+                    // creating intent to open alarm
+                    Intent i = new Intent(mContext, DashboardActivity.class);
+                    if (alert != null) {
+                        if (alert.getEntityClass().equals(Medication.class.getName())) {
+                            i = new Intent(mContext, MedicationInfoActivity.class);
+                            MedicationDAL medDb = MedicationDAL.getInstance(mContext);
+                            Medication m = medDb.findOne(alert.getEntityId());
+                            if (m != null) {
+                                i.putExtra(MedicationInfoActivity.BUNDLE_ID, m.getID() + "");
+                            }
+                        }
+                        // else outras classes
+
+                        i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
+                    }
+                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                    PendingIntent pni = PendingIntent
+                            .getActivity(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                    // Creating notification
+                    Notification notification = new Notification.Builder(mContext)
+                            .setContentTitle("Senior's App")
+                            .setContentText(notificationMessage)
+                            .setSmallIcon(R.drawable.ic_launcher)
+                            .setLights(Color.RED, 3000, 3000)
+                            .setContentIntent(pni)
+                            .getNotification();
+                    notification.flags |= Notification.FLAG_AUTO_CANCEL;
+                    notification.defaults |= Notification.DEFAULT_VIBRATE;
+                    notification.defaults |= Notification.DEFAULT_SOUND;
+
+                    // notifying
+                    mManager.notify(0, notification);
+
+                    // ringing!!!
+                    mContext.startService(new Intent(mContext, AlarmPlayerService.class));
                 }
             }
         }
-
-        Intent i = new Intent(mContext, DashboardActivity.class);
-        if (alert != null) {
-            if (alert.getEntityClass().equals(Medication.class.getName())) {
-                i = new Intent(mContext, MedicationInfoActivity.class);
-                MedicationDAL medDb = MedicationDAL.getInstance(mContext);
-                Medication m = medDb.findOne(alert.getEntityId());
-                if(m!=null) {
-                    i.putExtra(MedicationInfoActivity.BUNDLE_ID, m.getID() + "");
-                }
-            }
-            // else outras classes
-
-            i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
-        }
-        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        PendingIntent pni = PendingIntent
-                .getActivity(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Creating notification
-        Notification notification = new Notification.Builder(mContext)
-                .setContentTitle("Senior's App")
-                .setContentText(notificationMessage)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setLights(Color.RED, 3000, 3000)
-                .setContentIntent(pni)
-                .getNotification();
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-        notification.defaults |= Notification.DEFAULT_SOUND;
-
-        // notifying
-        mManager.notify(0, notification);
-
-        // ringing!!!
-        mContext.startService(new Intent(mContext, AlarmPlayerService.class));
 
         return retVal;
     }
@@ -166,7 +166,7 @@ public class NotificationEventService extends Service {
                 c.add(Calendar.HOUR, 6);
                 break;
             case SEMANAx1:
-                c.add(Calendar.HOUR, 24*7);
+                c.add(Calendar.HOUR, 24 * 7);
                 break;
             case MESx1:
                 c.add(Calendar.MONTH, 1);

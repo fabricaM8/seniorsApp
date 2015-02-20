@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -225,6 +226,15 @@ public class MedicationFormActivity extends ActionBarActivity
 
                     // setando alarme
                     NotificationEventService.setupAlarm(this, alert);
+                }
+                else {
+                    // remova alarme exixstente (se houver)
+                    AlertEventDAL alertDb = AlertEventDAL.getInstance(this);
+                    AlertEvent alert = alertDb.findOneByEntityIdAndType(id, Medication.class.getName());
+                    if(alert != null) {
+                        Log.i("Seniors - Medication Form", "Removendo alarme");
+                        alertDb.remove(alert);
+                    }
                 }
 
                 Toast.makeText(this, getString(R.string.success_medication_form_submit), Toast.LENGTH_LONG).show();
