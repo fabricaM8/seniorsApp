@@ -27,7 +27,8 @@ public class SchemaHelper {
                 + Medication.KEY_DURATION + " INTEGER,"
                 + Medication.KEY_DURATION_TYPE + " INTEGER,"
                 + Medication.KEY_START_DATE + " INTEGER,"
-                + Medication.KEY_CONTINUOUS + " BIT"
+                + Medication.KEY_CONTINUOUS + " BIT,"
+                + Medication.KEY_ALARM + " BIT"
                 + ")";
 
         String alertTableSchema = "CREATE TABLE " + AlertEventDAL.TABLE_NAME + "("

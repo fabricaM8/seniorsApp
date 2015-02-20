@@ -26,17 +26,19 @@ public class Medication extends DbEntity {
     public static final String KEY_DURATION = "duration";
     public static final String KEY_DURATION_TYPE = "duration_type";
     public static final String KEY_CONTINUOUS = "continuous";
+    public static final String KEY_ALARM = "alarm";
     public static final String KEY_START_DATE = "start_date";
 
     // Entity attributes
-    private String description;
-    private DosageMeasure dosageMeasureType;
-    private String dosage;
-    private Periodicity periodicity;
-    private int duration;
-    private Duration durationType;
-    private Date startDate;
-    private boolean continuosUse;
+    private String description;                 // observacoes
+    private DosageMeasure dosageMeasureType;    // comprimido, dragea, ml, etc
+    private String dosage;                      // 1 e 1/2 ; 1,5 ; 3/4 , etc
+    private Periodicity periodicity;            // 1 x ao dia, 3 x dia, etc
+    private int duration;                       // 1..99
+    private Duration durationType;              // dias, semanas, meses
+    private Date startDate;                     // data inicial
+    private boolean continuosUse;               // Se uso é continuo, ou nao
+    private boolean hasAlarm;                   // Se uso tem alarme
 
     // constructors
     public Medication() {
@@ -65,8 +67,10 @@ public class Medication extends DbEntity {
         values.put(KEY_DOSAGE_TYPE, getDosageMeasureType().getValue());
         values.put(KEY_PERIODICITY, getPeriodicity().getValue());
         values.put(KEY_DURATION, getDuration());
-        values.put(KEY_START_DATE, getStartDate().getTime());
+        values.put(KEY_DURATION_TYPE, getDurationType().getValue());
         values.put(KEY_CONTINUOUS, isContinuosUse() ? 1 : 0);
+        values.put(KEY_ALARM, isHasAlarm() ? 1 : 0);
+        values.put(KEY_START_DATE, getStartDate().getTime());
 
         return values;
     }
@@ -135,15 +139,65 @@ public class Medication extends DbEntity {
         this.startDate = startDate;
     }
 
+    public boolean isHasAlarm() {
+        return hasAlarm;
+    }
+
+    public void setHasAlarm(boolean hasAlarm) {
+        this.hasAlarm = hasAlarm;
+    }
+
     public int getNumOfAlarms() {
+        if(!isHasAlarm())
+            return 0;
+
         if (isContinuosUse())
             return AlertEvent.FOREVER;
 
-        int intakePerDay = 0;
-//        if (getPeriodicity() <= 24)
-//            intakePerDay = getDosage() * (24 / getPeriodicity());
+        int durationFactor = 0;
+        switch (durationType) {
+            case DIA:
+                durationFactor = 1;
+                break;
+            case SEMANA:
+                durationFactor = 7;
+                break;
+            case MES:
+                durationFactor = 30;
+                break;
+            case ANO:
+                durationFactor = 365;
+                break;
+        }
 
-        return getDuration() * intakePerDay;
+        float periodFactor = 0;
+        switch (periodicity) {
+            case DIA_SIM_DIA_NAO:
+                periodFactor = 0.5f;
+                break;
+            case DIAx1:
+                periodFactor = 1f;
+                break;
+            case DIAx2:
+                periodFactor = 2f;
+                break;
+            case DIAx3:
+                periodFactor = 3f;
+                break;
+            case DIAx4:
+                periodFactor = 4f;
+                break;
+            case SEMANAx1:
+                periodFactor = 1.0f/7.0f;
+                break;
+            case MESx1:
+                periodFactor = 1.0f/30.0f;
+                break;
+        }
+
+        int intakePerDay = (int)Math.ceil(duration * durationFactor * periodFactor);
+
+        return intakePerDay;
     }
 
     @Override
@@ -153,9 +207,7 @@ public class Medication extends DbEntity {
 
     @Override
     public String toString() {
-        return "Tomar ... ";
-//        return String.format("Tomar %1$s %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
-//                getDosage(), getDosageMeasureType().toString(), getPeriodicity().toString(), getDuration(), getName(),
-//                getStartDate().toString());
+        return String.format("%1$s %2$s, %5$s",
+                getDosage(), getDosageMeasureType().toString(), getPeriodicity().toString());
     }
 }

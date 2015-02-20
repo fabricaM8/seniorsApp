@@ -82,7 +82,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
                     Medication.KEY_DURATION,
                     Medication.KEY_DURATION_TYPE,
                     Medication.KEY_START_DATE,
-                    Medication.KEY_CONTINUOUS
+                    Medication.KEY_CONTINUOUS,
+                    Medication.KEY_ALARM
             }, Medication.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             if (cursor != null)
@@ -101,6 +102,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
                 oRetVal.setStartDate(new Date(cursor.getLong(8)));
 
             oRetVal.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
+            oRetVal.setHasAlarm(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -124,12 +126,12 @@ public class MedicationDAL extends DbCRUD<Medication> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s FROM "
                     + getTableName();
             selectQuery = String.format(selectQuery, Medication.KEY_ID, Medication.KEY_NAME,
                     Medication.KEY_DESCRIPTION, Medication.KEY_DOSAGE, Medication.KEY_DOSAGE_TYPE,
-                    Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_START_DATE,
-                    Medication.KEY_CONTINUOUS);
+                    Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_DURATION_TYPE,
+                    Medication.KEY_START_DATE, Medication.KEY_CONTINUOUS, Medication.KEY_ALARM);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -152,6 +154,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
                         entity.setStartDate(new Date(cursor.getLong(8)));
 
                     entity.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
+                    entity.setHasAlarm(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
 
                     // Adding entity to list
                     lstRetVal.add(entity);

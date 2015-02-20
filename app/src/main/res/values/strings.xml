@@ -67,7 +67,7 @@
     <string name="action_example">Example action</string>
     <!-- Itens de menu lateral -->
     <string name="error_form_submit">Ocorreu um problema e a medicação não pode ser cadastrada.</string>
-    <string name="success_form_submit">Medicação cadastrada com sucesso!</string>
+    <string name="success_form_submit">Medicação salva com sucesso!</string>
 
 
 

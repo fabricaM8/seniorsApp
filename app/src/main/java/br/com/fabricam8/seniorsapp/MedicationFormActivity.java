@@ -10,12 +10,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -52,9 +57,8 @@ public class MedicationFormActivity extends ActionBarActivity
         // create toolbar
         ToolbarBuilder.build(this, true);
 
-        // setting up dosage array
-//        Spinner spnDosage = (Spinner) findViewById(R.id.spnMedDosageType);
-//        spnDosage.setAdapter(new CustomAdapter<>(this, R.layout.custom_spinner, Dosage.values()));
+        // adicionando edit listeners aos campos de texto
+        addTextChangeListeners();
 
         // recuperando id passada no clique
         long medicationId = getIntent().getLongExtra("_ID_", -1);
@@ -65,6 +69,42 @@ public class MedicationFormActivity extends ActionBarActivity
         }
         // atulizando a view de medicamento
         updateMedicationView();
+    }
+
+    /**
+     * Este método adiciona text edit listeners aos campos de texto da página.
+     */
+    private void addTextChangeListeners() {
+        EditText txtName = (EditText)findViewById(R.id.med_form_name);
+        txtName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionMedication.setName(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        EditText txtObserv = (EditText)findViewById(R.id.med_form_observ);
+        txtObserv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionMedication.setDescription(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
     private Medication initMedication() {
@@ -85,18 +125,27 @@ public class MedicationFormActivity extends ActionBarActivity
     }
 
     private void updateMedicationView() {
+        FormHelper.setTextBoxValue(this, R.id.med_form_name, sessionMedication.getName());
+
         FormHelper.setTextBoxValue(this, R.id.med_form_qty, sessionMedication.getDosage());
         FormHelper.setTextBoxValue(this, R.id.med_form_measure, sessionMedication.getDosageMeasureType().toString());
 
-        String duration = sessionMedication.getDuration() + " x " + sessionMedication.getDurationType().toString();
-        FormHelper.setTextBoxValue(this, R.id.med_form_during, duration);
-
         FormHelper.setTextBoxValue(this, R.id.med_form_periodicity, sessionMedication.getPeriodicity().toString());
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
+        if(sessionMedication.isContinuosUse()) {
+            FormHelper.setTextBoxValue(this, R.id.med_form_during, "Uso contínuo");
+        }
+        else {
+            String duration = sessionMedication.getDuration() + " " + sessionMedication.getDurationType().toString();
+            FormHelper.setTextBoxValue(this, R.id.med_form_during, duration);
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.med_form_starting, dateFormat.format(sessionMedication.getStartDate()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
         FormHelper.setTextBoxValue(this, R.id.med_form_time, timeFormat.format(sessionMedication.getStartDate()));
+
+        FormHelper.setTextBoxValue(this, R.id.med_form_observ, sessionMedication.getDescription());
     }
 
     @Override
@@ -123,22 +172,6 @@ public class MedicationFormActivity extends ActionBarActivity
     }
 
     /**
-     * Event chamado quando checkbox de uso contínuo é clicado.
-     * <p>
-     * Controla a habilitação ou desabilitação do campo de duração.
-     * </p>
-     */
-    public void toggleIsContinuos(View v) {
-//        boolean fIsContinuous = FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse);
-//        if (fIsContinuous) {
-//            findViewById(R.id.txtMed_Duration).setEnabled(false);
-//            FormHelper.setTextBoxValue(this, R.id.txtMed_Duration, "");
-//        } else {
-//            findViewById(R.id.txtMed_Duration).setEnabled(true);
-//        }
-    }
-
-    /**
      * Evento chamado quando botão cancelar é apertado.
      * <p>
      * Finaliza a Activity e retorna para tela anterior.
@@ -156,36 +189,29 @@ public class MedicationFormActivity extends ActionBarActivity
             MedicationDAL db = MedicationDAL.getInstance(context);
 
             if (validateForm()) {
-
-                Medication med = new Medication();
-                med.setName(FormHelper.getTextBoxValue(this, R.id.txtMed_Name));
-
-//                med.setDosageType(((Dosage) ((Spinner) findViewById(R.id.spnMedDosageType)).getSelectedItem()));
-//                med.setDosage(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Dosage));
-//                med.setPeriodicity(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Repetition));
-//                med.setStartDate(selectedDate.getTime());
-//
-//                med.setContinuosUse(FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse));
-//                if (!med.isContinuosUse()) {
-//                    med.setDuration(FormHelper.getTextBoxValueAsInt(this, R.id.txtMed_Duration));
-//                } else {
-//                    med.setDuration(-1);
-//                }
+                sessionMedication.setHasAlarm(FormHelper.getSwitchValue(this, R.id.med_form_alarm));
 
                 // creating medication
-                long id = db.create(med);
+                long id = -1;
+                if(sessionMedication.getID() > 0 ) { // update
+                    id = sessionMedication.getID();
+                    db.update(sessionMedication);
+                }
+                else {
+                    id = db.create(sessionMedication);
+                }
 
-                if (id > 0) {
+                if (id > 0 && sessionMedication.isHasAlarm()) {
                     // criando alarme
                     AlertEvent alert = new AlertEvent();
                     alert.setEntityId(id);
                     alert.setEntityClass(Medication.class.getName());
-                    alert.setEvent(med.getName());
+                    alert.setEvent(sessionMedication.getName());
                     // setando numero de alarmes
-                    int numAlarms = med.getNumOfAlarms() > 0 ? med.getNumOfAlarms() : 1;
+                    int numAlarms = sessionMedication.getNumOfAlarms() > 0 ? sessionMedication.getNumOfAlarms() : 1;
                     alert.setMaxAlarms(numAlarms);
                     alert.setAlarmsPlayed(0);
-                    alert.setNextAlert(med.getStartDate());
+                    alert.setNextAlert(sessionMedication.getStartDate());
 
                     AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
                     long alertId = dbAlert.create(alert);
@@ -195,13 +221,11 @@ public class MedicationFormActivity extends ActionBarActivity
 
                     // setando alarme
                     NotificationEventService.setupAlarm(this, alert);
-
-                    Toast.makeText(this, getString(R.string.success_form_submit), Toast.LENGTH_LONG).show();
-                    Thread.sleep(1500);
-                    finish();
-                } else {
-                    Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
                 }
+
+                Toast.makeText(this, getString(R.string.success_form_submit), Toast.LENGTH_LONG).show();
+                Thread.sleep(2000);
+                finish();
             }
         } catch (Exception ex) {
             Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
@@ -215,51 +239,10 @@ public class MedicationFormActivity extends ActionBarActivity
      * @return Retorna falso se algo está errado com o formulário e indica erro na tela.
      */
     private boolean validateForm() {
-//        // validating name
-//        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Name, getString(R.string.validation_error_message)))
-//            return false;
-//
-//        // validating Dosage
-//        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Dosage, getString(R.string.validation_error_message)))
-//            return false;
-//
-//        // validating Repetition
-//        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_Repetition, getString(R.string.validation_error_message)))
-//            return false;
-//
-//        // validating spinner
-//        if (!validateSpinner())
-//            return false;
-//
-//        // validating duration
-//        if (!FormHelper.getCheckBoxValue(this, R.id.cbMed_ContUse) &&
-//                !FormHelper.validateFormTextInput(this, R.id.txtMed_Duration, getString(R.string.validation_error_message))) {
-//            return false;
-//        }
-//
-//        // validating start date
-//        if (!FormHelper.validateFormTextInput(this, R.id.txtMed_StartTime, getString(R.string.validation_error_message)))
-//            return false;
+        // validating name
+        if (!FormHelper.validateFormTextInput(this, R.id.med_form_name, getString(R.string.validation_error_message)))
+            return false;
 
-        return true;
-    }
-
-    /**
-     * Efetua a validação do combo box.
-     *
-     * @return Retorna falso se combo não tiver sido selecionado.
-     */
-    private boolean validateSpinner() {
-//        Spinner spn = (Spinner) findViewById(R.id.spnMedDosageType);
-//        if (spn.getSelectedItemId() <= 0) {
-//            spn.setFocusableInTouchMode(true);
-//            spn.requestFocus();
-//
-//            CustomAdapter adapter = (CustomAdapter) spn.getAdapter();
-//            View view = spn.getSelectedView();
-//            adapter.setError(view, getString(R.string.validation_error_message));
-//            return false;
-//        }
         return true;
     }
 
@@ -371,10 +354,26 @@ public class MedicationFormActivity extends ActionBarActivity
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         // Pass null as the parent view because its going in the dialog layout
-        final View dialogView = inflater.inflate(R.layout.dialog_med_periodicity, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_med_duration, null);
 
-        String[] arrValues = Periodicity.getStringValues();
-        FormHelper.setupPicker(dialogView, R.id.dg_md_periodicity, 0, arrValues.length-1, arrValues, 0);
+        // setando valores iniciais para os pickers
+        String[] arrValues = Duration.getStringValues();
+        FormHelper.setupPicker(dialogView, R.id.dg_md_duration_type, 0, arrValues.length-1, arrValues, 0);
+        FormHelper.setupPicker(dialogView, R.id.dg_md_duration, 1, 30, null, 1);
+
+        // adicionando listener para switcher de uso continuo
+        Switch swCont = ((Switch)dialogView.findViewById(R.id.dg_md_sw_cont));
+        swCont.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    dialogView.findViewById(R.id.dg_md_layout_duration).setVisibility(View.GONE);
+                }
+                else {
+                    dialogView.findViewById(R.id.dg_md_layout_duration).setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         // montando dialog
         builder.setTitle("Escolha o período")
@@ -382,9 +381,21 @@ public class MedicationFormActivity extends ActionBarActivity
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-//                        int freq = FormHelper.getPickerValue(dialogView, R.id.dg_md_periodicity);
-//                        sessionMedication.setPeriodicity(Periodicity.fromInt(freq + 1));
-//                        updateMedicationView();
+                        boolean isCont = FormHelper.getSwitchValue(dialogView, R.id.dg_md_sw_cont);
+                        if(isCont) {
+                            sessionMedication.setDuration(-1);
+                            sessionMedication.setDurationType(Duration.NONE);
+                            sessionMedication.setContinuosUse(true);
+                        }
+                        else {
+                            int duration = FormHelper.getPickerValue(dialogView, R.id.dg_md_duration);
+                            int dType = FormHelper.getPickerValue(dialogView, R.id.dg_md_duration_type);
+                            sessionMedication.setDuration(duration);
+                            sessionMedication.setDurationType(Duration.fromInt(dType + 1));
+                            sessionMedication.setContinuosUse(false);
+                        }
+
+                        updateMedicationView();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
