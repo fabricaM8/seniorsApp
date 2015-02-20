@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -107,6 +108,7 @@ public class NotificationEventService extends Service {
 
                     // creating intent to open alarm
                     Intent i = new Intent(mContext, DashboardActivity.class);
+                    Log.i("Alrme Service - Seniors", "entityClass = " + alert.getEntityClass());
                     if (alert.getEntityClass().equals(Medication.class.getName())) {
                         i = new Intent(mContext, MedicationInfoActivity.class);
                         if (oMed != null) {
