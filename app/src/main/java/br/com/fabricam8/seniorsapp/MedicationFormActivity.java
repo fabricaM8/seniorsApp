@@ -147,6 +147,8 @@ public class MedicationFormActivity extends ActionBarActivity
         FormHelper.setTextBoxValue(this, R.id.med_form_time, timeFormat.format(sessionMedication.getStartDate()));
 
         FormHelper.setTextBoxValue(this, R.id.med_form_observ, sessionMedication.getDescription());
+
+        FormHelper.setSwitchValue(this, R.id.med_form_alarm, sessionMedication.isHasAlarm());
     }
 
     @Override

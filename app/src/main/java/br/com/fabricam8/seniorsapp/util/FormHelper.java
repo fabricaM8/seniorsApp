@@ -69,6 +69,13 @@ public class FormHelper {
         return fRetVal;
     }
 
+    public static void setSwitchValue(Activity ctx, int viewId, boolean value) {
+        View v = ctx.findViewById(viewId);
+        if (v != null && v instanceof Switch) {
+            ((Switch) v).setChecked(value);
+        }
+    }
+
     public static int getTextBoxValueAsInt(Activity ctx, int viewId) {
         int iRetVal = -1;
 
