@@ -1,5 +1,8 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -8,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -64,9 +68,36 @@ public class MedicationInfoActivity extends ActionBarActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.action_md_info_delete:
+                deleteMedication();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void deleteMedication() {
+        final Activity _this = this;
+
+        new AlertDialog.Builder(this)
+                .setTitle("Confirme")
+                .setMessage("Deseja realmente deletar medicação?")
+                .setIcon(R.drawable.ic_action_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        if (medicationId > 0) {
+                            MedicationDAL db = MedicationDAL.getInstance(_this);
+                            Medication mObj = db.findOne(medicationId);
+                            if (db.remove(mObj) > 0) {
+                                Toast.makeText(_this, getString(R.string.success_medication_deletion), Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                            else {
+                                Toast.makeText(_this, getString(R.string.fail_medication_deletion), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }})
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
 
@@ -79,13 +110,13 @@ public class MedicationInfoActivity extends ActionBarActivity {
             FormHelper.setTextBoxValue(this, R.id.med_info_dosage, "Tomar " + mObj.getDosage() + " " + mObj.getDosageMeasureType().toString());
             FormHelper.setTextBoxValue(this, R.id.med_info_periodicity, mObj.getPeriodicity().toString());
 
-            if(mObj.isContinuosUse())
+            if (mObj.isContinuosUse())
                 FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Uso contínuo");
             else
                 FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Por " + mObj.getDuration() + " " + mObj.getDurationType().toString());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-            FormHelper.setTextBoxValue(this, R.id.med_info_starting,  "A partir de " + dateFormat.format(mObj.getStartDate()));
+            FormHelper.setTextBoxValue(this, R.id.med_info_starting, "A partir de " + dateFormat.format(mObj.getStartDate()));
             FormHelper.setTextBoxValue(this, R.id.med_info_observations, mObj.getDescription());
 
             // com ou sem alarme
@@ -99,12 +130,12 @@ public class MedicationInfoActivity extends ActionBarActivity {
             c.setTime(mObj.getStartDate());
 
             switch (mObj.getPeriodicity()) {
-                case DIAx2 :
+                case DIAx2:
                     c.add(Calendar.HOUR, 12);
                     mObj.setStartDate(c.getTime());
                     hours += ", " + timeFormat.format(mObj.getStartDate());
                     break;
-                case DIAx3 :
+                case DIAx3:
                     c.add(Calendar.HOUR, 8);
                     mObj.setStartDate(c.getTime());
                     hours += ", " + timeFormat.format(mObj.getStartDate());
@@ -112,7 +143,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
                     mObj.setStartDate(c.getTime());
                     hours += ", " + timeFormat.format(mObj.getStartDate());
                     break;
-                case DIAx4 :
+                case DIAx4:
                     c.add(Calendar.HOUR, 6);
                     mObj.setStartDate(c.getTime());
                     hours += ", " + timeFormat.format(mObj.getStartDate());

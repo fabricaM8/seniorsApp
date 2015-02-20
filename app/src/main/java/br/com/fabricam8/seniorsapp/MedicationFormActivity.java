@@ -110,7 +110,7 @@ public class MedicationFormActivity extends ActionBarActivity
     private Medication initMedication() {
         Medication oRetVal = new Medication();
 
-        oRetVal.setDosage("1,0");
+        oRetVal.setDosage("1");
         oRetVal.setDosageMeasureType(DosageMeasure.COMPRIMIDO);
         oRetVal.setPeriodicity(Periodicity.DIAx3);
         oRetVal.setDuration(7);
@@ -223,7 +223,7 @@ public class MedicationFormActivity extends ActionBarActivity
                     NotificationEventService.setupAlarm(this, alert);
                 }
 
-                Toast.makeText(this, getString(R.string.success_form_submit), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.success_medication_form_submit), Toast.LENGTH_LONG).show();
                 Thread.sleep(2000);
                 finish();
             }
