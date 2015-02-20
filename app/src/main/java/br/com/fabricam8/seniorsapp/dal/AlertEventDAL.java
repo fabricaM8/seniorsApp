@@ -62,6 +62,15 @@ public class AlertEventDAL extends DbCRUD<AlertEvent> {
 
     @Override
     public AlertEvent findOne(long id) {
+        return findOne(AlertEvent.KEY_ID + "=?", new String[]{String.valueOf(id)});
+    }
+
+    public AlertEvent findOneByEntityIdAndType(long entityId, String entityClass) {
+        return findOne(AlertEvent.KEY_ENTITY_ID + "=? AND " + AlertEvent.KEY_ENTITY_CLASS + "=?"
+                , new String[]{String.valueOf(entityId), entityClass});
+    }
+
+    private AlertEvent findOne(String selection, String[] selectionArgs) {
         AlertEvent oRetVal = null;
 
         SQLiteDatabase db = null;
@@ -77,7 +86,7 @@ public class AlertEventDAL extends DbCRUD<AlertEvent> {
                     AlertEvent.KEY_MAX_ALARMS,
                     AlertEvent.KEY_ALARMS_PLAYED,
                     AlertEvent.KEY_NEXT_ALERT
-            }, AlertEvent.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+            }, selection, selectionArgs, null, null, null, null);
 
             if (cursor != null)
                 cursor.moveToFirst();

@@ -33,7 +33,7 @@ public class AlarmPlayerService extends Service {
                 ringtone.stop();
                 timer.cancel();
             }
-        }, 5000);
+        }, 10000);
         return START_NOT_STICKY;
     }
 

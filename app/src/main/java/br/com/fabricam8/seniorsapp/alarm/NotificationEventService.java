@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.DashboardActivity;
+import br.com.fabricam8.seniorsapp.MedicationInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
@@ -26,7 +27,7 @@ import br.com.fabricam8.seniorsapp.domain.Medication;
  */
 public class NotificationEventService extends Service {
 
-    private static final String BUNDLE_ALERT_ID = "ALERT_ID";
+    public static final String BUNDLE_ALERT_ID = "ALERT_ID";
 
     private NotificationManager mManager;
 
@@ -88,14 +89,9 @@ public class NotificationEventService extends Service {
                             MedicationDAL medDb = MedicationDAL.getInstance(mContext);
                             Medication m = medDb.findOne(alert.getEntityId());
                             if (m != null) {
-                                int delay = 1;//m.getPeriodicity();
-
-                                Calendar c = Calendar.getInstance();
-                                c.setTimeInMillis(alert.getNextAlert().getTime());
-                                c.add(Calendar.HOUR, delay);
-
+                                Calendar nextEvt = getNextServiceTime(alert, m);
                                 // set next alert
-                                alert.setNextAlert(c.getTime());
+                                alert.setNextAlert(nextEvt.getTime());
                             }
                         }
 
@@ -110,9 +106,20 @@ public class NotificationEventService extends Service {
         }
 
         Intent i = new Intent(mContext, DashboardActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        if (alert != null)
+        if (alert != null) {
+            if (alert.getEntityClass().equals(Medication.class.getName())) {
+                i = new Intent(mContext, MedicationInfoActivity.class);
+                MedicationDAL medDb = MedicationDAL.getInstance(mContext);
+                Medication m = medDb.findOne(alert.getEntityId());
+                if(m!=null) {
+                    i.putExtra(MedicationInfoActivity.BUNDLE_ID, m.getID() + "");
+                }
+            }
+            // else outras classes
+
             i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
+        }
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pni = PendingIntent
                 .getActivity(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -124,7 +131,7 @@ public class NotificationEventService extends Service {
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setLights(Color.RED, 3000, 3000)
                 .setContentIntent(pni)
-                .build();
+                .getNotification();
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.defaults |= Notification.DEFAULT_VIBRATE;
         notification.defaults |= Notification.DEFAULT_SOUND;
@@ -136,6 +143,37 @@ public class NotificationEventService extends Service {
         mContext.startService(new Intent(mContext, AlarmPlayerService.class));
 
         return retVal;
+    }
+
+    private Calendar getNextServiceTime(AlertEvent event, Medication mObj) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(event.getNextAlert().getTime());
+
+        switch (mObj.getPeriodicity()) {
+            case DIA_SIM_DIA_NAO:
+                c.add(Calendar.HOUR, 48);
+                break;
+            case DIAx1:
+                c.add(Calendar.HOUR, 24);
+                break;
+            case DIAx2:
+                c.add(Calendar.HOUR, 12);
+                break;
+            case DIAx3:
+                c.add(Calendar.HOUR, 8);
+                break;
+            case DIAx4:
+                c.add(Calendar.HOUR, 6);
+                break;
+            case SEMANAx1:
+                c.add(Calendar.HOUR, 24*7);
+                break;
+            case MESx1:
+                c.add(Calendar.MONTH, 1);
+                break;
+        }
+
+        return c;
     }
 
     @Override

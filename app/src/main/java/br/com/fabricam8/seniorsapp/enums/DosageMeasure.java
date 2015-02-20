@@ -9,16 +9,16 @@ import java.util.List;
 public enum DosageMeasure {
 
     NONE(0, ""),
-    COMPRIMIDO(1, "comprimido"),
-    AMPOLA(2, "ampola"),
-    COLHER(3, "colher"),
-    CAPSULA(4, "cápsula"),
-    GOTA(5, "gotas"),
-    DRAGEA(6, "drágea"),
-    SUPOSITORIO(7, "supositório"),
-    ENVELOPE(8, "envelope"),
+    COMPRIMIDO(1, "comprimido(s)"),
+    AMPOLA(2, "ampola(s)"),
+    COLHER(3, "colher(es)"),
+    CAPSULA(4, "cápsula(s)"),
+    GOTA(5, "gota(s)"),
+    DRAGEA(6, "drágea(s)"),
+    SUPOSITORIO(7, "supositório(s)"),
+    ENVELOPE(8, "envelope(s)"),
     ML(9, "ml"),
-    UNIDADE(10, "unidade");
+    UNIDADE(10, "unidade(s)");
 
     private final int value;
     private final String name;

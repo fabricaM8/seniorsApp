@@ -202,10 +202,15 @@ public class MedicationFormActivity extends ActionBarActivity
                 }
 
                 if (id > 0 && sessionMedication.isHasAlarm()) {
-                    // criando alarme
-                    AlertEvent alert = new AlertEvent();
-                    alert.setEntityId(id);
-                    alert.setEntityClass(Medication.class.getName());
+                    AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
+                    // verificando se ja existe alarme para essa entidade
+                    AlertEvent alert = dbAlert.findOneByEntityIdAndType(id, Medication.class.getName());
+                    if(alert == null) {
+                        alert = new AlertEvent();
+                        alert.setEntityId(id);
+                        alert.setEntityClass(Medication.class.getName());
+                    }
+
                     alert.setEvent(sessionMedication.getName());
                     // setando numero de alarmes
                     int numAlarms = sessionMedication.getNumOfAlarms() > 0 ? sessionMedication.getNumOfAlarms() : 1;
@@ -213,7 +218,6 @@ public class MedicationFormActivity extends ActionBarActivity
                     alert.setAlarmsPlayed(0);
                     alert.setNextAlert(sessionMedication.getStartDate());
 
-                    AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
                     long alertId = dbAlert.create(alert);
 
                     // setando id para enviar pra servico de alarme

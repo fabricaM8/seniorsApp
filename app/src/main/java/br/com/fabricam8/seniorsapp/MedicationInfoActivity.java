@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
@@ -24,6 +25,7 @@ import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 public class MedicationInfoActivity extends ActionBarActivity {
 
+    public static final String BUNDLE_ID = "_ID_";
     private long medicationId;
 
     @Override
@@ -41,11 +43,17 @@ public class MedicationInfoActivity extends ActionBarActivity {
         super.onResume();
 
         // recuperando id passada no clique
-        medicationId = getIntent().getLongExtra("_ID_", -1);
+        medicationId = getIntent().getLongExtra(BUNDLE_ID, -1);
         if (medicationId == -1) {
             finish(); // se nao enviar bundle, sai do activity
         } else {
             loadMedication(medicationId);
+        }
+
+        long alertId = getIntent().getLongExtra(NotificationEventService.BUNDLE_ALERT_ID, -1);
+        if(alertId != -1) {
+            // mostrar botoes de pular e salvar
+            Toast.makeText(this, "BOTOES DE PULAR / TOMAR / CANCELAR SERAO MOSTRADOS AQUI", Toast.LENGTH_LONG);
         }
     }
 
