@@ -143,7 +143,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
             FormHelper.setTextBoxValue(this, R.id.med_info_alarm, mObj.isHasAlarm() ? "Com alarme" : "Sem alarme");
 
             // horarios
-            SimpleDateFormat timeFormat = new SimpleDateFormat("kk:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             String hours = timeFormat.format(mObj.getStartDate());
             // calculando resto das horas
             Calendar c = Calendar.getInstance();
