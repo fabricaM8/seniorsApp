@@ -207,7 +207,7 @@ public class Medication extends DbEntity {
 
     @Override
     public String toString() {
-        return String.format("%1$s %2$s, %5$s",
+        return String.format("%1$s %2$s, %3$s",
                 getDosage(), getDosageMeasureType().toString(), getPeriodicity().toString());
     }
 }

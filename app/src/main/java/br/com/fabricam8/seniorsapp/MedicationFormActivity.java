@@ -142,7 +142,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.med_form_starting, dateFormat.format(sessionMedication.getStartDate()));
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("kk:mm");
         FormHelper.setTextBoxValue(this, R.id.med_form_time, timeFormat.format(sessionMedication.getStartDate()));
 
         FormHelper.setTextBoxValue(this, R.id.med_form_observ, sessionMedication.getDescription());
@@ -272,6 +272,7 @@ public class MedicationFormActivity extends ActionBarActivity
                         if(!dec.startsWith(","))
                             dosage += " e ";
 
+                        if(!dec.equals(",0"))
                         dosage += dec;
                         sessionMedication.setDosage(dosage);
                         updateMedicationView();

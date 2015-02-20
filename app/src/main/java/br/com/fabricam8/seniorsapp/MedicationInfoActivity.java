@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
@@ -27,6 +30,11 @@ public class MedicationInfoActivity extends ActionBarActivity {
         // create toolbar
         Toolbar toolbar = ToolbarBuilder.build(this, true);
         toolbar.setTitle("Informações");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         // recuperando id passada no clique
         medicationId = getIntent().getLongExtra("_ID_", -1);
@@ -34,15 +42,6 @@ public class MedicationInfoActivity extends ActionBarActivity {
             finish(); // se nao enviar bundle, sai do activity
         } else {
             loadMedication(medicationId);
-        }
-    }
-
-    private void loadMedication(long id) {
-        MedicationDAL db = MedicationDAL.getInstance(this);
-        Medication mObj = db.findOne(id);
-        if (mObj != null) {
-            // setando valores
-            FormHelper.setTextBoxValue(this, R.id.med_info_name, mObj.getName());
         }
     }
 
@@ -67,6 +66,66 @@ public class MedicationInfoActivity extends ActionBarActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    private void loadMedication(long id) {
+        MedicationDAL db = MedicationDAL.getInstance(this);
+        Medication mObj = db.findOne(id);
+        if (mObj != null) {
+            // setando valores
+            FormHelper.setTextBoxValue(this, R.id.med_info_name, mObj.getName());
+            FormHelper.setTextBoxValue(this, R.id.med_info_dosage, "Tomar " + mObj.getDosage() + " " + mObj.getDosageMeasureType().toString());
+            FormHelper.setTextBoxValue(this, R.id.med_info_periodicity, mObj.getPeriodicity().toString());
+
+            if(mObj.isContinuosUse())
+                FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Uso contínuo");
+            else
+                FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Por " + mObj.getDuration() + " " + mObj.getDurationType().toString());
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+            FormHelper.setTextBoxValue(this, R.id.med_info_starting,  "A partir de " + dateFormat.format(mObj.getStartDate()));
+            FormHelper.setTextBoxValue(this, R.id.med_info_observations, mObj.getDescription());
+
+            // com ou sem alarme
+            FormHelper.setTextBoxValue(this, R.id.med_info_alarm, mObj.isHasAlarm() ? "Com alarme" : "Sem alarme");
+
+            // horarios
+            SimpleDateFormat timeFormat = new SimpleDateFormat("kk:mm");
+            String hours = timeFormat.format(mObj.getStartDate());
+            // calculando resto das horas
+            Calendar c = Calendar.getInstance();
+            c.setTime(mObj.getStartDate());
+
+            switch (mObj.getPeriodicity()) {
+                case DIAx2 :
+                    c.add(Calendar.HOUR, 12);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    break;
+                case DIAx3 :
+                    c.add(Calendar.HOUR, 8);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    c.add(Calendar.HOUR, 8);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    break;
+                case DIAx4 :
+                    c.add(Calendar.HOUR, 6);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    c.add(Calendar.HOUR, 6);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    c.add(Calendar.HOUR, 6);
+                    mObj.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    break;
+            }
+
+            FormHelper.setTextBoxValue(this, R.id.med_info_timing, hours);
         }
     }
 }
