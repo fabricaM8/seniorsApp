@@ -54,9 +54,10 @@ public class MedicationInfoActivity extends ActionBarActivity {
         }
 
         long alertId = getIntent().getLongExtra(NotificationEventService.BUNDLE_ALERT_ID, -1);
+        Log.i("Alrme Service (Med Info) - Seniors", "alert id = " + alertId);
         if(alertId != -1) {
             // mostrar botoes de pular e salvar
-            Toast.makeText(this, "BOTOES DE PULAR / TOMAR / CANCELAR SERAO MOSTRADOS AQUI", Toast.LENGTH_LONG);
+            Toast.makeText(this, "BOTOES DE PULAR / TOMAR / CANCELAR SERAO MOSTRADOS AQUI", Toast.LENGTH_LONG).show();
         }
     }
 
