@@ -71,6 +71,9 @@ public class NotificationEventService extends Service {
 
             String data = extras.getString(BUNDLE_ALERT_ID);
             if (data != null) {
+                MedicationDAL medDb = MedicationDAL.getInstance(mContext);
+                Medication oMed = null;
+
                 AlertEventDAL db = AlertEventDAL.getInstance(mContext);
                 AlertEvent alert = db.findOne(Long.parseLong(data));
                 if (alert != null) {
@@ -84,15 +87,16 @@ public class NotificationEventService extends Service {
                     // se ainda puder tocar...
                     if (iAlarmsPlayed < alert.getMaxAlarms()
                             || alert.getMaxAlarms() == AlertEvent.FOREVER) {
+                        // Se for medicaçao
                         if (alert.getEntityClass().equals(Medication.class.getName())) {
-                            MedicationDAL medDb = MedicationDAL.getInstance(mContext);
-                            Medication m = medDb.findOne(alert.getEntityId());
-                            if (m != null) {
-                                Calendar nextEvt = getNextServiceTime(alert, m);
+                            oMed = medDb.findOne(alert.getEntityId());
+                            if (oMed != null) {
+                                Calendar nextEvt = getNextServiceTime(alert, oMed);
                                 // set next alert
                                 alert.setNextAlert(nextEvt.getTime());
                             }
                         }
+                        // outros tipos de entidade aqui... else if (bla bla) {}
 
                         // resetting alarm
                         setupAlarm(mContext, alert);
@@ -103,19 +107,15 @@ public class NotificationEventService extends Service {
 
                     // creating intent to open alarm
                     Intent i = new Intent(mContext, DashboardActivity.class);
-                    if (alert != null) {
-                        if (alert.getEntityClass().equals(Medication.class.getName())) {
-                            i = new Intent(mContext, MedicationInfoActivity.class);
-                            MedicationDAL medDb = MedicationDAL.getInstance(mContext);
-                            Medication m = medDb.findOne(alert.getEntityId());
-                            if (m != null) {
-                                i.putExtra(MedicationInfoActivity.BUNDLE_ID, m.getID() + "");
-                            }
+                    if (alert.getEntityClass().equals(Medication.class.getName())) {
+                        i = new Intent(mContext, MedicationInfoActivity.class);
+                        if (oMed != null) {
+                            i.putExtra(MedicationInfoActivity.BUNDLE_ID, oMed.getID() + "");
                         }
-                        // else outras classes
-
-                        i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
                     }
+                    // else outras classes
+
+                    i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
                     i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                     PendingIntent pni = PendingIntent
