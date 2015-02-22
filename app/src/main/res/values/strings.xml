@@ -71,6 +71,9 @@
     <string name="success_medication_form_submit">Medicação salva com sucesso!</string>
     <string name="success_medication_deletion">Medicação deletada com sucesso!</string>
     <string name="fail_medication_deletion">Não foi possível remover medicação.</string>
+    <string name="title_activity_fragment_activity_form">fragment_activity_form</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 
