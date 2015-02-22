@@ -25,6 +25,7 @@ public class SchemaHelper {
                 + Medication.KEY_DOSAGE_TYPE + " INTEGER,"
                 + Medication.KEY_PERIODICITY + " INTEGER,"
                 + Medication.KEY_DURATION + " INTEGER,"
+                + Medication.KEY_DURATION_TYPE + " INTEGER,"
                 + Medication.KEY_START_DATE + " INTEGER,"
                 + Medication.KEY_CONTINUOUS + " BIT"
                 + ")";

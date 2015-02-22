@@ -4,7 +4,9 @@ import android.content.ContentValues;
 
 import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.enums.Dosage;
+import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
+import br.com.fabricam8.seniorsapp.enums.Duration;
+import br.com.fabricam8.seniorsapp.enums.Periodicity;
 
 /**
  * Created by Aercio on 1/27/15.
@@ -22,15 +24,17 @@ public class Medication extends DbEntity {
     public static final String KEY_DOSAGE_TYPE = "dosage_type";
     public static final String KEY_PERIODICITY = "periodicity";
     public static final String KEY_DURATION = "duration";
+    public static final String KEY_DURATION_TYPE = "duration_type";
     public static final String KEY_CONTINUOUS = "continuous";
     public static final String KEY_START_DATE = "start_date";
 
     // Entity attributes
     private String description;
-    private Dosage dosageType;
-    private int dosage;
-    private int periodicity;
+    private DosageMeasure dosageMeasureType;
+    private String dosage;
+    private Periodicity periodicity;
     private int duration;
+    private Duration durationType;
     private Date startDate;
     private boolean continuosUse;
 
@@ -58,8 +62,8 @@ public class Medication extends DbEntity {
         values.put(KEY_NAME, getName());
         values.put(KEY_DESCRIPTION, getDescription());
         values.put(KEY_DOSAGE, getDosage());
-        values.put(KEY_DOSAGE_TYPE, getDosageType().getValue());
-        values.put(KEY_PERIODICITY, getPeriodicity());
+        values.put(KEY_DOSAGE_TYPE, getDosageMeasureType().getValue());
+        values.put(KEY_PERIODICITY, getPeriodicity().getValue());
         values.put(KEY_DURATION, getDuration());
         values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_CONTINUOUS, isContinuosUse() ? 1 : 0);
@@ -75,27 +79,27 @@ public class Medication extends DbEntity {
         this.description = description;
     }
 
-    public int getDosage() {
+    public String getDosage() {
         return dosage;
     }
 
-    public void setDosage(int dosage) {
+    public void setDosage(String dosage) {
         this.dosage = dosage;
     }
 
-    public Dosage getDosageType() {
-        return dosageType;
+    public DosageMeasure getDosageMeasureType() {
+        return dosageMeasureType;
     }
 
-    public void setDosageType(Dosage dosageType) {
-        this.dosageType = dosageType;
+    public void setDosageMeasureType(DosageMeasure dosageMeasureType) {
+        this.dosageMeasureType = dosageMeasureType;
     }
 
-    public int getPeriodicity() {
+    public Periodicity getPeriodicity() {
         return periodicity;
     }
 
-    public void setPeriodicity(int periodicity) {
+    public void setPeriodicity(Periodicity periodicity) {
         this.periodicity = periodicity;
     }
 
@@ -105,6 +109,14 @@ public class Medication extends DbEntity {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Duration getDurationType() {
+        return durationType;
+    }
+
+    public void setDurationType(Duration duration) {
+        this.durationType = duration;
     }
 
     public boolean isContinuosUse() {
@@ -128,8 +140,8 @@ public class Medication extends DbEntity {
             return AlertEvent.FOREVER;
 
         int intakePerDay = 0;
-        if (getPeriodicity() <= 24)
-            intakePerDay = getDosage() * (24 / getPeriodicity());
+//        if (getPeriodicity() <= 24)
+//            intakePerDay = getDosage() * (24 / getPeriodicity());
 
         return getDuration() * intakePerDay;
     }
@@ -141,8 +153,9 @@ public class Medication extends DbEntity {
 
     @Override
     public String toString() {
-        return String.format("Tomar %1$d %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
-                getDosage(), getDosageType().toString(), getPeriodicity(), getDuration(), getName(),
-                getStartDate().toString());
+        return "Tomar ... ";
+//        return String.format("Tomar %1$s %2$s de %5$s, a cada %3$d horas, por %4$s dias (%6$s)",
+//                getDosage(), getDosageMeasureType().toString(), getPeriodicity().toString(), getDuration(), getName(),
+//                getStartDate().toString());
     }
 }

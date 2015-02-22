@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="br.com.fabricam8.seniorsapp.MedicationFormActivity">
 
-
-    <item
-        android:id="@+id/action_events_new_med"
-        android:icon="@drawable/ic_help"
-        android:title="Novo"
-        app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/action_help_events_list"
         android:orderInCategory="100"
