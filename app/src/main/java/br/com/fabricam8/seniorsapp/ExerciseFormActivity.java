@@ -20,7 +20,7 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
+import br.com.fabricam8.seniorsapp.enums.TypeMessage;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 
 public class ExerciseFormActivity extends ActionBarActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -49,8 +49,8 @@ public class ExerciseFormActivity extends ActionBarActivity implements DatePicke
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog_med_measure, null);
 
-        String[] arrValues = DosageMeasure.getStringValues();
-        FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
+         String[] arrValues = TypeMessage.getStringValues();
+         FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
         builder.setTitle("Escolha uma atividade")
