@@ -12,23 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/med_form_name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:hint="Nome da medicação"
-            android:textColor="#222222"
-            android:textSize="@dimen/abc_text_size_small_material" />
         <!--Borda inferior da caixa de texto-->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="?attr/colorPrimaryDark"></View>
 
         <!--Posologia-->
 
@@ -36,30 +20,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="tomar"
+            android:text="Tipo"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:id="@+id/d" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/med_form_qty"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                android:background="@drawable/brd_text_view_orange"
-                android:drawableRight="@drawable/ic_action_edit_grey"
-                android:drawableEnd="@drawable/ic_action_edit_grey"
-                android:clickable="true"
-                android:onClick="openDialogQuantity" />
 
             <TextView
                 android:id="@+id/med_form_measure"
@@ -75,24 +44,9 @@
                 android:drawableRight="@drawable/ic_action_edit_grey"
                 android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:clickable="true"
-                android:onClick="openDialogMeasure"  />
+                android:onClick="openDialogMeasureActivities"  />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/med_form_periodicity"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:clickable="true"
-            android:onClick="openDialogPeriodicity" />
 
         <!--DURANTE-->
 
@@ -100,10 +54,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="repetir durante"
+            android:text="Data Inicio"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:layout_marginTop="5dp" />
+
 
         <TextView
             android:id="@+id/med_form_during"
@@ -118,7 +73,7 @@
             android:drawableRight="@drawable/ic_action_edit_grey"
             android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openDialogRepetition" />
+            android:onClick="openDatePickerDialogActivity" />
 
         <!--A PARTIR DE-->
 
@@ -128,10 +83,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
-            android:text="a partir de"
+            android:text="Data Fim"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:id="@+id/." />
 
         <TextView
             android:id="@+id/med_form_starting"
@@ -146,7 +102,8 @@
             android:drawableRight="@drawable/ic_action_edit_grey"
             android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openDatePickerDialog"/>
+            android:onClick="openDatePickerDialogActivity"
+            android:nestedScrollingEnabled="true" />
 
         <!--tomar às-->
 
@@ -156,10 +113,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
-            android:text="tomar às"
+            android:text="Horario"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:layout_marginTop="5dp"
+            android:id="@+id/d" />
 
         <TextView
             android:id="@+id/med_form_time"
@@ -174,7 +132,7 @@
             android:drawableRight="@drawable/ic_action_edit_grey"
             android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openTimePickerDialog"/>
+            android:onClick="openTimePickerDialogActivity"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -186,10 +144,11 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_margin="5dp"
-                android:text="Alarme"
+                android:text="Repetir"
                 android:gravity="left"
                 android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:id="@+id/teste" />
 
             <Switch
                 android:id="@+id/med_form_alarm"
@@ -201,17 +160,6 @@
         </LinearLayout>
         <!--OBSERVACOES-->
 
-        <EditText
-            android:id="@+id/med_form_observ"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="20dp"
-            android:hint="Observações"
-            android:inputType="textMultiLine"
-            android:textColor="#222222"
-            android:textSize="@dimen/abc_text_size_small_material" />
-
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -221,10 +169,6 @@
             android:background="?attr/colorPrimaryDark"></View>
 
         <!--ACTION BUTTONS-->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"></View>
 
         <LinearLayout
             android:layout_width="fill_parent"

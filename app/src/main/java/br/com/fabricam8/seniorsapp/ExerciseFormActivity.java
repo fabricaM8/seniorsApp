@@ -1,16 +1,29 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateFormat;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 
-public class ExerciseFormActivity extends ActionBarActivity
-{
+import java.util.Calendar;
+
+import br.com.fabricam8.seniorsapp.enums.TypeMessage;
+import br.com.fabricam8.seniorsapp.util.FormHelper;
+
+public class ExerciseFormActivity extends ActionBarActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     // criando o Array de String
     private static final String[] opcoes = { "Correr","Andar", "Banhar" };
     ArrayAdapter<String> aOpcoes;
@@ -23,32 +36,90 @@ public class ExerciseFormActivity extends ActionBarActivity
         setContentView(R.layout.activity_activity_form);
         aOpcoes = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, opcoes);
         // capturando o spinner do xml pela id
-        spinner = (Spinner) findViewById(R.id.spnOpcoes);
-        spinner.setAdapter(aOpcoes);
+        //spinner = (Spinner) findViewById(R.id.spnOpcoes);
+       // spinner.setAdapter(aOpcoes);
 
 
     }
 
-    public void showTimePickerDialogActivity(View v) {
+    public void openDialogMeasureActivities(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialogView = inflater.inflate(R.layout.dialog_med_measure, null);
+
+         String[] arrValues = TypeMessage.getStringValues();
+         FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
+
+        // montando dialog
+        builder.setTitle("Escolha uma atividade")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        int measure = FormHelper.getPickerValue(dialogView, R.id.dg_md_measure);
+                        //sessionMedication.setDosageMeasureType(DosageMeasure.fromInt(measure + 1));
+                    //    updateMedicationView();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
+
+
+    public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a data");
     }
-    public static class DatePickerFragment extends DialogFragment {
-         /*
-           @Override
-         public Dialog onCreateDialog(Bundle savedInstanceState) {
-                    // Use the current date as the default date in the picker
-                    final Calendar c = Calendar.getInstance();
-                    int year = c.get(Calendar.YEAR);
-                    int month = c.get(Calendar.MONTH);
-                    int day = c.get(Calendar.DAY_OF_MONTH);
 
-                    // Create a new instance of DatePickerDialog and return it
-                    //return new DatePickerDialog(getActivity(), (activity_form) getActivity(), year,
-                      //      month, day);
-                }
-              */
+
+    public void openTimePickerDialogActivity(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getFragmentManager(), "Selecione a hora");
     }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+    }
+
+    public static class TimePickerFragment extends DialogFragment {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), (ExerciseFormActivity) getActivity(), 6,
+                    30, DateFormat.is24HourFormat(getActivity()));
+        }
+    }
+
+
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+    }
+
+    public static class DatePickerFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), (ExerciseFormActivity) getActivity(), year,
+                    month, day);
+        }
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

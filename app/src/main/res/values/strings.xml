@@ -10,6 +10,7 @@
     <string name="action_settings">Configurações</string>
     <string name="action_save">Salvar</string>
     <string name="action_help">Ajuda</string>
+    <string name="action_delete">Deletar</string>
     <string name="action_cancel">Cancelar</string>
     <string name="title_activity_location">Minha localização</string>
     <string name="title_activity_medication_form">Cadastrar medicação</string>
@@ -67,7 +68,12 @@
     <string name="action_example">Example action</string>
     <!-- Itens de menu lateral -->
     <string name="error_form_submit">Ocorreu um problema e a medicação não pode ser cadastrada.</string>
-    <string name="success_form_submit">Medicação cadastrada com sucesso!</string>
+    <string name="success_medication_form_submit">Medicação salva com sucesso!</string>
+    <string name="success_medication_deletion">Medicação deletada com sucesso!</string>
+    <string name="fail_medication_deletion">Não foi possível remover medicação.</string>
+    <string name="title_activity_fragment_activity_form">fragment_activity_form</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 

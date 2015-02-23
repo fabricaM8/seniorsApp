@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
@@ -44,6 +45,35 @@ public class FormHelper {
         }
 
         return fRetVal;
+    }
+
+    public static boolean getSwitchValue(View parentiew, int viewId) {
+        boolean fRetVal = false;
+
+        View v = parentiew.findViewById(viewId);
+        if (v != null && v instanceof Switch) {
+            fRetVal = ((Switch) v).isChecked();
+        }
+
+        return fRetVal;
+    }
+
+    public static boolean getSwitchValue(Activity ctx, int viewId) {
+        boolean fRetVal = false;
+
+        View v = ctx.findViewById(viewId);
+        if (v != null && v instanceof Switch) {
+            fRetVal = ((Switch) v).isChecked();
+        }
+
+        return fRetVal;
+    }
+
+    public static void setSwitchValue(Activity ctx, int viewId, boolean value) {
+        View v = ctx.findViewById(viewId);
+        if (v != null && v instanceof Switch) {
+            ((Switch) v).setChecked(value);
+        }
     }
 
     public static int getTextBoxValueAsInt(Activity ctx, int viewId) {

@@ -4,39 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Aercio on 1/27/15.
+ * Created by laecy_000 on 22/02/2015.
  */
-public enum DosageMeasure {
+public enum TypeMessage {
 
     NONE(0, ""),
-    COMPRIMIDO(1, "comprimido(s)"),
-    AMPOLA(2, "ampola(s)"),
-    COLHER(3, "colher(es)"),
-    CAPSULA(4, "cápsula(s)"),
-    GOTA(5, "gota(s)"),
-    DRAGEA(6, "drágea(s)"),
-    SUPOSITORIO(7, "supositório(s)"),
-    ENVELOPE(8, "envelope(s)"),
-    ML(9, "ml"),
-    UNIDADE(10, "unidade(s)");
+    CORRER(1, "correr(s)"),
+    NADAR(2, "nadas(s)"),
+    MALHAR(3, "malhar(s)");
 
     private final int value;
     private final String name;
 
-    private DosageMeasure(int v, String s) {
+    private TypeMessage(int v, String s) {
         value = v;
         name = s;
     }
-
-    public static DosageMeasure fromInt(int i) {
-        for (DosageMeasure d : DosageMeasure.values()) {
+    public static TypeMessage fromInt(int i) {
+        for (TypeMessage d : TypeMessage.values()) {
             if (d.getValue() == i) {
                 return d;
             }
         }
         return null;
     }
-
     public int getValue() {
         return value;
     }
@@ -44,13 +35,14 @@ public enum DosageMeasure {
     public boolean equalsName(String otherName) {
         return (otherName == null) ? false : name.equals(otherName);
     }
-
-    public boolean equals(DosageMeasure d) {
+    public boolean equals(TypeMessage d) {
         return this.value == d.value;
     }
 
-    public static String[] getStringValues() {
-        DosageMeasure[] values = DosageMeasure.values();
+    public static String[] getStringValues()
+    {
+
+        TypeMessage[] values = TypeMessage.values();
 
         List<String> lstValues = new ArrayList();
         for (int i = 0; i < values.length; i++) {
@@ -60,7 +52,6 @@ public enum DosageMeasure {
 
         return lstValues.toArray(new String[] {});
     }
-
     @Override
     public String toString() {
         return name;
