@@ -5,10 +5,12 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,13 +19,20 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
+import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
+import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
+import br.com.fabricam8.seniorsapp.domain.AlertEvent;
+import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.enums.TypeMessage;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 
-public class ExerciseFormActivity extends ActionBarActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class ExerciseFormActivity extends ActionBarActivity
+        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     // criando o Array de String
     private static final String[] opcoes = { "Correr","Andar", "Banhar" };
     ArrayAdapter<String> aOpcoes;
@@ -142,4 +151,12 @@ public class ExerciseFormActivity extends ActionBarActivity implements DatePicke
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void saveAtivity(View v) {
+        Context context = this;
+
+
+    }
+
+
 }

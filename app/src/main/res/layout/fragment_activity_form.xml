@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <!--Borda inferior da caixa de texto-->
 
@@ -44,7 +45,7 @@
                 android:drawableRight="@drawable/ic_action_edit_grey"
                 android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:clickable="true"
-                android:onClick="openDialogMeasureActivities"  />
+                android:onClick="saveAtivity"  />
 
         </LinearLayout>
 
@@ -134,29 +135,112 @@
             android:clickable="true"
             android:onClick="openTimePickerDialogActivity"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:text="Repetiçao de atividade"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:id="@+id/d" />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="?attr/colorPrimaryDark"></View>
+        <LinearLayout
+            android:layout_width="364dp"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="10dp"
+                android:layout_height="47dp"
                 android:padding="5dp"
-                android:layout_margin="5dp"
-                android:text="Repetir"
+                android:layout_margin="1dp"
+                android:text="Repetição de alarme"
                 android:gravity="left"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:id="@+id/teste" />
-
-            <Switch
-                android:id="@+id/med_form_alarm"
+            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textOn="Sim"
-                android:textOff="Não"/>
+                android:text="D"
+                android:id="@+id/checkBox6"
+                android:textColor="?attr/colorPrimary"
+                android:layout_gravity="center_vertical"
+                android:checked="false" />
 
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:id="@+id/segunda"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:padding="5dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="100dp"
+                android:textColor="?attr/colorPrimary"
+                />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="T"
+                android:id="@+id/checkBox"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:textColor="?attr/colorPrimary"
+                />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q"
+                android:id="@+id/checkBox2"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:textColor="?attr/colorPrimary"
+                />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Q"
+                android:textColor="?attr/colorPrimary"
+                android:id="@+id/checkBox3"
+                android:layout_gravity="center_vertical"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:id="@+id/checkBox4"
+                android:layout_gravity="center_vertical"
+                android:textColor="?attr/colorPrimary"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S"
+                android:id="@+id/checkBox5"
+                android:textColor="?attr/colorPrimary"
+                android:layout_gravity="center_vertical"
+                android:checked="false" /><![CDATA[
+
+
+            />
+
+
+        ]]>
         </LinearLayout>
         <!--OBSERVACOES-->
 
@@ -193,8 +277,9 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bt_round"
-                android:onClick="saveMedication"
-                android:src="@drawable/ic_action_confirm" />
+                android:onClick="saveAtivity"
+                android:src="@drawable/ic_action_confirm"
+                android:nestedScrollingEnabled="true" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
