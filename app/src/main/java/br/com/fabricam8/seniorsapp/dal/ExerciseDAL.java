@@ -2,22 +2,31 @@ package br.com.fabricam8.seniorsapp.dal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import br.com.fabricam8.seniorsapp.domain.Exercise;
+import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
+import br.com.fabricam8.seniorsapp.enums.Duration;
+import br.com.fabricam8.seniorsapp.enums.Periodicity;
 
 
 /**
  * Created by laecy_000 on 22/02/2015.
  */
-public class ExerciseDAL {
+public class ExerciseDAL extends DbCRUD<Exercise> {
 
     public static final String TABLE_NAME = "Exercise";
     private static ExerciseDAL _instance;
 
     private ExerciseDAL(Context context) {
-       // super(context);
+       super(context);
     }
 
     public static synchronized ExerciseDAL getInstance(Context context) {
@@ -32,10 +41,130 @@ public class ExerciseDAL {
         return TABLE_NAME;
     }
 
-    //@Override
+
+    @Override
+    public int remove(Exercise entity) {
+        int iRetVal = 0;
+
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+
+            iRetVal = db.delete(getTableName(), Medication.KEY_ID + " = ?",
+                    new String[]{String.valueOf(entity.getID())});
+        } catch (Exception ex) {
+            Log.e("Seniors DB - delete", ex.getMessage());
+        } finally {
+            if (db != null && db.isOpen())
+                db.close();
+        }
+
+        return iRetVal;
+    }
+    @Override
+    public Exercise findOne(long id) {
+        Exercise oRetVal = null;
+
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+
+            cursor = db.query(getTableName(), new String[]{
+                    Exercise.KEY_ID,
+                    Exercise.KEY_TYPE,
+                    Exercise.KEY_START_DATE,
+                    Exercise.KEY_END_DATA,
+            },Exercise.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+
+            if (cursor != null)
+                cursor.moveToFirst();
+
+            oRetVal = new Exercise();
+            oRetVal.setID(cursor.getInt(0));
+        } catch (Exception ex) {
+            Log.e("Seniors DB", ex.getMessage());
+            oRetVal = null;
+        } finally {
+            if (cursor != null)
+                cursor.close();
+
+            if (db != null && db.isOpen())
+                db.close();
+        }
+
+        return oRetVal;
+    }
+
+
+    @Override
+    public List<Exercise> findAll() {
+        List<Exercise> lstRetVal = new ArrayList<>();
+
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            // Select All Query
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s FROM "
+                    + getTableName();
+            selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_TYPE,
+                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATA);
+            Log.i("Seniors db - query", selectQuery);
+
+            db = this.getWritableDatabase();
+            cursor = db.rawQuery(selectQuery, null);
+
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) do {
+                Exercise entity = new Exercise();
+                entity.setID(cursor.getInt(0));
+
+
+
+                // Adding entity to list
+                lstRetVal.add(entity);
+            } while (cursor.moveToNext());
+        } catch (Exception ex) {
+            Log.e("Seniors DB - find all", ex.getMessage());
+            // reset list
+            lstRetVal = null;
+        } finally {
+            if (cursor != null)
+                cursor.close();
+
+            if (db != null && db.isOpen())
+                db.close();
+        }
+
+        // return entity list
+        return lstRetVal;
+    }
+
+    @Override
+    public int update(Exercise entity) {
+        int iRetVal = 0;
+
+        SQLiteDatabase db = null;
+        try {
+            db = this.getWritableDatabase();
+
+            ContentValues values = entity.getContentValues();
+            // updating row
+            iRetVal = db.update(getTableName(), values, Exercise.KEY_ID + " = ?",
+                    new String[]{String.valueOf(entity.getID())});
+        } catch (Exception ex) {
+            Log.e("Seniors DB - update", ex.getMessage());
+        } finally {
+            if (db != null && db.isOpen())
+                db.close();
+        }
+
+        return iRetVal;
+    }
+    @Override
     public long create(Exercise entity) {
         long iRetVal = -1;
-/*
+
         SQLiteDatabase db = null;
         try {
             // opening db
@@ -51,11 +180,7 @@ public class ExerciseDAL {
             if (db != null && db.isOpen())
                 db.close();
         }
-*/
+
         return iRetVal;
-
     }
-
-
-
 }

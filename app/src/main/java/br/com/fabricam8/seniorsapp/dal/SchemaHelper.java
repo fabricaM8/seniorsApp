@@ -43,8 +43,10 @@ public class SchemaHelper {
                 + ")";
 
         String excTableSchema = "CREATE TABLE " + ExerciseDAL.TABLE_NAME + "(" +
-                Exercise.KEY_ID + " INTEGER PRIMARY KEY";
-
+                Exercise.KEY_ID + " INTEGER PRIMARY KEY,"+
+                Exercise.KEY_START_DATE + " INTEGER ,"+
+                Exercise.KEY_END_DATA + " INTEGER ,"+
+                Exercise.KEY_TYPE + "INTEGER"+")";
 
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
