@@ -4,34 +4,27 @@ import android.content.ContentValues;
 
 import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
-import br.com.fabricam8.seniorsapp.enums.Duration;
-import br.com.fabricam8.seniorsapp.enums.Periodicity;
+import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 
 /**
  * Created by laecy_000 on 22/02/2015.
  */
-public class Exercise   extends DbEntity{
+public class Exercise extends DbEntity {
 
     // Entity Columns names
     public static final String KEY_TYPE = "type";
-    public static final String KEY_START_DATE = "start_date";
-    public static final String KEY_END_DATA = "end_date";
-
+    public static final String KEY_START_DATE = "startDate";
+    public static final String KEY_END_DATA = "endDate";
 
     // Entity attributes
-    private int type;                            // Tipo de atividade
-    private Date start_date;                     // data inicial
-    private Date end_date;                       // data final
+    private ExerciseType type;                  // Tipo de atividade
+    private Date startDate;                     // data inicial
+    private Date endDate;                       // data final
 
-
-
-/*
     // constructors
     public Exercise() {
-        this("", "");
     }
-*/
+
     @Override
     public ContentValues getContentValues() {
 
@@ -42,12 +35,28 @@ public class Exercise   extends DbEntity{
 
         return values;
     }
+
+    public ExerciseType getType() {
+        return type;
+    }
+
+    public void setType(ExerciseType type) {
+        this.type = type;
+    }
+
     public Date getStartDate() {
-        return start_date;
-    }
-    public Date getEndData() {
-        return end_date;
+        return startDate;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 }

@@ -18,13 +18,13 @@
         <!--Posologia-->
 
         <TextView
+            android:id="@+id/exc_form_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="Tipo"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:id="@+id/d" />
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,20 +32,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/med_form_measure"
+                android:id="@+id/exc_form_measure"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_margin="5dp"
-                android:gravity="center"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
+                android:layout_weight="0.5"
                 android:background="@drawable/brd_text_view_orange"
-                android:drawableRight="@drawable/ic_action_edit_grey"
-                android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:clickable="true"
-                android:onClick="saveAtivity"  />
+                android:drawableEnd="@drawable/ic_action_edit_grey"
+                android:drawableRight="@drawable/ic_action_edit_grey"
+                android:gravity="center"
+                android:onClick="saveAtivity"
+                android:padding="5dp"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -55,26 +55,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="Data Inicio"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:textStyle="bold" />
 
 
         <TextView
-            android:id="@+id/med_form_during"
+            android:id="@+id/exc_form_during"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="5dp"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openDatePickerDialogActivity" />
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:drawableRight="@drawable/ic_action_edit_grey"
+            android:gravity="center"
+            android:onClick="openDatePickerDialogActivity"
+            android:padding="5dp"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <!--A PARTIR DE-->
 
@@ -84,27 +84,26 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="Data Fim"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:id="@+id/." />
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/med_form_starting"
+            android:id="@+id/exc_form_starting"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="5dp"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:drawableRight="@drawable/ic_action_edit_grey"
+            android:gravity="center"
+            android:nestedScrollingEnabled="true"
             android:onClick="openDatePickerDialogActivity"
-            android:nestedScrollingEnabled="true" />
+            android:padding="5dp"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <!--tomar às-->
 
@@ -114,26 +113,25 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="Horario"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:id="@+id/d" />
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/med_form_time"
+            android:id="@+id/exc_form_time"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_margin="5dp"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openTimePickerDialogActivity"/>
+            android:drawableEnd="@drawable/ic_action_edit_grey"
+            android:drawableRight="@drawable/ic_action_edit_grey"
+            android:gravity="center"
+            android:onClick="openTimePickerDialogActivity"
+            android:padding="5dp"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -141,11 +139,11 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="Repetiçao de atividade"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:id="@+id/d" />
+            android:textStyle="bold" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
@@ -153,88 +151,89 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:background="?attr/colorPrimaryDark"></View>
+
         <LinearLayout
             android:layout_width="364dp"
             android:layout_height="80dp"
             android:orientation="horizontal"
             android:weightSum="1">
+
             <TextView
+                android:id="@+id/teste"
                 android:layout_width="10dp"
                 android:layout_height="47dp"
-                android:padding="5dp"
                 android:layout_margin="1dp"
-                android:text="Repetição de alarme"
                 android:gravity="left"
+                android:padding="5dp"
+                android:text="Repetição de alarme"
                 android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                android:id="@+id/teste" />
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="D"
-                android:id="@+id/checkBox6"
-                android:textColor="?attr/colorPrimary"
-                android:layout_gravity="center_vertical"
-                android:checked="false" />
+                android:textStyle="bold" />
 
             <CheckBox
+                android:id="@+id/checkBox6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="S"
-                android:id="@+id/segunda"
                 android:layout_gravity="center_vertical"
                 android:checked="false"
-                android:padding="5dp"
+                android:text="D"
+                android:textColor="?attr/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/segunda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
                 android:layout_marginLeft="100dp"
-                android:textColor="?attr/colorPrimary"
-                />
+                android:checked="false"
+                android:padding="5dp"
+                android:text="S"
+                android:textColor="?attr/colorPrimary" />
+
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="T"
                 android:id="@+id/checkBox"
-                android:layout_gravity="center_vertical"
-                android:checked="false"
-                android:textColor="?attr/colorPrimary"
-                />
-
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Q"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:text="T"
+                android:textColor="?attr/colorPrimary" />
+
+            <CheckBox
                 android:id="@+id/checkBox2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:checked="false"
-                android:textColor="?attr/colorPrimary"
-                />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="Q"
-                android:textColor="?attr/colorPrimary"
+                android:textColor="?attr/colorPrimary" />
+
+            <CheckBox
                 android:id="@+id/checkBox3"
-                android:layout_gravity="center_vertical"
-                android:checked="false" />
-
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="S"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:text="Q"
+                android:textColor="?attr/colorPrimary" />
+
+            <CheckBox
                 android:id="@+id/checkBox4"
-                android:layout_gravity="center_vertical"
-                android:textColor="?attr/colorPrimary"
-                android:checked="false" />
-
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="S"
-                android:id="@+id/checkBox5"
-                android:textColor="?attr/colorPrimary"
                 android:layout_gravity="center_vertical"
-                android:checked="false" /><![CDATA[
+                android:checked="false"
+                android:text="S"
+                android:textColor="?attr/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/checkBox5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:checked="false"
+                android:text="S"
+                android:textColor="?attr/colorPrimary" /><![CDATA[
 
 
             />
@@ -260,7 +259,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btCancelMedication"
+                android:id="@+id/btCancelExercise"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bt_round_grey"
@@ -273,13 +272,13 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/btSaveMedication"
+                android:id="@+id/btSaveExercise"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bt_round"
-                android:onClick="saveAtivity"
-                android:src="@drawable/ic_action_confirm"
-                android:nestedScrollingEnabled="true" />
+                android:nestedScrollingEnabled="true"
+                android:onClick="saveExercise"
+                android:src="@drawable/ic_action_confirm" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
