@@ -37,11 +37,18 @@ public class NotificationEventService extends Service {
         c.setTimeInMillis(event.getNextAlert().getTime());
 
         Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
-        alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID() + "");
+        alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)event.getID(), alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    public static void cancelAlarm(Context context, long alertId) {
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+        Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) alertId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pendingIntent);
     }
 
     @Override
@@ -70,13 +77,13 @@ public class NotificationEventService extends Service {
 
             String notificationMessage = "Você possui um novo evento!";
 
-            String data = extras.getString(BUNDLE_ALERT_ID);
-            if (data != null) {
+            long alertId = extras.getLong(BUNDLE_ALERT_ID, -1);
+            if (alertId != -1) {
                 MedicationDAL medDb = MedicationDAL.getInstance(mContext);
                 Medication oMed = null;
 
                 AlertEventDAL db = AlertEventDAL.getInstance(mContext);
-                AlertEvent alert = db.findOne(Long.parseLong(data));
+                AlertEvent alert = db.findOne(alertId);
                 if (alert != null) {
                     SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     String d = dateFormatter.format(alert.getNextAlert());
@@ -86,8 +93,7 @@ public class NotificationEventService extends Service {
                     int iAlarmsPlayed = alert.getAlarmsPlayed();
                     alert.setAlarmsPlayed(++iAlarmsPlayed);
                     // se ainda puder tocar...
-                    if (iAlarmsPlayed < alert.getMaxAlarms()
-                            || alert.getMaxAlarms() == AlertEvent.FOREVER) {
+                    if (iAlarmsPlayed < alert.getMaxAlarms() || alert.getMaxAlarms() == AlertEvent.FOREVER) {
                         // Se for medicaçao
                         if (alert.getEntityClass().equals(Medication.class.getName())) {
                             oMed = medDb.findOne(alert.getEntityId());
@@ -108,20 +114,21 @@ public class NotificationEventService extends Service {
 
                     // creating intent to open alarm
                     Intent i = new Intent(mContext, DashboardActivity.class);
-                    Log.i("Alrme Service - Seniors", "entityClass = " + alert.getEntityClass());
+                    Log.i("Alarme Service - Seniors", "entityClass = " + alert.getEntityClass());
                     if (alert.getEntityClass().equals(Medication.class.getName())) {
                         i = new Intent(mContext, MedicationInfoActivity.class);
                         if (oMed != null) {
-                            i.putExtra(MedicationInfoActivity.BUNDLE_ID, oMed.getID() + "");
+                            Log.i("Alarme Service - Seniors", "Setando bunde id para abrir alarme medicacao");
+                            i.putExtra(MedicationInfoActivity.BUNDLE_ID, oMed.getID());
                         }
                     }
                     // else outras classes
 
-                    i.putExtra(BUNDLE_ALERT_ID, alert.getID() + "");
+                    Log.i("Alarme Service - Seniors", "Setando bunde alarme id: " + alert.getID());
+                    i.putExtra(BUNDLE_ALERT_ID, alert.getID());
                     i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                    PendingIntent pni = PendingIntent
-                            .getActivity(mContext, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent pni = PendingIntent.getActivity(mContext, (int)alert.getID(), i, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     // Creating notification
                     Notification notification = new Notification.Builder(mContext)
