@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
+import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
 /**
@@ -41,8 +42,15 @@ public class SchemaHelper {
                 + AlertEvent.KEY_NEXT_ALERT + " INTEGER"
                 + ")";
 
+        String excTableSchema = "CREATE TABLE " + ExerciseDAL.TABLE_NAME + "(" +
+                Exercise.KEY_ID + " INTEGER PRIMARY KEY,"+
+                Exercise.KEY_START_DATE + " INTEGER ,"+
+                Exercise.KEY_END_DATA + " INTEGER ,"+
+                Exercise.KEY_TYPE + "INTEGER"+")";
+
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
+        db.execSQL(excTableSchema);
     }
 
     // Upgrading database
@@ -53,6 +61,7 @@ public class SchemaHelper {
             // Drop older table if existed
             db.execSQL("DROP TABLE IF EXISTS " + MedicationDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + ExerciseDAL.TABLE_NAME);
 
             // Create tables again
             createTable(db);

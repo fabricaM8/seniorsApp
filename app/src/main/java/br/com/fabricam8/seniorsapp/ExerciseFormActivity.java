@@ -17,38 +17,54 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
-import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
-import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
-import br.com.fabricam8.seniorsapp.domain.AlertEvent;
-import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.TypeMessage;
+import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
+import br.com.fabricam8.seniorsapp.domain.Exercise;
+import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 
 public class ExerciseFormActivity extends ActionBarActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
     // criando o Array de String
-    private static final String[] opcoes = { "Correr","Andar", "Banhar" };
+    private static final String[] opcoes = {"Correr", "Andar", "Banhar"};
     ArrayAdapter<String> aOpcoes;
-    // Declarando variavel do tipo Spinner
-    Spinner spinner;
+
+    private Exercise sessionExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_form);
-        aOpcoes = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, opcoes);
-        // capturando o spinner do xml pela id
-        //spinner = (Spinner) findViewById(R.id.spnOpcoes);
-       // spinner.setAdapter(aOpcoes);
+
+        aOpcoes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcoes);
 
 
+        // recuperando id passada no clique
+        long exerciseId = getIntent().getLongExtra("_ID_", -1);
+        if (exerciseId == -1) {
+            this.sessionExercise = initExercise();
+        } else {
+            //this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
+        }
+        // atulizando a view de medicamento
+        updateExerciseView();
+    }
+
+    private Exercise initExercise() {
+        Exercise eObj = new Exercise();
+
+        eObj.setType(ExerciseType.ANDAR);
+        // setar o resto dos atributos
+
+        return eObj;
+    }
+
+    private void updateExerciseView() {
+        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
     }
 
     public void openDialogMeasureActivities(View view) {
@@ -58,8 +74,8 @@ public class ExerciseFormActivity extends ActionBarActivity
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog_med_measure, null);
 
-         String[] arrValues = TypeMessage.getStringValues();
-         FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
+        String[] arrValues = ExerciseType.getStringValues();
+        FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
         builder.setTitle("Escolha uma atividade")
@@ -69,7 +85,7 @@ public class ExerciseFormActivity extends ActionBarActivity
                     public void onClick(DialogInterface dialog, int id) {
                         int measure = FormHelper.getPickerValue(dialogView, R.id.dg_md_measure);
                         //sessionMedication.setDosageMeasureType(DosageMeasure.fromInt(measure + 1));
-                    //    updateMedicationView();
+                        //    updateMedicationView();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -107,7 +123,6 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
@@ -127,7 +142,6 @@ public class ExerciseFormActivity extends ActionBarActivity
                     month, day);
         }
     }
-
 
 
     @Override
@@ -152,10 +166,37 @@ public class ExerciseFormActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveAtivity(View v) {
-        Context context = this;
+    public void saveExercise(View v) {
+        try {
+            Context context = this;
 
+            // TODO verificar salvamento na activity de medication
 
+            ExerciseDAL dbExc = ExerciseDAL.getInstance(this);
+            long id = -1;
+            if(sessionExercise.getID() > 0) {
+                // atualizacao de dados
+//            dbExc.update(sessionExercise);
+            }
+            else {
+                id = dbExc.create(sessionExercise);
+            }
+
+            if(id > 0) {
+                // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+
+                Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                finish(); // finalizando activty e retornando para tela anterior
+            }
+            else {
+                // TODO remover alarme (se existir) ?!!
+                Toast.makeText(this, "Ocorreu uma falha e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+            }
+        }
+        catch(Exception ex) {
+            Log.e("Seniors App - Exercicio", ex.getMessage());
+            Toast.makeText(this, "Ocorreu um erro e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+        }
     }
 
 

@@ -6,22 +6,23 @@ import java.util.List;
 /**
  * Created by laecy_000 on 22/02/2015.
  */
-public enum TypeMessage {
+public enum ExerciseType {
 
     NONE(0, ""),
-    CORRER(1, "correr(s)"),
-    NADAR(2, "nadas(s)"),
-    MALHAR(3, "malhar(s)");
+    CORRER(1, "correr"),
+    NADAR(2, "nadar"),
+    ANDAR(3, "andar"),
+    MALHAR(4, "malhar");
 
     private final int value;
     private final String name;
 
-    private TypeMessage(int v, String s) {
+    private ExerciseType(int v, String s) {
         value = v;
         name = s;
     }
-    public static TypeMessage fromInt(int i) {
-        for (TypeMessage d : TypeMessage.values()) {
+    public static ExerciseType fromInt(int i) {
+        for (ExerciseType d : ExerciseType.values()) {
             if (d.getValue() == i) {
                 return d;
             }
@@ -35,14 +36,14 @@ public enum TypeMessage {
     public boolean equalsName(String otherName) {
         return (otherName == null) ? false : name.equals(otherName);
     }
-    public boolean equals(TypeMessage d) {
+    public boolean equals(ExerciseType d) {
         return this.value == d.value;
     }
 
     public static String[] getStringValues()
     {
 
-        TypeMessage[] values = TypeMessage.values();
+        ExerciseType[] values = ExerciseType.values();
 
         List<String> lstValues = new ArrayList();
         for (int i = 0; i < values.length; i++) {

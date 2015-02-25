@@ -38,7 +38,7 @@ public class NotificationEventService extends Service {
 
         Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
         alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID() + "");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)event.getID(), alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);

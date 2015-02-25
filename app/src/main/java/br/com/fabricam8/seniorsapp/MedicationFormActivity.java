@@ -1,12 +1,15 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -28,6 +31,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventReceiver;
 import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
@@ -234,6 +238,11 @@ public class MedicationFormActivity extends ActionBarActivity
                     AlertEventDAL alertDb = AlertEventDAL.getInstance(this);
                     AlertEvent alert = alertDb.findOneByEntityIdAndType(id, Medication.class.getName());
                     if(alert != null) {
+                        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+                        Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)id, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        alarmManager.cancel(pendingIntent);
+
                         Log.i("Seniors - Medication Form", "Removendo alarme");
                         alertDb.remove(alert);
                     }

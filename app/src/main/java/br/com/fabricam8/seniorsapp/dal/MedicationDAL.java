@@ -16,7 +16,7 @@ import br.com.fabricam8.seniorsapp.enums.Duration;
 import br.com.fabricam8.seniorsapp.enums.Periodicity;
 
 /**
- * Created by Aercio on 1/27/15.
+ * getWritableDatabased by Aercio on 1/27/15.
  */
 public class MedicationDAL extends DbCRUD<Medication> {
 
