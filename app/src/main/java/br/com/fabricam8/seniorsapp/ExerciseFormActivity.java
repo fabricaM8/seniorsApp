@@ -68,8 +68,8 @@ public class ExerciseFormActivity extends ActionBarActivity
     {
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
 
-         //SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-         //FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
 
 
     }
