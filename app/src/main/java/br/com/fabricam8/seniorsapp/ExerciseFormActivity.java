@@ -44,11 +44,9 @@ public class ExerciseFormActivity extends ActionBarActivity
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
-        if (exerciseId == -1)
-        {
+        if (exerciseId == -1) {
             this.sessionExercise = initExercise();
-        } else
-        {
+        } else {
             //this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
         }
         // atulizando a view de medicamento
@@ -58,20 +56,24 @@ public class ExerciseFormActivity extends ActionBarActivity
     private Exercise initExercise() {
         Exercise eObj = new Exercise();
 
+        Calendar c = Calendar.getInstance();
+
         eObj.setType(ExerciseType.ANDAR);
+        eObj.setStartDate(c.getTime());
+        eObj.setEndDate(c.getTime());
         // setar o resto dos atributos
 
         return eObj;
     }
 
-    private void updateExerciseView()
-    {
+    private void updateExerciseView() {
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
 
-         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+        FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
 
-
+        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
     }
 
     public void openDialogMeasureActivities(View view) {
@@ -181,26 +183,23 @@ public class ExerciseFormActivity extends ActionBarActivity
 
             ExerciseDAL dbExc = ExerciseDAL.getInstance(this);
             long id = -1;
-            if(sessionExercise.getID() > 0) {
+            if (sessionExercise.getID() > 0) {
                 // atualizacao de dados
 //            dbExc.update(sessionExercise);
-            }
-            else {
+            } else {
                 id = dbExc.create(sessionExercise);
             }
 
-            if(id > 0) {
+            if (id > 0) {
                 // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
 
                 Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
                 finish(); // finalizando activty e retornando para tela anterior
-            }
-            else {
+            } else {
                 // TODO remover alarme (se existir) ?!!
                 Toast.makeText(this, "Ocorreu uma falha e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
             }
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             Log.e("Seniors App - Exercicio", ex.getMessage());
             Toast.makeText(this, "Ocorreu um erro e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
