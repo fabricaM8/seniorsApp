@@ -143,6 +143,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.med_form_starting, dateFormat.format(sessionMedication.getStartDate()));
+
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         FormHelper.setTextBoxValue(this, R.id.med_form_time, timeFormat.format(sessionMedication.getStartDate()));
 

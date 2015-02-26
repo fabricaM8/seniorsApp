@@ -13,12 +13,8 @@
         android:orientation="vertical"
         android:weightSum="1">
 
-        <!--Borda inferior da caixa de texto-->
-
-        <!--Posologia-->
-
         <TextView
-            android:id="@+id/exc_form_type"
+            android:id="@+id/Tipo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -32,7 +28,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/exc_form_measure"
+                android:id="@+id/exc_form_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -62,7 +58,7 @@
 
 
         <TextView
-            android:id="@+id/exc_form_during"
+            android:id="@+id/exc_form_startingt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -90,7 +86,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/exc_form_starting"
+            android:id="@+id/exc_form_dateand"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
