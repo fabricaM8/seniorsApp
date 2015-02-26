@@ -30,6 +30,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
     public static final String BUNDLE_ID = "_ID_";
     private long medicationId;
+    private Medication sessionMedication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +56,9 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
         long alertId = getIntent().getLongExtra(NotificationEventService.BUNDLE_ALERT_ID, -1);
         Log.i("Alrme Service (Med Info) - Seniors", "alert id = " + alertId);
-        if(alertId != -1) {
+        if (alertId != -1) {
             // mostrar botoes de pular e salvar
-            Toast.makeText(this, "BOTOES DE PULAR / TOMAR / CANCELAR SERAO MOSTRADOS AQUI", Toast.LENGTH_LONG).show();
+            showAlarmDialog(alertId);
         }
     }
 
@@ -124,60 +125,93 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
     private void loadMedication(long id) {
         MedicationDAL db = MedicationDAL.getInstance(this);
-        Medication mObj = db.findOne(id);
-        if (mObj != null) {
+        sessionMedication = db.findOne(id);
+        if (sessionMedication != null) {
             // setando valores
-            FormHelper.setTextBoxValue(this, R.id.med_info_name, mObj.getName());
-            FormHelper.setTextBoxValue(this, R.id.med_info_dosage, "Tomar " + mObj.getDosage() + " " + mObj.getDosageMeasureType().toString());
-            FormHelper.setTextBoxValue(this, R.id.med_info_periodicity, mObj.getPeriodicity().toString());
+            FormHelper.setTextBoxValue(this, R.id.med_info_name, sessionMedication.getName());
+            FormHelper.setTextBoxValue(this, R.id.med_info_dosage, "Tomar " + sessionMedication.getDosage() + " " + sessionMedication.getDosageMeasureType().toString());
+            FormHelper.setTextBoxValue(this, R.id.med_info_periodicity, sessionMedication.getPeriodicity().toString());
 
-            if (mObj.isContinuosUse())
+            if (sessionMedication.isContinuosUse())
                 FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Uso contínuo");
             else
-                FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Por " + mObj.getDuration() + " " + mObj.getDurationType().toString());
+                FormHelper.setTextBoxValue(this, R.id.med_info_duration, "Por " + sessionMedication.getDuration() + " " + sessionMedication.getDurationType().toString());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-            FormHelper.setTextBoxValue(this, R.id.med_info_starting, "A partir de " + dateFormat.format(mObj.getStartDate()));
-            FormHelper.setTextBoxValue(this, R.id.med_info_observations, mObj.getDescription());
+            FormHelper.setTextBoxValue(this, R.id.med_info_starting, "A partir de " + dateFormat.format(sessionMedication.getStartDate()));
+            FormHelper.setTextBoxValue(this, R.id.med_info_observations, sessionMedication.getDescription());
 
             // com ou sem alarme
-            FormHelper.setTextBoxValue(this, R.id.med_info_alarm, mObj.isHasAlarm() ? "Com alarme" : "Sem alarme");
+            FormHelper.setTextBoxValue(this, R.id.med_info_alarm, sessionMedication.isHasAlarm() ? "Com alarme" : "Sem alarme");
 
             // horarios
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            String hours = timeFormat.format(mObj.getStartDate());
+            String hours = timeFormat.format(sessionMedication.getStartDate());
             // calculando resto das horas
             Calendar c = Calendar.getInstance();
-            c.setTime(mObj.getStartDate());
+            c.setTime(sessionMedication.getStartDate());
 
-            switch (mObj.getPeriodicity()) {
+            switch (sessionMedication.getPeriodicity()) {
                 case DIAx2:
                     c.add(Calendar.HOUR, 12);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     break;
                 case DIAx3:
                     c.add(Calendar.HOUR, 8);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     c.add(Calendar.HOUR, 8);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     break;
                 case DIAx4:
                     c.add(Calendar.HOUR, 6);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     c.add(Calendar.HOUR, 6);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     c.add(Calendar.HOUR, 6);
-                    mObj.setStartDate(c.getTime());
-                    hours += ", " + timeFormat.format(mObj.getStartDate());
+                    sessionMedication.setStartDate(c.getTime());
+                    hours += ", " + timeFormat.format(sessionMedication.getStartDate());
                     break;
             }
 
             FormHelper.setTextBoxValue(this, R.id.med_info_timing, hours);
         }
     }
+
+
+    private void showAlarmDialog(long alertId) {
+        if (sessionMedication != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            // montando dialog
+            builder.setTitle("O que você deseja fazer?")
+                    .setMessage("Tomar " + sessionMedication.getName())
+                    .setPositiveButton("Tomar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Logar que tomou... enviar a cloud
+                        }
+                    })
+                    .setNeutralButton("Pular", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            // O usuário explicitamente deseja pular essa medicacao
+                            dialog.cancel();
+                        }
+                    })
+                    .setNegativeButton("Ignorar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // O usuário deseja ignorar
+                        }
+                    }).create().show();
+
+            // removing bundle info
+            getIntent().removeExtra(NotificationEventService.BUNDLE_ALERT_ID);
+        }
+    }
+
 }
