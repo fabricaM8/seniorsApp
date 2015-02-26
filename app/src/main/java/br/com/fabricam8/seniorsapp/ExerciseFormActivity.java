@@ -20,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
@@ -39,15 +40,15 @@ public class ExerciseFormActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_form);
-
         aOpcoes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcoes);
-
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
-        if (exerciseId == -1) {
+        if (exerciseId == -1)
+        {
             this.sessionExercise = initExercise();
-        } else {
+        } else
+        {
             //this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
         }
         // atulizando a view de medicamento
@@ -63,8 +64,14 @@ public class ExerciseFormActivity extends ActionBarActivity
         return eObj;
     }
 
-    private void updateExerciseView() {
+    private void updateExerciseView()
+    {
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
+
+         //SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+         //FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+
+
     }
 
     public void openDialogMeasureActivities(View view) {
