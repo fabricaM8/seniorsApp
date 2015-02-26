@@ -188,7 +188,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
             // montando dialog
-            builder.setTitle("Escolha a quantidade")
+            builder.setTitle("O que você deseja fazer?")
                     .setMessage("Tomar " + sessionMedication.getName())
                     .setPositiveButton("Tomar", new DialogInterface.OnClickListener() {
                         @Override

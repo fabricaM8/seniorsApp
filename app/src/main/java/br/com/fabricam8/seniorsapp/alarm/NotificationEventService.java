@@ -35,6 +35,7 @@ public class NotificationEventService extends Service {
     public static void setupAlarm(Context context, AlertEvent event) {
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(event.getNextAlert().getTime());
+        c.set(Calendar.SECOND, 0);
 
         Intent alarmIntent = new Intent(context, NotificationEventReceiver.class);
         alarmIntent.putExtra(BUNDLE_ALERT_ID, event.getID());
@@ -126,7 +127,7 @@ public class NotificationEventService extends Service {
 
                     Log.i("Alarme Service - Seniors", "Setando bunde alarme id: " + alert.getID());
                     i.putExtra(BUNDLE_ALERT_ID, alert.getID());
-                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     PendingIntent pni = PendingIntent.getActivity(mContext, (int)alert.getID(), i, PendingIntent.FLAG_UPDATE_CURRENT);
 
