@@ -19,7 +19,7 @@ public class EventsAppointmentsFragment extends Fragment {
 
     private Activity mContext;
 
-    String[] evts = {"Dr. João Calado"};
+    String[] evts = {"Dr. João Calado", "Dra. Maria da Penha"};
 
 
     @Override

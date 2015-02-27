@@ -17,9 +17,17 @@ import br.com.fabricam8.seniorsapp.adapters.PhysicalEventItemAdaper;
 
 public class EventsPhysicalActivitiesFragment extends Fragment {
 
+
+
+
     private Activity mContext;
 
-    String[] evts = {"Correr", "Nadar", "Caminhar"};
+    //Essa
+
+    private View rootView;
+
+   //
+    String[] evts = {};
 
 
     @Override
@@ -29,9 +37,19 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+
+  // ESSA
+
+  //  @Override
+ //   public void onResume() {
+ //       super.onResume();
+ //       load(rootView);
+ //   }
+
+    //
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,3 +75,4 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
 
     }
 }
+

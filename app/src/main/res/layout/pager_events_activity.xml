@@ -32,7 +32,10 @@
     <TextView android:id="@+id/empty_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Não há atividades cadastradss"
-        android:padding="6dip" />
+        android:text="Não há atividades cadastradas"
+        android:padding="6dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>
