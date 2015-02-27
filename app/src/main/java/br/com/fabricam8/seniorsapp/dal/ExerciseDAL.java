@@ -173,7 +173,8 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             ContentValues values = entity.getContentValues();
             // Inserting Row
             iRetVal = db.insert(getTableName(), null, values);
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Log.e("Seniors DB", ex.getMessage());
             iRetVal = -1;
         } finally {

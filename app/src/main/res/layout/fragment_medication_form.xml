@@ -75,7 +75,7 @@
                 android:drawableRight="@drawable/ic_action_edit_grey"
                 android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:clickable="true"
-                android:onClick="openDatePickerDialogActivity"  />
+                android:onClick="openDialogMeasure"  />
 
         </LinearLayout>
 
@@ -146,7 +146,7 @@
             android:drawableRight="@drawable/ic_action_edit_grey"
             android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="openDatePickerDialog"/>
+            android:onClick="saveMedication"/>
 
         <!--tomar às-->
 

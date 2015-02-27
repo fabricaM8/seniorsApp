@@ -11,16 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.Arrays;
+import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.adapters.PhysicalEventItemAdaper;
+import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
+import br.com.fabricam8.seniorsapp.domain.Exercise;
 
 public class EventsPhysicalActivitiesFragment extends Fragment {
 
     private Activity mContext;
-
-    String[] evts = {"Correr", "Nadar", "Caminhar"};
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -43,17 +43,7 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     }
 
     private void load(View v) {
-//        PhysicalActivitiesDAL db = PhysicalActivitiesDAL.getInstance(mContext);
-//        List<PhysicalActivities> lstEvts = db.findAll();
-//
-//        String[] evts = new String[lstEvts.size()];
-//        for (int i = 0; i < lstEvts.size(); i++) {
-//            evts[i] = lstEvts.get(i).getName();
-//        }
-        PhysicalEventItemAdaper adapter = new PhysicalEventItemAdaper(mContext.getApplicationContext(), Arrays.asList(evts));
-        ListView listView = (ListView) v.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-        listView.setEmptyView(v.findViewById(R.id.empty_list));
-
+        ExerciseDAL db = ExerciseDAL.getInstance(mContext);
+        List<Exercise> exerc = db.findAll();
     }
 }

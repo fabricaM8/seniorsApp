@@ -21,7 +21,8 @@ public enum ExerciseType {
         value = v;
         name = s;
     }
-    public static ExerciseType fromInt(int i) {
+    public static ExerciseType fromInt(int i)
+    {
         for (ExerciseType d : ExerciseType.values()) {
             if (d.getValue() == i) {
                 return d;

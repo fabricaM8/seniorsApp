@@ -29,10 +29,8 @@ import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 
 public class ExerciseFormActivity extends ActionBarActivity
-        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    // criando o Array de String
-    private static final String[] opcoes = {"Correr", "Andar", "Banhar"};
-    ArrayAdapter<String> aOpcoes;
+        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener
+{
 
     private Exercise sessionExercise;
 
@@ -40,7 +38,6 @@ public class ExerciseFormActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity_form);
-        aOpcoes = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, opcoes);
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
@@ -69,8 +66,8 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
     private void updateExerciseView() {
-        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
 
+        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
 
@@ -113,9 +110,7 @@ public class ExerciseFormActivity extends ActionBarActivity
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a data Inicial");
-        Calendar c = Calendar.getInstance();
-        sessionExercise.setStartDate(c.getTime());
-        updateExerciseView();
+
     }
 
 
@@ -142,7 +137,9 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
+        Calendar c = Calendar.getInstance();
+        sessionExercise.setStartDate(c.getTime());
+        updateExerciseView();
     }
 
     public static class DatePickerFragment extends DialogFragment {
@@ -186,28 +183,33 @@ public class ExerciseFormActivity extends ActionBarActivity
     public void saveExercise(View v) {
         try {
             Context context = this;
-
-            // TODO verificar salvamento na activity de medication
-
+            // TODO verificar salvamento na activity de Activity
             ExerciseDAL dbExc = ExerciseDAL.getInstance(this);
             long id = -1;
-            if (sessionExercise.getID() > 0) {
+            if (sessionExercise.getID() > 0)
+            {
                 // atualizacao de dados
-//            dbExc.update(sessionExercise);
-            } else {
+                dbExc.update(sessionExercise);
+            }
+            else
+            {
                 id = dbExc.create(sessionExercise);
             }
 
-            if (id > 0) {
+
+            if (id > 0)
+            {
                 // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
 
                 Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
                 finish(); // finalizando activty e retornando para tela anterior
-            } else {
+            } else
+            {
                 // TODO remover alarme (se existir) ?!!
                 Toast.makeText(this, "Ocorreu uma falha e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
             }
-        } catch (Exception ex) {
+        } catch (Exception ex)
+        {
             Log.e("Seniors App - Exercicio", ex.getMessage());
             Toast.makeText(this, "Ocorreu um erro e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }

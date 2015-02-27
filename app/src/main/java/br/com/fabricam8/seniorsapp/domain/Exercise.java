@@ -32,15 +32,19 @@ public class Exercise extends DbEntity {
     public ContentValues getContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_TYPE, getCloudId());
-        values.put(KEY_START_DATE, getStartDate().getTime());
-        values.put(KEY_END_DATA, getStartDate().getTime());
+        values.put(KEY_TYPE,getMeasureType().getValue());
+
+       // values.put(KEY_TYPE, getCloudId());
+        //values.put(KEY_START_DATE, getStartDate().getTime());
+        //values.put(KEY_END_DATA, getStartDate().getTime());
         return values;
     }
 
-    public ExerciseType getType() {
+    public ExerciseType getMeasureType() {
         return type;
     }
+
+
 
     public void setType(ExerciseType type) {
         this.type = type;
@@ -57,6 +61,9 @@ public class Exercise extends DbEntity {
     public Date getEndDate() {
         return endDate;
     }
+
+
+
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;

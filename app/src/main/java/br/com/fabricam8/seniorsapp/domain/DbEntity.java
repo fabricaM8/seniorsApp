@@ -32,7 +32,8 @@ public abstract class DbEntity {
         this.id = id;
     }
 
-    public int getCloudId() {
+    public int getCloudId()
+    {
         return cloudId;
     }
 
@@ -47,5 +48,9 @@ public abstract class DbEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
+
+
 
 }
