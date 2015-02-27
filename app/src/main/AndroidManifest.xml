@@ -105,6 +105,10 @@
             android:name=".fragment_activity_form"
             android:label="@string/title_activity_fragment_activity_form" >
         </activity>
+        <activity
+            android:name=".dialog_exerc_measure"
+            android:label="@string/title_activity_dialog_exerc_measure" >
+        </activity>
     </application>
 
 </manifest>

@@ -75,7 +75,7 @@
                 android:drawableRight="@drawable/ic_action_edit_grey"
                 android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:clickable="true"
-                android:onClick="openDialogMeasure"  />
+                android:onClick="openDatePickerDialogActivity"  />
 
         </LinearLayout>
 
