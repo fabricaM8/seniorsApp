@@ -16,12 +16,16 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
+import br.com.fabricam8.seniorsapp.dal.AlertEventReportEntryDAL;
 import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
+import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
 import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.enums.ReportResponseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -30,6 +34,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
     public static final String BUNDLE_ID = "_ID_";
     private long medicationId;
+    private long alertId;
     private Medication sessionMedication;
 
     @Override
@@ -54,7 +59,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
             loadMedication(medicationId);
         }
 
-        long alertId = getIntent().getLongExtra(NotificationEventService.BUNDLE_ALERT_ID, -1);
+        alertId = getIntent().getLongExtra(NotificationEventService.BUNDLE_ALERT_ID, -1);
         Log.i("Alrme Service (Med Info) - Seniors", "alert id = " + alertId);
         if (alertId != -1) {
             // mostrar botoes de pular e salvar
@@ -194,23 +199,43 @@ public class MedicationInfoActivity extends ActionBarActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             // Logar que tomou... enviar a cloud
+                            addReportEntryAndCancelAlarm(ReportResponseType.TOMAR);
                         }
                     })
                     .setNeutralButton("Pular", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             // O usuário explicitamente deseja pular essa medicacao
+                            addReportEntryAndCancelAlarm(ReportResponseType.PULAR);
                             dialog.cancel();
                         }
                     })
                     .setNegativeButton("Ignorar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // O usuário deseja ignorar
+                            addReportEntryAndCancelAlarm(ReportResponseType.ADIAR);
                         }
                     }).create().show();
 
             // removing bundle info
             getIntent().removeExtra(NotificationEventService.BUNDLE_ALERT_ID);
+        }
+    }
+
+    private void addReportEntryAndCancelAlarm(ReportResponseType type) {
+        AlertEvent event = AlertEventDAL.getInstance(this).findOne(alertId);
+        if(event != null) {
+            AlertEventReportEntryDAL db = AlertEventReportEntryDAL.getInstance(this);
+
+            AlertEventReportEntry report = new AlertEventReportEntry();
+            report.setEvent(event.getEvent());
+            report.setEntityId(event.getEntityId());
+            report.setEntityClass(event.getEntityClass());
+            report.setResponse(type);
+            report.setReportDate(new Date());
+
+            db.create(report);
+            Log.i("Med Info", "# alarms = " + db.count());
         }
     }
 

@@ -12,9 +12,7 @@ import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.DosageMeasure;
-import br.com.fabricam8.seniorsapp.enums.Duration;
-import br.com.fabricam8.seniorsapp.enums.Periodicity;
+import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 
 
 /**
@@ -105,7 +103,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
                     + getTableName();
             selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_TYPE,
                     Exercise.KEY_START_DATE, Exercise.KEY_END_DATA);
@@ -118,8 +116,9 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             if (cursor.moveToFirst()) do {
                 Exercise entity = new Exercise();
                 entity.setID(cursor.getInt(0));
-
-
+                entity.setStartDate(new Date(cursor.getLong(1)));
+                entity.setEndDate(new Date(cursor.getLong(2)));
+                entity.setType(cursor.isNull(3) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(3)));
 
                 // Adding entity to list
                 lstRetVal.add(entity);

@@ -146,7 +146,6 @@ public class NotificationEventService extends Service {
 
                         // notifying
                         mManager.notify(0, notification);
-
                         // ringing!!!
                         mContext.startService(new Intent(mContext, AlarmPlayerService.class));
                     }

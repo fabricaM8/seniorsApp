@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
+import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
@@ -48,8 +49,18 @@ public class SchemaHelper {
                 Exercise.KEY_END_DATA + " INTEGER ,"+
                 Exercise.KEY_TYPE + "INTEGER"+")";
 
+        String alertReportTableSchema = "CREATE TABLE " + AlertEventReportEntryDAL.TABLE_NAME + "("
+                + AlertEventReportEntry.KEY_ID + " INTEGER PRIMARY KEY,"
+                + AlertEventReportEntry.KEY_ENTITY_ID + " INTEGER,"
+                + AlertEventReportEntry.KEY_ENTITY_CLASS + " TEXT,"
+                + AlertEventReportEntry.KEY_EVENT + " TEXT,"
+                + AlertEventReportEntry.KEY_EVENT_RESPONSE + " INTEGER,"
+                + AlertEventReportEntry.KEY_REPORT_DATE + " INTEGER" +
+                ")";
+
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
+        db.execSQL(alertReportTableSchema);
         db.execSQL(excTableSchema);
     }
 
