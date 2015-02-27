@@ -15,11 +15,14 @@ public class Exercise extends DbEntity {
     public static final String KEY_TYPE = "type";
     public static final String KEY_START_DATE = "startDate";
     public static final String KEY_END_DATA = "endDate";
+    public static final String KEY_TIME = "time";
 
-    // Entity attributes
-    private ExerciseType type;                  // Tipo de atividade
-    private Date startDate;                     // data inicial
+
+     // Entity attributes
+    private ExerciseType type;                    // Tipo de atividade
+    private Date startDate;                      // data inicial
     private Date endDate;                       // data final
+    private String time;                          // TIME
 
     // constructors
     public Exercise() {
@@ -32,7 +35,6 @@ public class Exercise extends DbEntity {
         values.put(KEY_TYPE, getCloudId());
         values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_END_DATA, getStartDate().getTime());
-
         return values;
     }
 
@@ -59,4 +61,19 @@ public class Exercise extends DbEntity {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
+
+    public  void setTime(String time)
+    {
+        this.time = time;
+
+    }
+
+    public  String getTime()
+    {
+       return time;
+     }
+
+
 }
+
+

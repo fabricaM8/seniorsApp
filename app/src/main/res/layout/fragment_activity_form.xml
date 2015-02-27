@@ -38,10 +38,11 @@
                 android:drawableEnd="@drawable/ic_action_edit_grey"
                 android:drawableRight="@drawable/ic_action_edit_grey"
                 android:gravity="center"
-                android:onClick="saveAtivity"
+                android:onClick="openDialogMeasureActivities"
                 android:padding="5dp"
                 android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:nestedScrollingEnabled="true" />
 
         </LinearLayout>
 
@@ -70,7 +71,8 @@
             android:onClick="openDatePickerDialogActivity"
             android:padding="5dp"
             android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:nestedScrollingEnabled="true" />
 
         <!--A PARTIR DE-->
 

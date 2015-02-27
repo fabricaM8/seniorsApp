@@ -61,6 +61,8 @@ public class ExerciseFormActivity extends ActionBarActivity
         eObj.setType(ExerciseType.ANDAR);
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(c.getTime());
+        //eObj.setTime(c.getTime());
+
         // setar o resto dos atributos
 
         return eObj;
@@ -71,9 +73,12 @@ public class ExerciseFormActivity extends ActionBarActivity
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+
+        /*
         FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
 
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
+    */
     }
 
     public void openDialogMeasureActivities(View view) {
@@ -81,10 +86,10 @@ public class ExerciseFormActivity extends ActionBarActivity
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         // Pass null as the parent view because its going in the dialog layout
-        final View dialogView = inflater.inflate(R.layout.dialog_med_measure, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_exerc_measure, null);
 
         String[] arrValues = ExerciseType.getStringValues();
-        FormHelper.setupPicker(dialogView, R.id.dg_md_measure, 0, arrValues.length - 1, arrValues, 0);
+        FormHelper.setupPicker(dialogView, R.id.dg_exerc_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
         builder.setTitle("Escolha uma atividade")
@@ -92,9 +97,9 @@ public class ExerciseFormActivity extends ActionBarActivity
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        int measure = FormHelper.getPickerValue(dialogView, R.id.dg_md_measure);
-                        //sessionMedication.setDosageMeasureType(DosageMeasure.fromInt(measure + 1));
-                        //    updateMedicationView();
+                        int measure = FormHelper.getPickerValue(dialogView, R.id.dg_exerc_measure);
+                        sessionExercise.setType(ExerciseType.fromInt(measure + 1));
+                        updateExerciseView();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -107,7 +112,10 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "Selecione a data");
+        newFragment.show(getFragmentManager(), "Selecione a data Inicial");
+        Calendar c = Calendar.getInstance();
+        sessionExercise.setStartDate(c.getTime());
+        updateExerciseView();
     }
 
 
