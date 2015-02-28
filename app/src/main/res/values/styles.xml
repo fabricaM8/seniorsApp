@@ -3,64 +3,13 @@
 <resources>
 
     <style name="Theme.Seniors" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="actionBarItemBackground">@drawable/selectable_background_seniors</item>
-        <item name="popupMenuStyle">@style/PopupMenu.Seniors</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Seniors</item>
-        <item name="actionBarTabStyle">@style/ActionBarTabStyle.Seniors</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.Seniors</item>
-        <item name="actionModeBackground">@drawable/cab_background_top_seniors</item>
-        <item name="actionModeSplitBackground">@drawable/cab_background_bottom_seniors</item>
-        <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Seniors</item>
-
-        <item name="colorPrimary">#00838f</item>
-        <item name="colorPrimaryDark">#00BBD2</item>
-        <item name="colorAccent">#00838f</item>
+        <item name="colorPrimary">@color/seniors_primary_color</item>
+        <item name="colorAccent">@color/seniors_primary_color</item>
+        <item name="colorPrimaryDark">@color/seniors_secondary_color</item>
         <item name="actionMenuTextColor">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
-
-        <item name="backgroundStacked">@drawable/ab_stacked_solid_seniors</item>
-        <item name="backgroundSplit">@drawable/ab_bottom_solid_seniors</item>
-        <item name="progressBarStyle">@style/ProgressBar.Seniors</item>
     </style>
-
-    <style name="ActionBar.Transparent.Seniors" parent="@style/Widget.AppCompat.Light.ActionBar">
-        <item name="background">@drawable/ab_transparent_seniors</item>
-        <item name="progressBarStyle">@style/ProgressBar.Seniors</item>
-    </style>
-
-    <style name="PopupMenu.Seniors" parent="@style/Widget.AppCompat.Light.PopupMenu">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_seniors</item>
-    </style>
-
-    <style name="DropDownListView.Seniors" parent="@style/Widget.AppCompat.Light.ListView.DropDown">
-        <item name="android:listSelector">@drawable/selectable_background_seniors</item>
-    </style>
-
-    <style name="ActionBarTabStyle.Seniors" parent="@style/Widget.AppCompat.Light.ActionBar.TabView">
-        <item name="android:background">@drawable/tab_indicator_ab_seniors</item>
-    </style>
-
-    <style name="DropDownNav.Seniors" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="android:background">@drawable/spinner_background_ab_seniors</item>
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_seniors</item>
-        <item name="android:dropDownSelector">@drawable/selectable_background_seniors</item>
-    </style>
-
-    <style name="ProgressBar.Seniors" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:progressDrawable">@drawable/progress_horizontal_seniors</item>
-    </style>
-
-    <style name="ActionButton.CloseMode.Seniors" parent="@style/Widget.AppCompat.Light.ActionButton.CloseMode">
-        <item name="android:background">@drawable/btn_cab_done_seniors</item>
-    </style>
-
-    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Seniors.Widget" parent="@style/Theme.AppCompat">
-        <item name="popupMenuStyle">@style/PopupMenu.Seniors</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Seniors</item>
-    </style>
-
 
     <style name="defaultButton" parent="@android:style/Widget.Button">
         <item name="android:gravity">center_vertical|center_horizontal</item>
@@ -73,6 +22,36 @@
         <item name="android:padding">20dp</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/default_button</item>
+    </style>
+
+    <!--Botoes redondos-->
+
+    <style name="bt_action_active" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/bt_round</item>
+    </style>
+
+    <style name="bt_action_inactive" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">@drawable/bt_round_grey</item>
+    </style>
+
+    <!--Formularios-->
+
+    <style name="vw_input_box">
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:background">@drawable/brd_text_view_box</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawableEnd">@drawable/ic_action_edit_grey</item>
+        <item name="android:drawableRight">@drawable/ic_action_edit_grey</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/seniors_primary_color</item>
+        <item name="android:textSize">@dimen/form_input_text_size</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:minHeight="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:background="@color/seniors_primary_color"
     app:theme="@style/Theme.Seniors"
     app:popupTheme="@style/Theme.AppCompat.NoActionBar" />

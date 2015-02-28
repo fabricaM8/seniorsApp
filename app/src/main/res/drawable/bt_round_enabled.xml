@@ -117,7 +117,7 @@
     </item>
     <item>
         <shape android:shape="oval">
-            <solid android:color="#00838f"/>
+            <solid android:color="@color/seniors_active_button_primary_color"/>
         </shape>
     </item>
 </layer-list>

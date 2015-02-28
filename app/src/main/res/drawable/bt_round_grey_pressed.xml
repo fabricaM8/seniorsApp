@@ -117,7 +117,7 @@
 </item>
 <item>
     <shape android:shape="oval">
-        <solid android:color="#777777"/>
+        <solid android:color="@color/seniors_inactive_button_secondary_color"/>
     </shape>
 </item>
 </layer-list>

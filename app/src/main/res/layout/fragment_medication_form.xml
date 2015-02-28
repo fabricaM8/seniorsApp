@@ -1,8 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:background="#FFFFFF"
+    android:fillViewport="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -29,7 +29,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="?attr/colorPrimaryDark"></View>
+            android:background="@color/seniors_primary_color"></View>
 
         <!--Posologia-->
 
@@ -41,60 +41,23 @@
             android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold" />
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal">-->
+        <TextView
+            android:id="@+id/med_form_qty"
+            android:onClick="openDialogQuantity"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
 
-            <TextView
-                android:id="@+id/med_form_qty"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:textSize="@dimen/form_input_text_size"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                android:background="@drawable/brd_text_view_orange"
-                android:drawableRight="@drawable/ic_action_edit_grey"
-                android:drawableEnd="@drawable/ic_action_edit_grey"
-                android:clickable="true"
-                android:onClick="openDialogQuantity" />
-
-            <TextView
-                android:id="@+id/med_form_measure"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:gravity="center"
-                android:textSize="20sp"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                android:background="@drawable/brd_text_view_orange"
-                android:drawableRight="@drawable/ic_action_edit_grey"
-                android:drawableEnd="@drawable/ic_action_edit_grey"
-                android:clickable="true"
-                android:onClick="openDialogMeasure"  />
-
-        <!--</LinearLayout>-->
+        <TextView
+            android:id="@+id/med_form_measure"
+            android:onClick="openDialogMeasure"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
 
         <TextView
             android:id="@+id/med_form_periodicity"
+            android:onClick="openDialogPeriodicity"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:clickable="true"
-            android:onClick="openDialogPeriodicity" />
+            style="@style/vw_input_box" />
 
         <!--DURANTE-->
 
@@ -102,26 +65,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="repetir durante"
             android:textSize="@dimen/form_input_text_size"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/med_form_during"
+            android:onClick="openDialogRepetition"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:clickable="true"
-            android:onClick="openDialogRepetition" />
+            style="@style/vw_input_box" />
 
         <!--A PARTIR DE-->
 
@@ -131,26 +84,16 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="a partir de"
             android:textSize="@dimen/form_input_text_size"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/med_form_starting"
+            android:onClick="openDatePickerDialog"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:clickable="true"
-            android:onClick="openDatePickerDialog"/>
+            style="@style/vw_input_box" />
 
         <!--tomar às-->
 
@@ -160,26 +103,16 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
             android:text="tomar às"
             android:textSize="@dimen/form_input_text_size"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/med_form_time"
+            android:onClick="openTimePickerDialog"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:background="@drawable/brd_text_view_orange"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:clickable="true"
-            android:onClick="openTimePickerDialog"/>
+            style="@style/vw_input_box" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -189,10 +122,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:layout_margin="5dp"
-                android:text="Alarme"
                 android:gravity="left"
+                android:padding="5dp"
+                android:text="Alarme"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold" />
 
@@ -200,8 +133,8 @@
                 android:id="@+id/med_form_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textOn="Sim"
-                android:textOff="Não"/>
+                android:textOff="Não"
+                android:textOn="Sim" />
 
         </LinearLayout>
         <!--OBSERVACOES-->
@@ -223,7 +156,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="?attr/colorPrimaryDark"></View>
+            android:background="@color/seniors_primary_color"></View>
 
         <!--ACTION BUTTONS-->
         <View
@@ -238,9 +171,7 @@
 
             <ImageButton
                 android:id="@+id/btCancelMedication"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/bt_round_grey"
+                style="@style/bt_action_inactive"
                 android:onClick="cancel"
                 android:src="@drawable/ic_action_cancel" />
 
@@ -251,9 +182,7 @@
 
             <ImageButton
                 android:id="@+id/btSaveMedication"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/bt_round"
+                style="@style/bt_action_active"
                 android:onClick="saveMedication"
                 android:src="@drawable/ic_action_confirm" />
         </LinearLayout>
