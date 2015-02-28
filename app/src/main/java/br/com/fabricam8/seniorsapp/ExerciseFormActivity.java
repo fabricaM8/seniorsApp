@@ -32,6 +32,7 @@ public class ExerciseFormActivity extends ActionBarActivity
 {
 
     private Exercise sessionExercise;
+    private int dialogCaller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +70,14 @@ public class ExerciseFormActivity extends ActionBarActivity
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
-
-        /*
         FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
 
-        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getType().toString());
-    */
+
+
+
+
     }
 
     public void openDialogMeasureActivities(View view) {
@@ -105,10 +108,10 @@ public class ExerciseFormActivity extends ActionBarActivity
                 }).create().show();
     }
 
-
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a data Inicial");
+        dialogCaller = v.getId();
 
     }
 
@@ -120,7 +123,13 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+        Calendar c = Calendar.getInstance();
+        c.setTime(sessionExercise.getStartDate());
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        // reajustando dat ade inicio
+        sessionExercise.setStartDate(c.getTime());
+        updateExerciseView();
     }
 
     public static class TimePickerFragment extends DialogFragment {
@@ -134,14 +143,22 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
 
+
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DATE, dayOfMonth);
+       if(dialogCaller == R.id.exc_form_startingt)
+        {
+            sessionExercise.setStartDate(c.getTime());
+        }
 
-        sessionExercise.setStartDate(c.getTime());
+        else if(dialogCaller == R.id.exc_form_dateand)
+        {
+            sessionExercise.setEndDate(c.getTime());
+        }
         updateExerciseView();
     }
 

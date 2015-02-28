@@ -30,10 +30,11 @@ public class PhysicalEventItemAdaper extends ArrayAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View row = mInflater.inflate(R.layout.pager_events_physical_list_item, null, true);
 
         TextView txtName = (TextView) row.findViewById(R.id.exercise_item_name);
-        txtName.setText(mExercises.get(position).getName());
+        txtName.setText(mExercises.get(position).toString());
 
         return row;
     }
