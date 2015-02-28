@@ -13,9 +13,9 @@ public class ToolbarBuilder {
     public static Toolbar build(ActionBarActivity context, boolean navigateToParent) {
         Toolbar toolbar = (Toolbar) context.findViewById(R.id.seniors_toolbar);
         context.setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_toolbar_seniors);
         if(navigateToParent) {
             toolbar.setNavigationIcon(R.drawable.ic_action_back);
-
         }
 
         return toolbar;

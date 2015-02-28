@@ -136,7 +136,7 @@ public class NotificationEventService extends Service {
                         Notification notification = new Notification.Builder(mContext)
                                 .setContentTitle("Senior's App")
                                 .setContentText(notificationMessage)
-                                .setSmallIcon(R.drawable.ic_launcher)
+                                .setSmallIcon(R.drawable.ic_toolbar_seniors)
                                 .setLights(Color.RED, 3000, 3000)
                                 .setContentIntent(pni)
                                 .getNotification();
