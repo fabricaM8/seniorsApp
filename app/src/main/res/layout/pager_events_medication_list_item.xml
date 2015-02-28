@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Medication title"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="@dimen/form_input_text_size"
+            android:textColor="#333333"/>
 
         <TextView
             android:id="@+id/med_item_desc"
@@ -37,7 +37,7 @@
             android:singleLine="true"
             android:text="decription"
             android:textColor="#666666"
-            android:textSize="12sp" />
+            android:textSize="@dimen/form_label_text_size" />
 
     </LinearLayout>
 </LinearLayout>

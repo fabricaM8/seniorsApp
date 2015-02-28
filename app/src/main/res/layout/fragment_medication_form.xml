@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="#FFFFFF"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -20,7 +21,7 @@
             android:layout_marginTop="10dp"
             android:hint="Nome da medicação"
             android:textColor="#222222"
-            android:textSize="@dimen/abc_text_size_small_material" />
+            android:textSize="@dimen/form_input_text_size" />
         <!--Borda inferior da caixa de texto-->
         <View
             android:layout_width="fill_parent"
@@ -37,22 +38,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="tomar"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
 
             <TextView
                 android:id="@+id/med_form_qty"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
                 android:padding="5dp"
                 android:layout_margin="5dp"
                 android:gravity="center"
+                android:textSize="@dimen/form_input_text_size"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:background="@drawable/brd_text_view_orange"
@@ -63,12 +64,12 @@
 
             <TextView
                 android:id="@+id/med_form_measure"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
                 android:padding="5dp"
                 android:layout_margin="5dp"
                 android:gravity="center"
+                android:textSize="20sp"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:background="@drawable/brd_text_view_orange"
@@ -77,15 +78,16 @@
                 android:clickable="true"
                 android:onClick="openDialogMeasure"  />
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
         <TextView
             android:id="@+id/med_form_periodicity"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:padding="5dp"
             android:layout_margin="5dp"
             android:gravity="center"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
@@ -101,17 +103,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="repetir durante"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold"
             android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/med_form_during"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:padding="5dp"
             android:layout_margin="5dp"
             android:gravity="center"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
@@ -129,24 +132,25 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
             android:text="a partir de"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold"
             android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/med_form_starting"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:padding="5dp"
             android:layout_margin="5dp"
             android:gravity="center"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
             android:drawableRight="@drawable/ic_action_edit_grey"
             android:drawableEnd="@drawable/ic_action_edit_grey"
             android:clickable="true"
-            android:onClick="saveMedication"/>
+            android:onClick="openDatePickerDialog"/>
 
         <!--tomar às-->
 
@@ -157,17 +161,18 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
             android:text="tomar às"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold"
             android:layout_marginTop="5dp" />
 
         <TextView
             android:id="@+id/med_form_time"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:padding="5dp"
             android:layout_margin="5dp"
             android:gravity="center"
+            android:textSize="20sp"
             android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             android:background="@drawable/brd_text_view_orange"
@@ -210,7 +215,7 @@
             android:hint="Observações"
             android:inputType="textMultiLine"
             android:textColor="#222222"
-            android:textSize="@dimen/abc_text_size_small_material" />
+            android:textSize="@dimen/form_input_text_size" />
 
         <View
             android:layout_width="fill_parent"

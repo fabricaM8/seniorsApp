@@ -70,6 +70,8 @@ public class MedicationFormActivity extends ActionBarActivity
         }
         // atulizando a view de medicamento
         updateMedicationView();
+
+        findViewById(R.id.med_form_qty).requestFocus();
     }
 
     /**

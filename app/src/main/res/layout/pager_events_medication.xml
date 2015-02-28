@@ -31,6 +31,7 @@
     <TextView android:id="@+id/empty_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="@dimen/form_label_text_size"
         android:text="Não há medicamentos cadastrados"
         android:padding="6dip" />
 </RelativeLayout>

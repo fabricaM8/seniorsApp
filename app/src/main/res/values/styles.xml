@@ -12,9 +12,9 @@
         <item name="actionModeSplitBackground">@drawable/cab_background_bottom_seniors</item>
         <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Seniors</item>
 
-        <item name="colorPrimary">#EF6C00</item>
-        <item name="colorPrimaryDark">#EF5511</item>
-        <item name="colorAccent">#EF6C00</item>
+        <item name="colorPrimary">#00838f</item>
+        <item name="colorPrimaryDark">#00BBD2</item>
+        <item name="colorAccent">#00838f</item>
         <item name="actionMenuTextColor">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_dark</item>
