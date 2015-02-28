@@ -12,17 +12,15 @@ import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 public class Exercise extends DbEntity {
 
     // Entity Columns names
-    public static final String KEY_TYPE = "type";
-    public static final String KEY_START_DATE = "startDate";
-    public static final String KEY_END_DATA = "endDate";
-    public static final String KEY_TIME = "time";
+    public static final String KEY_TYPE = "exercise_type";
+    public static final String KEY_START_DATE = "start_date";
+    public static final String KEY_END_DATE = "end_date";
 
 
-     // Entity attributes
-    private ExerciseType type;                    // Tipo de atividade
-    private Date startDate;                      // data inicial
-    private Date endDate;                       // data final
-    private String time;                          // TIME
+    // Entity attributes
+    private ExerciseType type;  // Tipo de atividade
+    private Date startDate;     // data inicial
+    private Date endDate;       // data final
 
     // constructors
     public Exercise() {
@@ -32,19 +30,16 @@ public class Exercise extends DbEntity {
     public ContentValues getContentValues() {
 
         ContentValues values = new ContentValues();
-        values.put(KEY_TYPE,getMeasureType().getValue());
-
-       // values.put(KEY_TYPE, getCloudId());
-        //values.put(KEY_START_DATE, getStartDate().getTime());
-        //values.put(KEY_END_DATA, getStartDate().getTime());
+        values.put(KEY_CLOUD_ID, getCloudId());
+        values.put(KEY_TYPE, getMeasureType().getValue());
+        values.put(KEY_START_DATE, getStartDate().getTime());
+        values.put(KEY_END_DATE, getEndDate().getTime());
         return values;
     }
 
     public ExerciseType getMeasureType() {
         return type;
     }
-
-
 
     public void setType(ExerciseType type) {
         this.type = type;
@@ -62,25 +57,9 @@ public class Exercise extends DbEntity {
         return endDate;
     }
 
-
-
-
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
-    public  void setTime(String time)
-    {
-        this.time = time;
-
-    }
-
-    public  String getTime()
-    {
-       return time;
-     }
-
-
 }
 
 

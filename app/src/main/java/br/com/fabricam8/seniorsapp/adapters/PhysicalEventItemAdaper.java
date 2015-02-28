@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
+import br.com.fabricam8.seniorsapp.domain.Exercise;
 
 
 /**
@@ -19,9 +20,9 @@ public class PhysicalEventItemAdaper extends ArrayAdapter {
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<String> mExercises;
+    private List<Exercise> mExercises;
 
-    public PhysicalEventItemAdaper(Context context, List<String> exercises) {
+    public PhysicalEventItemAdaper(Context context, List<Exercise> exercises) {
         super(context, R.layout.pager_events_physical_list_item, exercises);
         this.mContext = context;
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -32,7 +33,7 @@ public class PhysicalEventItemAdaper extends ArrayAdapter {
         View row = mInflater.inflate(R.layout.pager_events_physical_list_item, null, true);
 
         TextView txtName = (TextView) row.findViewById(R.id.exercise_item_name);
-        txtName.setText(mExercises.get(position));
+        txtName.setText(mExercises.get(position).getName());
 
         return row;
     }

@@ -8,9 +8,10 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
@@ -36,7 +37,7 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pager_events_activity, container, false);
+        View rootView = inflater.inflate(R.layout.pager_events_physical_activities, container, false);
         load(rootView);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
@@ -45,5 +46,21 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     private void load(View v) {
         ExerciseDAL db = ExerciseDAL.getInstance(mContext);
         List<Exercise> exerc = db.findAll();
+
+        PhysicalEventItemAdaper adapter = new PhysicalEventItemAdaper(mContext.getApplicationContext(), exerc);
+
+        ListView listView = (ListView) v.findViewById(R.id.listView);
+        listView.setAdapter(adapter);
+        listView.setEmptyView(v.findViewById(R.id.empty_list));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Exercise entry = (Exercise) parent.getItemAtPosition(position);
+                Toast.makeText(mContext, "Clicado", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(mContext, MedicationInfoActivity.class);
+//                intent.putExtra("_ID_", entry.getID());
+//                startActivity(intent);
+            }
+        });
     }
 }

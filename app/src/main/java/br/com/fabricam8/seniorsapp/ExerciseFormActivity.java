@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -58,7 +57,7 @@ public class ExerciseFormActivity extends ActionBarActivity
         eObj.setType(ExerciseType.ANDAR);
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(c.getTime());
-        //eObj.setTime(c.getTime());
+        //eObj.setDescription(c.getDescription());
 
         // setar o resto dos atributos
 

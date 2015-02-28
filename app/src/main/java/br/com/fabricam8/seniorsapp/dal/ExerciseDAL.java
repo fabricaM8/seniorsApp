@@ -72,7 +72,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
                     Exercise.KEY_ID,
                     Exercise.KEY_TYPE,
                     Exercise.KEY_START_DATE,
-                    Exercise.KEY_END_DATA,
+                    Exercise.KEY_END_DATE,
             },Exercise.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             if (cursor != null)
@@ -80,6 +80,14 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
 
             oRetVal = new Exercise();
             oRetVal.setID(cursor.getInt(0));
+            oRetVal.setType(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
+
+            if(!cursor.isNull(2))
+                oRetVal.setStartDate(new Date(cursor.getInt(2)));
+
+            if(!cursor.isNull(3))
+                oRetVal.setEndDate(new Date(cursor.getInt(3)));
+
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
             oRetVal = null;
@@ -106,7 +114,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
                     + getTableName();
             selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_TYPE,
-                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATA);
+                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATE);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -116,9 +124,12 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             if (cursor.moveToFirst()) do {
                 Exercise entity = new Exercise();
                 entity.setID(cursor.getInt(0));
-                entity.setStartDate(new Date(cursor.getLong(1)));
-                entity.setEndDate(new Date(cursor.getLong(2)));
-                entity.setType(cursor.isNull(3) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(3)));
+                entity.setType(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
+
+                if(!cursor.isNull(2))
+                    entity.setStartDate(new Date(cursor.getLong(2)));
+                if(!cursor.isNull(3))
+                    entity.setEndDate(new Date(cursor.getLong(3)));
 
                 // Adding entity to list
                 lstRetVal.add(entity);

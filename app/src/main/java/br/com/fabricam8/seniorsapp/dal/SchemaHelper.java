@@ -44,18 +44,20 @@ public class SchemaHelper {
                 + ")";
 
         String excTableSchema = "CREATE TABLE " + ExerciseDAL.TABLE_NAME + "(" +
-                Exercise.KEY_ID + " INTEGER PRIMARY KEY,"+
-                Exercise.KEY_START_DATE + " INTEGER ,"+
-                Exercise.KEY_END_DATA + " INTEGER ,"+
-                Exercise.KEY_TYPE + "INTEGER"+")";
+                Exercise.KEY_ID + " INTEGER PRIMARY KEY," +
+                Exercise.KEY_CLOUD_ID + " INTEGER," +
+                Exercise.KEY_START_DATE + " INTEGER ," +
+                Exercise.KEY_END_DATE + " INTEGER," +
+                Exercise.KEY_TYPE + " INTEGER"
+                + ")";
 
-        String alertReportTableSchema = "CREATE TABLE " + AlertEventReportEntryDAL.TABLE_NAME + "("
-                + AlertEventReportEntry.KEY_ID + " INTEGER PRIMARY KEY,"
-                + AlertEventReportEntry.KEY_ENTITY_ID + " INTEGER,"
-                + AlertEventReportEntry.KEY_ENTITY_CLASS + " TEXT,"
-                + AlertEventReportEntry.KEY_EVENT + " TEXT,"
-                + AlertEventReportEntry.KEY_EVENT_RESPONSE + " INTEGER,"
-                + AlertEventReportEntry.KEY_REPORT_DATE + " INTEGER" +
+        String alertReportTableSchema = "CREATE TABLE " + AlertEventReportEntryDAL.TABLE_NAME + "(" +
+                AlertEventReportEntry.KEY_ID + " INTEGER PRIMARY KEY," +
+                AlertEventReportEntry.KEY_ENTITY_ID + " INTEGER," +
+                AlertEventReportEntry.KEY_ENTITY_CLASS + " TEXT," +
+                AlertEventReportEntry.KEY_EVENT + " TEXT," +
+                AlertEventReportEntry.KEY_EVENT_RESPONSE + " INTEGER," +
+                AlertEventReportEntry.KEY_REPORT_DATE + " INTEGER" +
                 ")";
 
         db.execSQL(medTableSchema);
@@ -73,6 +75,7 @@ public class SchemaHelper {
             db.execSQL("DROP TABLE IF EXISTS " + MedicationDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + ExerciseDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + AlertEventReportEntryDAL.TABLE_NAME);
 
             // Create tables again
             createTable(db);
