@@ -137,6 +137,10 @@ public class ExerciseFormActivity extends ActionBarActivity
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DATE, dayOfMonth);
+
         sessionExercise.setStartDate(c.getTime());
         updateExerciseView();
     }
