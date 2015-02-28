@@ -22,6 +22,7 @@ import br.com.fabricam8.seniorsapp.domain.Exercise;
 public class EventsPhysicalActivitiesFragment extends Fragment {
 
     private Activity mContext;
+    private View rootView;
 
     @Override
     public void onAttach(Activity activity) {
@@ -35,10 +36,15 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        load(rootView);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pager_events_physical_activities, container, false);
-        load(rootView);
+        rootView = inflater.inflate(R.layout.pager_events_medication, container, false);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
     }
