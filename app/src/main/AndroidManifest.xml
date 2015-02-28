@@ -72,6 +72,7 @@
             android:name=".MedicationFormActivity"
             android:label="@string/title_activity_medication_form"
             android:parentActivityName=".EventsListActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -101,14 +102,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EventsListActivity" />
         </activity>
-        <activity
-            android:name=".fragment_activity_form"
-            android:label="@string/title_activity_fragment_activity_form" >
-        </activity>
-        <activity
-            android:name=".dialog_exerc_measure"
-            android:label="@string/title_activity_dialog_exerc_measure" >
-        </activity>
+
     </application>
 
 </manifest>
