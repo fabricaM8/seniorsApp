@@ -1,3 +1,74 @@
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:fillViewport="true"-->
+    <!--tools:context="br.com.fabricam8.seniorsapp.DashboardActivityHome">-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+
+        <!--<ImageView-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="0.3"-->
+            <!--android:src="@drawable/bg_bar_top" />-->
+
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_weight="0.3"-->
+            <!--android:padding="@dimen/dashboard_button_padding"-->
+            <!--android:orientation="horizontal">-->
+
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/btDashEmergency"-->
+                <!--style="@style/bt_action_dash"-->
+                <!--android:src="@drawable/ic_action_confirm" />-->
+
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_weight="0.5"></View>-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/btDashLocal"-->
+                <!--style="@style/bt_action_dash"-->
+                <!--android:onClick="openLocation"-->
+                <!--android:src="@drawable/ic_location"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_weight="0.5"></View>-->
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/btDashEvents"-->
+                <!--style="@style/bt_action_dash"-->
+                <!--android:onClick="viewEvents"-->
+                <!--android:src="@drawable/ic_exercises" />-->
+
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="0.4"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--&lt;!&ndash;message, telefone, more&ndash;&gt;-->
+            <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
+
+<!--</ScrollView>-->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -5,11 +76,6 @@
     android:orientation="vertical"
     tools:context="br.com.fabricam8.seniorsapp.DashboardActivityHome">
 
-    <!--Posologia-->
-
-    <!--Duracao-->
-
-    <!--Inicio Tratamento-->
 
     <ImageView
         android:id="@+id/imageView2"
@@ -183,7 +249,7 @@
         android:layout_toRightOf="@+id/imageView2"
         android:paddingTop="14dp"
         android:singleLine="true"
-        android:text="João dos Santos"
+        android:text="João Silva"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#0097A7"
         android:textSize="18dp"

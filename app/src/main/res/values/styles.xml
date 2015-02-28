@@ -26,6 +26,12 @@
 
     <!--Botoes redondos-->
 
+    <style name="bt_action_dash" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:background">@drawable/bt_round</item>
+    </style>
+
     <style name="bt_action_active" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>

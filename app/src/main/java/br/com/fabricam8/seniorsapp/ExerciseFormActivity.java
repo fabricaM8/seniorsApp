@@ -106,10 +106,13 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
 
+    private int dialogCaller;
+
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a data Inicial");
 
+        dialogCaller = v.getId();
     }
 
 
@@ -141,7 +144,11 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DATE, dayOfMonth);
 
-        sessionExercise.setStartDate(c.getTime());
+        if(dialogCaller == R.id.exc_form_startingt)
+            sessionExercise.setStartDate(c.getTime());
+        else if(dialogCaller == R.id.exc_form_dateand)
+            sessionExercise.setEndDate(c.getTime());
+
         updateExerciseView();
     }
 
