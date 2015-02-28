@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="tipo de exercício"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:textSize="@dimen/form_input_text_size"/>
 
@@ -37,7 +36,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:text="iniciar em"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:textSize="@dimen/form_input_text_size"/>
 
@@ -58,7 +56,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:text="finalizar em"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:textSize="@dimen/form_input_text_size"/>
 
@@ -78,7 +75,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:text="horário"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:textSize="@dimen/form_input_text_size"/>
 
@@ -96,7 +92,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:text="repetir"
-            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textStyle="bold"
             android:textSize="@dimen/form_input_text_size"
             android:singleLine="true" />
@@ -104,9 +99,6 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:background="@color/seniors_primary_color"></View>
 
 
@@ -115,23 +107,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/teste"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="1dp"
-                android:gravity="left"
-                android:padding="5dp"
-                android:text="repertir"
-                android:textColor="@color/seniors_primary_color"
-                android:textStyle="bold" />
-
             <CheckBox
                 android:id="@+id/checkBox6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="D"
                 android:textColor="@color/seniors_primary_color" />
 
@@ -141,8 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="5dp"
-                android:layout_marginLeft="100dp"
-                android:checked="false"
+                android:checked="true"
                 android:padding="5dp"
                 android:text="S"
                 android:textColor="@color/seniors_primary_color" />
@@ -152,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="T"
                 android:textColor="@color/seniors_primary_color" />
 
@@ -161,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="Q"
                 android:textColor="@color/seniors_primary_color" />
 
@@ -170,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="Q"
                 android:textColor="@color/seniors_primary_color" />
 
@@ -179,7 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="S"
                 android:textColor="@color/seniors_primary_color" />
 
@@ -188,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false"
+                android:checked="true"
                 android:text="S"
                 android:textColor="@color/seniors_primary_color" />
         </LinearLayout>
@@ -197,9 +177,6 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:background="@color/seniors_primary_color"></View>
 
         <!--ACTION BUTTONS-->
@@ -232,7 +209,6 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:background="@drawable/bt_round"
-                android:nestedScrollingEnabled="true"
                 android:onClick="saveExercise"
                 android:src="@drawable/ic_action_confirm" />
         </LinearLayout>
