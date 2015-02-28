@@ -71,7 +71,7 @@ public class CustomAdapter<T> extends ArrayAdapter {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_activity_form);
+            setContentView(R.layout.activity_exercise_form);
             aOpcoes = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, opcoes);
             // capturando o spinner do xml pela id
 //            spinner = (Spinner) findViewById(R.id.spnOpcoes);

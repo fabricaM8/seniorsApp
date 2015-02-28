@@ -4,7 +4,7 @@
     android:id="@+id/location_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.fabricam8.seniorsapp.ExerciseFormActivityFormActivity">
+    tools:context="br.com.fabricam8.seniorsapp.ExerciseFormActivity">
 
     <include layout="@layout/seniors_toolbar"/>
 

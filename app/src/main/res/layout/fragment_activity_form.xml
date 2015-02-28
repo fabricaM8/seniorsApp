@@ -1,6 +1,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:fillViewport="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -18,33 +19,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Tipo"
+            android:text="tipo de exercício"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/form_input_text_size"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/exc_form_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="0.5"
-                android:background="@drawable/brd_text_view_box"
-                android:clickable="true"
-                android:drawableEnd="@drawable/ic_action_edit_grey"
-                android:drawableRight="@drawable/ic_action_edit_grey"
-                android:gravity="center"
-                android:onClick="openDialogMeasureActivities"
-                android:padding="5dp"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="bold"
-                android:nestedScrollingEnabled="true" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/exc_form_type"
+            style="@style/vw_input_box"
+            android:layout_width="fill_parent"
+            android:onClick="openDialogMeasureActivities" />
 
         <!--DURANTE-->
 
@@ -53,26 +37,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Data Inicio"
+            android:text="iniciar em"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/form_input_text_size"/>
 
 
         <TextView
             android:id="@+id/exc_form_startingt"
+            style="@style/vw_input_box"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/brd_text_view_box"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:gravity="center"
-            android:onClick="openDatePickerDialogActivity"
-            android:padding="5dp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:nestedScrollingEnabled="true" />
+            android:onClick="openDatePickerDialogActivity" />
 
         <!--A PARTIR DE-->
 
@@ -83,25 +58,16 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Data Fim"
+            android:text="finalizar em"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/form_input_text_size"/>
 
         <TextView
             android:id="@+id/exc_form_dateand"
+            style="@style/vw_input_box"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/brd_text_view_box"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:gravity="center"
-            android:nestedScrollingEnabled="true"
-            android:onClick="openDatePickerDialogActivity"
-            android:padding="5dp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:onClick="openDatePickerDialogActivity" />
 
         <!--tomar às-->
 
@@ -112,24 +78,16 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Horario"
+            android:text="horário"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/form_input_text_size"/>
 
         <TextView
             android:id="@+id/exc_form_time"
+            style="@style/vw_input_box"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/brd_text_view_box"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_action_edit_grey"
-            android:drawableRight="@drawable/ic_action_edit_grey"
-            android:gravity="center"
-            android:onClick="openTimePickerDialogActivity"
-            android:padding="5dp"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold" />
+            android:onClick="openTimePickerDialogActivity" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -138,9 +96,11 @@
             android:layout_alignParentStart="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Repetiçao de atividade"
+            android:text="repetir"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textSize="@dimen/form_input_text_size"
+            android:singleLine="true" />
 
         <View
             android:layout_width="fill_parent"
@@ -148,11 +108,12 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="?attr/colorPrimaryDark"></View>
+            android:background="@color/seniors_primary_color"></View>
+
 
         <LinearLayout
-            android:layout_width="364dp"
-            android:layout_height="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
 
@@ -163,8 +124,8 @@
                 android:layout_margin="1dp"
                 android:gravity="left"
                 android:padding="5dp"
-                android:text="Repetição de alarme"
-                android:textColor="?attr/colorPrimary"
+                android:text="repertir"
+                android:textColor="@color/seniors_primary_color"
                 android:textStyle="bold" />
 
             <CheckBox
@@ -174,7 +135,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="D"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/segunda"
@@ -186,7 +147,7 @@
                 android:checked="false"
                 android:padding="5dp"
                 android:text="S"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/checkBox"
@@ -195,7 +156,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="T"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/checkBox2"
@@ -204,7 +165,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="Q"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/checkBox3"
@@ -213,7 +174,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="Q"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
@@ -222,7 +183,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="S"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="@color/seniors_primary_color" />
 
             <CheckBox
                 android:id="@+id/checkBox5"
@@ -231,13 +192,7 @@
                 android:layout_gravity="center_vertical"
                 android:checked="false"
                 android:text="S"
-                android:textColor="?attr/colorPrimary" /><![CDATA[
-
-
-            />
-
-
-        ]]>
+                android:textColor="@color/seniors_primary_color" />
         </LinearLayout>
         <!--OBSERVACOES-->
 
@@ -247,9 +202,14 @@
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="?attr/colorPrimaryDark"></View>
+            android:background="@color/seniors_primary_color"></View>
 
         <!--ACTION BUTTONS-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"></View>
+
 
         <LinearLayout
             android:layout_width="fill_parent"

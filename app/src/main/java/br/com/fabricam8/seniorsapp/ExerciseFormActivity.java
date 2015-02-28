@@ -26,6 +26,7 @@ import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 public class ExerciseFormActivity extends ActionBarActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener
@@ -37,7 +38,10 @@ public class ExerciseFormActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_form);
+        setContentView(R.layout.activity_exercise_form);
+
+        // create toolbar
+        ToolbarBuilder.build(this, true);
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
@@ -65,6 +69,17 @@ public class ExerciseFormActivity extends ActionBarActivity
         return eObj;
     }
 
+    /**
+     * Evento chamado quando botão cancelar é apertado.
+     * <p>
+     * Finaliza a Activity e retorna para tela anterior.
+     * </p>
+     */
+    public void cancel(View v) {
+        // end activity
+        finish();
+    }
+
     private void updateExerciseView() {
 
         FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
@@ -73,11 +88,6 @@ public class ExerciseFormActivity extends ActionBarActivity
         FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
-
-
-
-
-
     }
 
     public void openDialogMeasureActivities(View view) {
