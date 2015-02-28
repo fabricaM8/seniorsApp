@@ -125,7 +125,6 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     }
 
-
     public void openTimePickerDialogActivity(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a hora");
@@ -151,8 +150,6 @@ public class ExerciseFormActivity extends ActionBarActivity
                     30, DateFormat.is24HourFormat(getActivity()));
         }
     }
-
-
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -186,7 +183,6 @@ public class ExerciseFormActivity extends ActionBarActivity
                     month, day);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -244,6 +240,5 @@ public class ExerciseFormActivity extends ActionBarActivity
             Toast.makeText(this, "Ocorreu um erro e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
     }
-
 
 }
