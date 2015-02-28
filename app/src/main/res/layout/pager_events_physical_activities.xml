@@ -33,6 +33,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="@dimen/form_label_text_size"
-        android:text="Não há atividades cadastradss"
+        android:text="Não há atividades cadastradas"
         android:padding="6dip" />
 </RelativeLayout>
