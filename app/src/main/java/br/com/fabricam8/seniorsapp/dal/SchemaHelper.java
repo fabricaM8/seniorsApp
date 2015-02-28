@@ -48,8 +48,14 @@ public class SchemaHelper {
                 Exercise.KEY_CLOUD_ID + " INTEGER," +
                 Exercise.KEY_START_DATE + " INTEGER ," +
                 Exercise.KEY_END_DATE + " INTEGER," +
-                Exercise.KEY_TYPE + " INTEGER"
-                + ")";
+                Exercise.KEY_TYPE + " INTEGER, " +
+                Exercise.KEY_SUNDAY + " TEXT, " +
+                Exercise.KEY_TUESDAY + " TEXT, " +
+                Exercise.KEY_WEDNESDAY + " TEXT, " +
+                Exercise.KEY_THUSDAY + " TEXT, " +
+                Exercise.KEY_FRIDAY + " TEXT, " +
+                Exercise.KEY_SATURDAY + " TEXT " +
+                 ")";
 
         String alertReportTableSchema = "CREATE TABLE " + AlertEventReportEntryDAL.TABLE_NAME + "(" +
                 AlertEventReportEntry.KEY_ID + " INTEGER PRIMARY KEY," +
