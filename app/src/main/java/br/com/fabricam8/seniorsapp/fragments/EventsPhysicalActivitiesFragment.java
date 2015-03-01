@@ -2,6 +2,7 @@ package br.com.fabricam8.seniorsapp.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import br.com.fabricam8.seniorsapp.ExerciseInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.adapters.PhysicalEventItemAdaper;
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
@@ -62,10 +64,11 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Exercise entry = (Exercise) parent.getItemAtPosition(position);
-                Toast.makeText(mContext, "Clicado", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(mContext, MedicationInfoActivity.class);
-//                intent.putExtra("_ID_", entry.getID());
-//                startActivity(intent);
+//                Toast.makeText(mContext, "Clicado", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, ExerciseInfoActivity.class);
+
+                intent.putExtra("_ID_", entry.getID());
+                startActivity(intent);
             }
         });
     }

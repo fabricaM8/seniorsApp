@@ -54,6 +54,7 @@ public class SchemaHelper {
                 Exercise.KEY_WEDNESDAY + " TEXT, " +
                 Exercise.KEY_THUSDAY + " TEXT, " +
                 Exercise.KEY_FRIDAY + " TEXT, " +
+                Exercise.KEY_MONDAY + " TEXT, " +
                 Exercise.KEY_SATURDAY + " TEXT " +
                  ")";
 

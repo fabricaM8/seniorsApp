@@ -83,10 +83,10 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             oRetVal.setType(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
 
             if(!cursor.isNull(2))
-                oRetVal.setStartDate(new Date(cursor.getInt(2)));
+                oRetVal.setStartDate(new Date(cursor.getLong(2)));
 
             if(!cursor.isNull(3))
-                oRetVal.setEndDate(new Date(cursor.getInt(3)));
+                oRetVal.setEndDate(new Date(cursor.getLong(3)));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
