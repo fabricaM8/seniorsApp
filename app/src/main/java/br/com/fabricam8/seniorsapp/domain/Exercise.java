@@ -15,6 +15,7 @@ public class Exercise extends DbEntity {
     public static final String KEY_TYPE = "exercise_type";
     public static final String KEY_START_DATE = "start_date";
     public static final String KEY_END_DATE = "end_date";
+    public static final String KEY_MONDAY    = "monday";
     public static final String KEY_SUNDAY    = "sunday";
     public static final String KEY_TUESDAY   = "tuesday";
     public static final String KEY_WEDNESDAY    = "wednesday";
@@ -27,6 +28,7 @@ public class Exercise extends DbEntity {
     private ExerciseType type;  // Tipo de atividade
     private Date startDate;     // data inicial
     private Date endDate;       // data final
+    private String monday;  // Tipo de atividade
     private String tuesday;  // Tipo de atividade
     private String wednesday;  // Tipo de atividade
     private String thursday;  // Tipo de atividade
@@ -50,6 +52,7 @@ public class Exercise extends DbEntity {
         values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_END_DATE, getEndDate().getTime());
         values.put(KEY_SUNDAY, getSunday());
+        values.put(KEY_MONDAY, getMonday());
         values.put(KEY_TUESDAY,getThusday());
         values.put(KEY_WEDNESDAY, getWednesday());
         values.put(KEY_THUSDAY, getThusday());
@@ -59,6 +62,10 @@ public class Exercise extends DbEntity {
     }
     public String getThusday() {
         return thursday;
+    }
+
+    public String getMonday() {
+        return monday;
     }
 
     public String getWednesday() {
