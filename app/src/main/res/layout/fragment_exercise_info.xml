@@ -92,11 +92,11 @@
         android:layout_weight="1" />
 
     <ImageButton
-        android:id="@+id/btEditMedication"
+        android:id="@+id/btEditExercise"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_action_edit"
         android:background="@drawable/bt_round"
-        android:onClick="editMedication"
+        android:onClick="editExercise"
         android:layout_gravity="right" />
 </LinearLayout>
