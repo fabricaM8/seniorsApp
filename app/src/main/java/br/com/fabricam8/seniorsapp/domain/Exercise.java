@@ -92,7 +92,7 @@ public class Exercise extends DbEntity {
 
 
 
-      public Date getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
