@@ -105,7 +105,7 @@ public class ExerciseInfoActivity extends ActionBarActivity {
                                 AlertEventDAL alertDb = AlertEventDAL.getInstance(_this);
                                 AlertEvent alert = alertDb.findOneByEntityIdAndType(objId, Exercise.class.getName());
                                 if (alert != null) {
-                                    Log.i("Seniors - Exercise Info", "Removendo alarme");
+                                    Log.i("Seniors - Exercise Info", "Removendo atividade");
                                     alertDb.remove(alert);
                                 }
 
@@ -127,10 +127,13 @@ public class ExerciseInfoActivity extends ActionBarActivity {
         if (sessionExercise != null) {
 
             // setando valores
-            FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionExercise.getName());
+            FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionExercise.getMeasureType().name());
+
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionExercise.getStartDate()));
             FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getStartDate()));
+
+            //FormHelper.setTextBoxValue(this, R.id.exe_info_horario, sessionExercise.getMeasureType().name());
 
 
 
