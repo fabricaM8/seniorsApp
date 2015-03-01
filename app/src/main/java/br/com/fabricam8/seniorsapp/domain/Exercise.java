@@ -63,7 +63,7 @@ public class Exercise extends DbEntity {
     public String getThusday() {
         return thursday;
     }
- 
+
     public String getMonday() {
         return monday;
     }

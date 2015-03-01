@@ -133,7 +133,7 @@ public class ExerciseInfoActivity extends ActionBarActivity {
             FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionExercise.getStartDate()));
             FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getStartDate()));
 
-            //FormHelper.setTextBoxValue(this, R.id.exe_info_horario, sessionExercise.getMeasureType().name());
+
 
 
 
