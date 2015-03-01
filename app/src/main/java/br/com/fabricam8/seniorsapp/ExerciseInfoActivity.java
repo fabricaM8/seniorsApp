@@ -117,7 +117,7 @@ public class ExerciseInfoActivity extends ActionBarActivity {
                         }
                     }
                 })
-                .setNegativeButton(android.R.string.no, null).show();
+                .setNegativeButton(android.R.string.no, null).show(); 
     }
 
 
