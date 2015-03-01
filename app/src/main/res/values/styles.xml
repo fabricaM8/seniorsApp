@@ -35,12 +35,14 @@
     <style name="bt_action_active" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/bt_round</item>
     </style>
 
     <style name="bt_action_inactive" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:background">@drawable/bt_round_grey</item>
     </style>
 
@@ -53,6 +55,8 @@
         <item name="android:clickable">true</item>
         <item name="android:drawableEnd">@drawable/ic_action_edit_grey</item>
         <item name="android:drawableRight">@drawable/ic_action_edit_grey</item>
+        <item name="android:drawableLeft">@drawable/ic_transparent</item>
+        <item name="android:drawableStart">@drawable/ic_transparent</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/seniors_primary_color</item>
@@ -60,4 +64,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!--Checkbox-->
+
+
+    <style name="cb_default">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">1dp</item>
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:textColor">@drawable/cb_seniors_text_color</item>
+        <item name="android:background">@drawable/cb_seniors</item>
+    </style>
 </resources>

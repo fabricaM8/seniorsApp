@@ -19,11 +19,9 @@
 
     <ImageButton
         android:id="@+id/btEventsAddMedication"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
         android:src="@drawable/ic_action_add"
-        android:background="@drawable/bt_round"
         android:onClick="viewAddMedicationForm"
+        style="@style/bt_action_active"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
