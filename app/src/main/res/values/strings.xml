@@ -15,7 +15,7 @@
     <string name="title_activity_location">Minha localização</string>
     <string name="title_activity_medication_form">Cadastrar medicação</string>
     <string name="title_activity_exercise_form">Cadastrar atividade</string>
-    <string name="title_activity_medication_info">Resumo</string>
+    <string name="title_activity_info_summary">Resumo</string>
 
 
     <!-- Address format -->
@@ -70,6 +70,8 @@
     <string name="error_form_submit">Ocorreu um problema e a medicação não pode ser cadastrada.</string>
     <string name="success_medication_form_submit">Medicação salva com sucesso!</string>
     <string name="success_medication_deletion">Medicação deletada com sucesso!</string>
+    <string name="success_exercise_deletion">Atividade deletada com sucesso!</string>
+    <string name="fail_exercise_deletion">Não foi possível remover a atividade.</string>
     <string name="fail_medication_deletion">Não foi possível remover medicação.</string>
     <string name="title_activity_fragment_activity_form">fragment_activity_form</string>
 
