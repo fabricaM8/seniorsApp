@@ -18,7 +18,7 @@
         android:textStyle="bold"
         android:text="ATIVIDADE"
         android:paddingBottom="10dp"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/exe_info_name"
@@ -60,7 +60,7 @@
         android:text="HORÁRIOS"
         android:paddingBottom="10dp"
         android:textSize="@dimen/form_label_text_size"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/exe_info_horario"
@@ -70,6 +70,20 @@
         android:textAppearance="?android:attr/textAppearanceSmall"/>
 
     <TextView
+        android:id="@+id/exe_info_end_horario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/form_label_text_size"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"></View>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -77,7 +91,7 @@
         android:textSize="@dimen/form_label_text_size"
         android:text="OBESERVAÇÕES"
         android:paddingBottom="10dp"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/exe_info_observations"
