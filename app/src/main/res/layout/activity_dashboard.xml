@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="br.com.fabricam8.seniorsapp.DashboardActivity">
-
     <include layout="@layout/seniors_toolbar"/>
-
     <include layout="@layout/fragment_dashboard"/>
 
 </LinearLayout>

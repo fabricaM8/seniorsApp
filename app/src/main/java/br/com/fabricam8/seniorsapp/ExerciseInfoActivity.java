@@ -15,17 +15,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
-import br.com.fabricam8.seniorsapp.dal.AlertEventReportEntryDAL;
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
-import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
-import br.com.fabricam8.seniorsapp.enums.ReportResponseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -132,6 +126,11 @@ public class ExerciseInfoActivity extends ActionBarActivity {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionExercise.getStartDate()));
             FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getStartDate()));
+            // horarios
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            String hours = timeFormat.format(sessionExercise.getStartDate());
+            FormHelper.setTextBoxValue(this, R.id.exe_info_horario, hours);
+
 
 
 
