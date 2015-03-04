@@ -49,9 +49,9 @@ public class ExerciseFormActivity extends ActionBarActivity
         if (exerciseId == -1) {
             this.sessionExercise = initExercise();
         } else {
-            //this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
+            this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
         }
-        // atulizando a view de medicamento
+        // atulizando a view de atividades
         updateExerciseView();
     }
 
@@ -216,6 +216,7 @@ public class ExerciseFormActivity extends ActionBarActivity
             long id = -1;
             if (sessionExercise.getID() > 0)
             {
+                id = sessionExercise.getID();
                 // atualizacao de dados
                 dbExc.update(sessionExercise);
             }
@@ -223,7 +224,6 @@ public class ExerciseFormActivity extends ActionBarActivity
             {
                 id = dbExc.create(sessionExercise);
             }
-
 
             if (id > 0)
             {
@@ -234,12 +234,12 @@ public class ExerciseFormActivity extends ActionBarActivity
             } else
             {
                 // TODO remover alarme (se existir) ?!!
-                Toast.makeText(this, "Ocorreu uma falha e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
             }
         } catch (Exception ex)
         {
-            Log.e("Seniors App - Exercicio", ex.getMessage());
-            Toast.makeText(this, "Ocorreu um erro e a ativiadade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+            Log.e("Seniors App - Atividades", ex.getMessage());
+            Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
     }
 
