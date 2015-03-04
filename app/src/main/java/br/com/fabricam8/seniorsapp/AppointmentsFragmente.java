@@ -22,11 +22,7 @@ public class AppointmentsFragmente extends ActionBarActivity {
         return true;
     }
 
-    private  viewAppointments(View v)
-    {
 
-
-    }
 
 
     @Override

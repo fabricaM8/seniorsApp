@@ -132,8 +132,8 @@ public class ExerciseInfoActivity extends ActionBarActivity {
             FormHelper.setTextBoxValue(this, R.id.exe_info_horario, hours);
 
 
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            FormHelper.setTextBoxValue(this, R.id.exe_info_horario, "Iniciar às " + timeFormat.format(sessionExercise.getStartDate()));
+            //SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+          //  FormHelper.setTextBoxValue(this, R.id.exe_info_horario, "Iniciar às " + timeFormat.format(sessionExercise.getStartDate()));
 //            FormHelper.setTextBoxValue(this, R.id.exe_info_end_horario, "Finalizar às " + timeFormat.format(sessionExercise.getEndDate()));
 
 
