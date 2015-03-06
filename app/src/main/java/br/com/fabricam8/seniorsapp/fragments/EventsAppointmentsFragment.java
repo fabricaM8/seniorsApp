@@ -36,7 +36,7 @@ public class EventsAppointmentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pager_item, container, false);
+        View rootView = inflater.inflate(R.layout.pager_appointments_fragmente_activities, container, false);
         load(rootView);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
