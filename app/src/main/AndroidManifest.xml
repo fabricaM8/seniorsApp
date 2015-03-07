@@ -72,8 +72,8 @@
             android:name=".MedicationFormActivity"
             android:label="@string/title_activity_medication_form"
             android:parentActivityName=".EventsListActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
@@ -113,7 +113,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EventsListActivity" />
         </activity>
-
+        <activity
+            android:name=".Appointments_fragmente_form"
+            android:label="@string/title_activity_appointments_fragmente_form" >
+        </activity>
+        <activity
+            android:name=".Consulta"
+            android:label="@string/title_activity_consulta" >
+        </activity>
     </application>
 
 </manifest>

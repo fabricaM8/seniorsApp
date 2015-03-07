@@ -62,6 +62,12 @@ public class EventsListActivity extends ActionBarActivity {
         startActivity(i);
     }
 
+    public void viewAddAppointmentsFrament(View v) {
+
+        startActivity(new Intent(EventsListActivity.this, Consulta.class));
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
