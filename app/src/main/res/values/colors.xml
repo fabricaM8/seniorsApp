@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="seniors_primary_color">#00838f</color>
+    <!--color name="seniors_primary_color">#00838f</color-->
+    <color name="seniors_primary_color">#ff3b8f1c</color>
+
     <color name="seniors_secondary_color">#00BBD2</color>
     <color name="seniors_terciary_color">#0097A7</color>
     <color name="seniors_bg_color_light">#DDDDDD</color>

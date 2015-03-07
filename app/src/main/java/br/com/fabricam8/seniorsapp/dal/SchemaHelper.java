@@ -50,11 +50,11 @@ public class SchemaHelper {
                 Exercise.KEY_END_DATE + " INTEGER," +
                 Exercise.KEY_TYPE + " INTEGER, " +
                 Exercise.KEY_SUNDAY + " TEXT, " +
+                Exercise.KEY_MONDAY + " TEXT, " +
                 Exercise.KEY_TUESDAY + " TEXT, " +
                 Exercise.KEY_WEDNESDAY + " TEXT, " +
                 Exercise.KEY_THUSDAY + " TEXT, " +
                 Exercise.KEY_FRIDAY + " TEXT, " +
-                Exercise.KEY_MONDAY + " TEXT, " +
                 Exercise.KEY_SATURDAY + " TEXT " +
                  ")";
 
