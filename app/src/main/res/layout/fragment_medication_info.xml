@@ -102,7 +102,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"
         android:textSize="@dimen/form_label_text_size"
-        android:text="OBESERVAÇÕES"
+        android:text="OBSERVAÇÕES"
         android:paddingBottom="10dp"
         android:textColor="@android:color/black" />
 
