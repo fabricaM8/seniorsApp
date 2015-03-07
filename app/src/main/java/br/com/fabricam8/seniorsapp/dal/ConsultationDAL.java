@@ -16,7 +16,7 @@ import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 
 
 /**
- * Created by laecy_000 on 22/02/2015.
+ * Created by Carlos_000 on 06/03/2015.
  */
 public class ConsultationDAL extends DbCRUD<Consultation> {
 
@@ -48,7 +48,7 @@ public class ConsultationDAL extends DbCRUD<Consultation> {
         try {
             db = this.getWritableDatabase();
 
-            iRetVal = db.delete(getTableName(), Medication.KEY_ID + " = ?",
+            iRetVal = db.delete(getTableName(), Consultation.KEY_ID + " = ?",
                     new String[]{String.valueOf(entity.getID())});
         } catch (Exception ex) {
             Log.e("Seniors DB - delete", ex.getMessage());
