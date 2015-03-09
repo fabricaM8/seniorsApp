@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.domain.Consultation;
+import br.com.fabricam8.seniorsapp.domain.Consulta;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 
