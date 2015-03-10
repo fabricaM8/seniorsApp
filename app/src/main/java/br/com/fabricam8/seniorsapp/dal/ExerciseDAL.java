@@ -28,7 +28,8 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
     }
 
     public static synchronized ExerciseDAL getInstance(Context context) {
-        if (_instance == null) {
+        if (_instance == null)
+        {
             _instance = new ExerciseDAL(context);
         }
 
