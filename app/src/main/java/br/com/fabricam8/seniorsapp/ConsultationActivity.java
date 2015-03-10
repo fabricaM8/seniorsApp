@@ -20,12 +20,9 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
-import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
-import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
@@ -107,7 +104,7 @@ public class ConsultationActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         int measure = FormHelper.getPickerValue(dialogView, R.id.dg_exerc_measure);
-                        sessionConsultation.setType(ExerciseType.fromInt(measure + 1));
+                        //sessionConsultation.setType(ExerciseType.fromInt(measure + 1));
                         updateConstationView();
                     }
                 })
@@ -121,7 +118,7 @@ public class ConsultationActivity extends ActionBarActivity
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a data Inicial");
-        dialogCaller = v.getId();
+       // dialogCaller = v.getId();
 
     }
 
@@ -215,6 +212,7 @@ public class ConsultationActivity extends ActionBarActivity
             // TODO verificar salvamento na activity de Activity
             ConsultationDAL dbExc = ConsultationDAL.getInstance(this);
             long id = -1;
+           /*
             if (sessionConsultation.getID() > 0)
             {
                 id = sessionConsultation.getID();
@@ -226,7 +224,7 @@ public class ConsultationActivity extends ActionBarActivity
                 id = dbExc.create(sessionConsultation);
             }
 
-            if (id > 0)
+       */     if (id > 0)
             {
                 // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
 
@@ -242,6 +240,7 @@ public class ConsultationActivity extends ActionBarActivity
             Log.e("Seniors App - Atividades", ex.getMessage());
             Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
+
     }
 
     public static class Consultation extends ActionBarActivity {
@@ -274,7 +273,7 @@ public class ConsultationActivity extends ActionBarActivity
 
             return super.onOptionsItemSelected(item);
         }
-
+/*
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -293,13 +292,14 @@ public class ConsultationActivity extends ActionBarActivity
             // atulizando a view de atividades
             updateExerciseView();
         }
-
+*/
         public void saveConsultation(View v) {
             try {
                 Context context = this;
                 // TODO verificar salvamento na activity de Activity
                 ConsultationDAL dbExc = ConsultationDAL.getInstance(this);
                 long id = -1;
+               /*
                 if (sessionConsultation.getID() > 0)
                 {
                     id = sessionConsultation.getID();
@@ -310,7 +310,7 @@ public class ConsultationActivity extends ActionBarActivity
                 {
                     id = dbExc.create(sessionConsultation);
                 }
-
+*/
                 if (id > 0)
                 {
                     // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity

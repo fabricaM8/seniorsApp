@@ -4,8 +4,6 @@ import android.content.ContentValues;
 
 import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.enums.ConsultationType;
-
 
 /**
  * Created by laecy_000 on 09/03/2015.
@@ -24,7 +22,7 @@ public class Consultation extends DbEntity {
 
 
     // Entity attributes
-    private ConsultationType type;  // Tipo de atividade
+   // private ConsultationType type;  // Tipo de atividade
     private Date startDate;     // data inicial
     private String name;  // Tipo de atividade
     private String details;  // Tipo de atividade
@@ -60,11 +58,11 @@ public class Consultation extends DbEntity {
     public String getRemember() {
         return remember;
     }
-
+/*
     public ConsultationType getType() {
         return type;
     }
-
+*/
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
