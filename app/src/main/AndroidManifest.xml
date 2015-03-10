@@ -81,7 +81,7 @@
                 android:value=".EventsListActivity" />
         </activity>
         <activity
-            android:name=".ExerciseFormActivity"
+            android:name=".ExerciseInfoActivity"
             android:label="@string/title_activity_exercise_form"
             android:parentActivityName=".EventsListActivity"
             android:screenOrientation="portrait" >
@@ -102,24 +102,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EventsListActivity" />
         </activity>
-        <activity
-            android:name=".ExerciseInfoActivity"
-            android:label="@string/title_activity_info_summary"
-            android:parentActivityName=".EventsListActivity"
-            android:screenOrientation="portrait" >
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".EventsListActivity" />
-        </activity>
         <activity
-            android:name=".Appointments_fragmente_form"
-            android:label="@string/title_activity_appointments_fragmente_form" >
-        </activity>
-        <activity
-            android:name=".Consulta"
-            android:label="@string/title_activity_consulta" >
+            android:name=".ConsultationActivity"
+            android:label="Consulta Acitivity" >
         </activity>
     </application>
 
