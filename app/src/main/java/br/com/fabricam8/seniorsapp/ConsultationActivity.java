@@ -23,46 +23,45 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
-public class ExerciseFormActivity extends ActionBarActivity
+public class ConsultationActivity extends ActionBarActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener
 {
 
-    private Exercise sessionExercise;
-    private int dialogCaller;
+    private Consultation sessionConsultation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_form);
-
-        // create toolbar
+       //create toolbar
         ToolbarBuilder.build(this, true);
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
         if (exerciseId == -1) {
-            this.sessionExercise = initExercise();
+            this.sessionConsultation = initConsultation();
         } else {
-            this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
+            //this.sessionConsultation =  ConsultationDAL.getInstance(this).findOne(Id);
         }
         // atulizando a view de atividades
-        updateExerciseView();
+        updateConstationView();
     }
 
-    private Exercise initExercise() {
-        Exercise eObj = new Exercise();
+    private Consultation initConsultation() {
+        Consultation eObj = new Consultation();
 
         Calendar c = Calendar.getInstance();
 
-        eObj.setType(ExerciseType.ANDAR);
-        eObj.setStartDate(c.getTime());
-        eObj.setEndDate(c.getTime());
+        //eObj.set(ExerciseType.ANDAR);
+       // eObj.setStartDate(c.getTime());
+       // eObj.setEndDate(c.getTime());
         //eObj.setDescription(c.getDescription());
 
         // setar o resto dos atributos
@@ -81,14 +80,14 @@ public class ExerciseFormActivity extends ActionBarActivity
         finish();
     }
 
-    private void updateExerciseView() {
+    private void updateConstationView() {
 
-        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
-        FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
+       // FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+        //FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+       // FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
+       // SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+       // FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
     }
 
     public void openDialogMeasureActivities(View view) {
@@ -108,8 +107,8 @@ public class ExerciseFormActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         int measure = FormHelper.getPickerValue(dialogView, R.id.dg_exerc_measure);
-                        sessionExercise.setType(ExerciseType.fromInt(measure + 1));
-                        updateExerciseView();
+                        sessionConsultation.setType(ExerciseType.fromInt(measure + 1));
+                        updateConstationView();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -134,12 +133,12 @@ public class ExerciseFormActivity extends ActionBarActivity
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar c = Calendar.getInstance();
-        c.setTime(sessionExercise.getStartDate());
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//        c.setTime(Consultation.getStartDate());
+  //      c.set(Calendar.MINUTE, minute);
+    //    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         // reajustando dat ade inicio
-        sessionExercise.setStartDate(c.getTime());
-        updateExerciseView();
+      //  sessionConsultation.setStartDate(c.getTime());
+        //updateConstationView();
     }
 
     public static class TimePickerFragment extends DialogFragment {
@@ -147,7 +146,7 @@ public class ExerciseFormActivity extends ActionBarActivity
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), (ExerciseFormActivity) getActivity(), 6,
+            return new TimePickerDialog(getActivity(), (ConsultationActivity) getActivity(), 6,
                     30, DateFormat.is24HourFormat(getActivity()));
         }
     }
@@ -158,6 +157,7 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DATE, dayOfMonth);
+     /*
        if(dialogCaller == R.id.exc_form_startingt)
         {
             sessionExercise.setStartDate(c.getTime());
@@ -168,6 +168,7 @@ public class ExerciseFormActivity extends ActionBarActivity
             sessionExercise.setEndDate(c.getTime());
         }
         updateExerciseView();
+    */
     }
 
     public static class DatePickerFragment extends DialogFragment {
@@ -180,7 +181,7 @@ public class ExerciseFormActivity extends ActionBarActivity
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), (ExerciseFormActivity) getActivity(), year,
+            return new DatePickerDialog(getActivity(), (ConsultationActivity) getActivity(), year,
                     month, day);
         }
     }
@@ -212,17 +213,17 @@ public class ExerciseFormActivity extends ActionBarActivity
         try {
             Context context = this;
             // TODO verificar salvamento na activity de Activity
-            ExerciseDAL dbExc = ExerciseDAL.getInstance(this);
+            ConsultationDAL dbExc = ConsultationDAL.getInstance(this);
             long id = -1;
-            if (sessionExercise.getID() > 0)
+            if (sessionConsultation.getID() > 0)
             {
-                id = sessionExercise.getID();
+                id = sessionConsultation.getID();
                 // atualizacao de dados
-                dbExc.update(sessionExercise);
+                dbExc.update(sessionConsultation);
             }
             else
             {
-                id = dbExc.create(sessionExercise);
+                id = dbExc.create(sessionConsultation);
             }
 
             if (id > 0)
@@ -243,4 +244,92 @@ public class ExerciseFormActivity extends ActionBarActivity
         }
     }
 
+    public static class Consultation extends ActionBarActivity {
+        private Consultation sessionConsultation;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_consulta);
+        }
+
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu_consulta, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                return true;
+            }
+
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_exercise_form);
+
+            // create toolbar
+            ToolbarBuilder.build(this, true);
+
+            // recuperando id passada no clique
+            long consultaId = getIntent().getLongExtra("_ID_", -1);
+            if (consultaId == -1) {
+                this.sessionConsultation = init();
+            } else {
+                this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
+            }
+            // atulizando a view de atividades
+            updateExerciseView();
+        }
+
+        public void saveConsultation(View v) {
+            try {
+                Context context = this;
+                // TODO verificar salvamento na activity de Activity
+                ConsultationDAL dbExc = ConsultationDAL.getInstance(this);
+                long id = -1;
+                if (sessionConsultation.getID() > 0)
+                {
+                    id = sessionConsultation.getID();
+                    // atualizacao de dados
+                    dbExc.update(sessionConsultation);
+                }
+                else
+                {
+                    id = dbExc.create(sessionConsultation);
+                }
+
+                if (id > 0)
+                {
+                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+
+                    Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                    finish(); // finalizando activty e retornando para tela anterior
+                } else
+                {
+                    // TODO remover alarme (se existir) ?!!
+                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception ex)
+            {
+                Log.e("Seniors App - Atividades", ex.getMessage());
+                Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+
+
+    }
 }

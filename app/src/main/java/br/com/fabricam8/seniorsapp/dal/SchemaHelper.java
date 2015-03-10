@@ -6,6 +6,7 @@ import android.util.Log;
 
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
+import br.com.fabricam8.seniorsapp.domain.Consultation;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
@@ -67,10 +68,20 @@ public class SchemaHelper {
                 AlertEventReportEntry.KEY_REPORT_DATE + " INTEGER" +
                 ")";
 
+
+        String consultTableSchema = "CREATE TABLE " + ConsultationDAL.TABLE_NAME + "(" +
+                Consultation.KEY_ID + " INTEGER PRIMARY KEY," +
+                Consultation.KEY_NAME + " TEXT," +
+                Consultation.KEY_DETALIS + " TEXT," +
+                Consultation.KEY_START_DATE + " TEXT," +
+                Consultation.KEY_REMEMBER + " TEXT," +
+                ")";
+
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
         db.execSQL(alertReportTableSchema);
         db.execSQL(excTableSchema);
+        db.execSQL(consultTableSchema);
     }
 
     // Upgrading database
@@ -83,7 +94,7 @@ public class SchemaHelper {
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + ExerciseDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventReportEntryDAL.TABLE_NAME);
-
+            db.execSQL("DROP TABLE IF EXISTS " + ConsultationDAL.TABLE_NAME);
             // Create tables again
             createTable(db);
         }

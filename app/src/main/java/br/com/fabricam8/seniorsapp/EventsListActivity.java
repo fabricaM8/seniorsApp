@@ -64,7 +64,7 @@ public class EventsListActivity extends ActionBarActivity {
 
     public void viewAddAppointmentsFrament(View v) {
 
-        startActivity(new Intent(EventsListActivity.this, Consultation.class));
+        startActivity(new Intent(EventsListActivity.this, ExerciseFormActivity.Consultation.class));
 
     }
 
