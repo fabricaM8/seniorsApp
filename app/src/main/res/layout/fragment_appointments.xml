@@ -50,7 +50,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/exc_form_dateand"
+            android:id="@+id/consultation_data_start"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
@@ -69,7 +69,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/exc_form_time"
+            android:id="@+id/consultation_time"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openTimePickerDialogActivity" />
@@ -83,7 +83,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/exc_form_type"
+            android:id="@+id/consultation_type"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDialogMeasureActivities" />
@@ -117,7 +117,7 @@
             <ImageButton
                 android:id="@+id/btSaveExercise"
                 style="@style/bt_action_active"
-                android:onClick="saveExercise"
+                android:onClick="saveConsultation"
                 android:src="@drawable/ic_action_confirm" />
         </LinearLayout>
     </LinearLayout>

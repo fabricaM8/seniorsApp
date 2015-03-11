@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Consultation;
@@ -76,14 +77,13 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
 
             oRetVal = new Consultation();
             oRetVal.setID(cursor.getInt(0));
-            //oRetVal.setName(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
-/*
+            //oRetVal.setName(cursor.isNull(1) ? ConsultationType.ANDAR : ConsultationType.fromInt(cursor.getInt(1)));
+
             if(!cursor.isNull(2))
                 oRetVal.setStartDate(new Date(cursor.getLong(2)));
 
-            if(!cursor.isNull(3))
-                oRetVal.setEndDate(new Date(cursor.getLong(3)));
-*/
+
+
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
             oRetVal = null;
@@ -97,6 +97,7 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
 
         return oRetVal;
     }
+
     @Override
     public List<Consultation> findAll() {
         List<Consultation> lstRetVal = new ArrayList<>();

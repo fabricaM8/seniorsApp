@@ -71,10 +71,11 @@ public class SchemaHelper {
 
         String consultTableSchema = "CREATE TABLE " + ConsultationDAL.TABLE_NAME + "(" +
                 Consultation.KEY_ID + " INTEGER PRIMARY KEY," +
+                Consultation.KEY_CLOUD_ID + " INTEGER," +
                 Consultation.KEY_NAME + " TEXT," +
                 Consultation.KEY_DETALIS + " TEXT," +
                 Consultation.KEY_START_DATE + " TEXT," +
-                Consultation.KEY_REMEMBER + " TEXT," +
+                Consultation.KEY_REMEMBER + " TEXT" +
                 ")";
 
         db.execSQL(medTableSchema);
