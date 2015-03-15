@@ -72,6 +72,11 @@
     <string name="success_medication_deletion">Medicação deletada com sucesso!</string>
     <string name="success_exercise_deletion">Atividade deletada com sucesso!</string>
     <string name="fail_exercise_deletion">Não foi possível remover a atividade.</string>
+
+    <string name="success_consultation_deletion">Consulta deletada com sucesso!</string>
+    <string name="fail_consultation_deletion">Não foi possível remover a consulta.</string>
+
+
     <string name="fail_medication_deletion">Não foi possível remover medicação.</string>
     <string name="title_activity_fragment_activity_form">fragment_activity_form</string>
 

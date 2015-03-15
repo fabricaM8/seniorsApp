@@ -11,15 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.Arrays;
+import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.adapters.AppointmentsEventItemAdaper;
+import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
+import br.com.fabricam8.seniorsapp.domain.Consultation;
 
 public class EventsAppointmentsFragment extends Fragment {
 
     private Activity mContext;
 
-    String[] evts = {"Dr. João Calado"};
+ //   String[] evts = {"Dr. João Calado"};
 
 
     @Override
@@ -43,13 +46,13 @@ public class EventsAppointmentsFragment extends Fragment {
     }
 
     private void load(View v) {
-//        AppointmentsDAL db = AppointmentsDAL.getInstance(mContext);
-//        List<Appointments> lstEvts = db.findAll();
-//
-//        String[] evts = new String[lstEvts.size()];
-//        for (int i = 0; i < lstEvts.size(); i++) {
-//            evts[i] = lstEvts.get(i).getName();
-//        }
+        ConsultationDAL db = ConsultationDAL.getInstance(mContext);
+        List<Consultation> lstEvts = db.findAll();
+
+        String[] evts = new String[lstEvts.size()];
+        for (int i = 0; i < lstEvts.size(); i++) {
+            evts[i] = lstEvts.get(i).getName();
+        }
 
         AppointmentsEventItemAdaper adapter = new AppointmentsEventItemAdaper(mContext.getApplicationContext(), Arrays.asList(evts));
         ListView listView = (ListView) v.findViewById(R.id.listView);

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Consultation;
+import br.com.fabricam8.seniorsapp.enums.ConsultationType;
 
 /**
  * Created by laecy_000 on 09/03/2015.
@@ -106,10 +107,10 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Consultation.KEY_ID, Consultation.KEY_DETALIS,
-                    Consultation.KEY_START_DATE, Consultation.KEY_START_DATE);
+            selectQuery = String.format(selectQuery, Consultation.KEY_ID, Consultation.KEY_NAME,
+                    Consultation.KEY_DETALIS, Consultation.KEY_START_DATE);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -119,11 +120,13 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
             if (cursor.moveToFirst()) do {
                 Consultation entity = new Consultation();
                 entity.setID(cursor.getInt(0));
-                //entity.se(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
+                entity.setName(cursor.getString(1));
+                //entity.setDetails(ConsultationType.valueOf());
+                //entity.setDetails(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
 
                 if(!cursor.isNull(2))
-                ///    entity.setStartDate(new Date(cursor.getLong(2)));
-                if(!cursor.isNull(3))
+                    entity.setStartDate(new Date(cursor.getLong(2)));
+             //   if(!cursor.isNull(3))
                   //  entity.setEndDate(new Date(cursor.getLong(3)));
 
                 // Adding entity to list
