@@ -16,7 +16,7 @@ import android.view.View;
 import com.astuetz.PagerSlidingTabStrip;
 
 import br.com.fabricam8.seniorsapp.fragments.EventsAllFragment;
-import br.com.fabricam8.seniorsapp.fragments.EventsAppointmentsFragment;
+import br.com.fabricam8.seniorsapp.fragments.EventsConsultationFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsMedicationFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPhysicalActivitiesFragment;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
@@ -64,7 +64,7 @@ public class EventsListActivity extends ActionBarActivity {
 
     public void viewAddAppointmentsFrament(View v) {
 
-       startActivity(new Intent(EventsListActivity.this, ConsultationActivity.class));
+       startActivity(new Intent(EventsListActivity.this, ConsultationFormActivity.class));
 
     }
 
@@ -113,7 +113,7 @@ public class EventsListActivity extends ActionBarActivity {
                 case 2:
                     return new EventsPhysicalActivitiesFragment();
                 case 3:
-                    return new EventsAppointmentsFragment();
+                    return new EventsConsultationFragment();
             }
 
             return null;

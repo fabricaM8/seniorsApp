@@ -103,9 +103,18 @@
                 android:value=".EventsListActivity" />
         </activity>
 
+
         <activity
-            android:name=".ConsultationActivity"
-            android:label="Consulta Acitivity" >
+            android:name=".ConsultationFormActivity"
+            android:label="@string/title_activity_consultation_form"
+            android:parentActivityName=".EventsListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".EventsListActivity" />
         </activity>
     </application>
 

@@ -14,13 +14,13 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.MedicationInfoActivity;
+import br.com.fabricam8.seniorsapp.ConsultationInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
-import br.com.fabricam8.seniorsapp.adapters.MedicationEventItemAdaper;
-import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
-import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.adapters.ConsultationEventItemAdaper;
+import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
+import br.com.fabricam8.seniorsapp.domain.Consultation;
 
-public class EventsMedicationFragment extends Fragment {
+public class EventsConsultationFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -44,25 +44,25 @@ public class EventsMedicationFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pager_events_medication, container, false);
+        rootView = inflater.inflate(R.layout.pager_events_consultation, container, false);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
     }
 
     private void load(View v) {
-        MedicationDAL db = MedicationDAL.getInstance(mContext);
-        List<Medication> meds = db.findAll();
+        ConsultationDAL db = ConsultationDAL.getInstance(mContext);
+        List<Consultation> evts = db.findAll();
 
-        MedicationEventItemAdaper adapter = new MedicationEventItemAdaper(mContext.getApplicationContext(), meds);
-
+        ConsultationEventItemAdaper adapter = new ConsultationEventItemAdaper(mContext.getApplicationContext(), evts);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Medication entry =  (Medication) parent.getItemAtPosition(position);
-                Intent intent = new Intent(mContext, MedicationInfoActivity.class);
+                Consultation entry =  (Consultation) parent.getItemAtPosition(position);
+                Intent intent = new Intent(mContext, ConsultationInfoActivity.class);
                 intent.putExtra("_ID_", entry.getID());
                 startActivity(intent);
             }

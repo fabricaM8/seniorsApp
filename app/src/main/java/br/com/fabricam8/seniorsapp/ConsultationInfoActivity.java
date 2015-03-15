@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat;
 
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
-
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
@@ -132,18 +131,10 @@ public class ConsultationInfoActivity extends ActionBarActivity {
             String hours = timeFormat.format(sessionConsultation.getStartDate());
             FormHelper.setTextBoxValue(this, R.id.exe_info_horario, hours);
 
-
             //SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-          //  FormHelper.setTextBoxValue(this, R.id.exe_info_horario, "Iniciar às " + timeFormat.format(sessionExercise.getStartDate()));
+            //  FormHelper.setTextBoxValue(this, R.id.exe_info_horario, "Iniciar às " + timeFormat.format(sessionExercise.getStartDate()));
 //            FormHelper.setTextBoxValue(this, R.id.exe_info_end_horario, "Finalizar às " + timeFormat.format(sessionExercise.getEndDate()));
-
-
-
-
-
 
         }
     }
-
-
 }
