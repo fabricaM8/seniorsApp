@@ -41,11 +41,12 @@ public class ConsultationFormActivity extends ActionBarActivity
         ToolbarBuilder.build(this, true);
 
         // recuperando id passada no clique
-        long exerciseId = getIntent().getLongExtra("_ID_", -1);
-        if (exerciseId == -1) {
+        long consultaId = getIntent().getLongExtra("_ID_", -1);
+        if (consultaId == -1)
+        {
             this.sessionConsultation = initConsultation();
         } else {
-            this.sessionConsultation = ConsultationDAL.getInstance(this).findOne(exerciseId);
+            this.sessionConsultation = ConsultationDAL.getInstance(this).findOne(consultaId);
         }
         // atulizando a view de atividades
         updateConsultationView();
@@ -88,7 +89,7 @@ public class ConsultationFormActivity extends ActionBarActivity
         FormHelper.setupPicker(dialogView, R.id.dg_exerc_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
-        builder.setTitle("Escolha uma atividade")
+        builder.setTitle("Escolha uma lembrete")
                 .setView(dialogView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -169,11 +170,13 @@ public class ConsultationFormActivity extends ActionBarActivity
             // TODO verificar salvamento na activity de Activity
             ConsultationDAL dbCon = ConsultationDAL.getInstance(this);
             long id = -1;
-            if (sessionConsultation.getID() > 0) {
+            if (sessionConsultation.getID() > 0)
+            {
                 id = sessionConsultation.getID();
-                // atualizacao de dados
+                //atualizacao de dados
                 dbCon.update(sessionConsultation);
-            } else {
+            } else
+            {
                 id = dbCon.create(sessionConsultation);
             }
 

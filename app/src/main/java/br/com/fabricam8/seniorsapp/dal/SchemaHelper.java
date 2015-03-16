@@ -75,7 +75,7 @@ public class SchemaHelper {
                 Consultation.KEY_NAME + " TEXT," +
                 Consultation.KEY_DETALIS + " TEXT," +
                 Consultation.KEY_START_DATE + " TEXT," +
-                Consultation.KEY_REMEMBER + " TEXT" +
+                Consultation.KEY_TYPE + " TEXT" +
                 ")";
 
         db.execSQL(medTableSchema);

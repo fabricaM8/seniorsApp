@@ -118,7 +118,8 @@ public class ConsultationInfoActivity extends ActionBarActivity {
     private void loadConsultation(long id) {
         ConsultationDAL db = ConsultationDAL.getInstance(this);
         sessionConsultation = db.findOne(id);
-        if (sessionConsultation != null) {
+        if (sessionConsultation != null)
+        {
 
             // setando valores
             FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionConsultation.getName());

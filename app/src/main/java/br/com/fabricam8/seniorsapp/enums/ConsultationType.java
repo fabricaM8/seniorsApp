@@ -9,7 +9,7 @@ import java.util.List;
 public enum ConsultationType {
 
     NONE(0, "Prioridade"),
-    OBRIGATORIA(1, "Obrigatoria"),
+    OBRIGATORO(1, "Obrigatoria"),
     NADAR(2, "nadar"),
     ANDAR(3, "andar"),
     MALHAR(4, "malhar");

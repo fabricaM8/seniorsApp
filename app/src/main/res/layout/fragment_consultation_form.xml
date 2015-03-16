@@ -115,10 +115,11 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/btSaveExercise"
+                android:id="@+id/btSaveConsultation"
                 style="@style/bt_action_active"
                 android:onClick="saveConsultation"
-                android:src="@drawable/ic_action_confirm" />
+                android:src="@drawable/ic_action_confirm"
+                android:focusableInTouchMode="false" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

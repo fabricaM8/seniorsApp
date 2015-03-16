@@ -13,24 +13,18 @@ import br.com.fabricam8.seniorsapp.enums.ConsultationType;
 public class Consultation extends DbEntity {
 
 
-
     // Entity Columns names
     public static final String KEY_NAME = "name";
     public static final String KEY_DETALIS = "details";
     public static final String KEY_START_DATE = "start_date";
-    public static final String KEY_REMEMBER = "remember";
     public static final String KEY_TYPE = "consultation_type";
 
-
-
-
     // Entity attributes
-    private ConsultationType consultation_type;  // Tipo de atividade
-    private Date startDate;     // data inicial
     private String name;  // Tipo de atividade
     private String details;  // Tipo de atividade
-    private String remember;  // Tipo de atividade
-    private String time;
+    private Date startDate;     // data inicial
+    private ConsultationType consultation_type;  // Tipo de atividade
+
     // constructors
     public Consultation() {
     }
@@ -41,12 +35,11 @@ public class Consultation extends DbEntity {
         ContentValues values = new ContentValues();
         values.put(KEY_CLOUD_ID, getCloudId());
         values.put(KEY_NAME, getName());
-        values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_DETALIS, getDetails());
-        values.put(KEY_REMEMBER, getRememberType().getValue());
+        values.put(KEY_START_DATE, getStartDate().getTime());
+        values.put(KEY_TYPE, getRememberType().getValue());
         return values;
-
-    }
+  }
 
     public void setConsultation_type(ConsultationType consultation_type) {
         this.consultation_type = consultation_type;
@@ -64,9 +57,7 @@ public class Consultation extends DbEntity {
         return startDate;
     }
 
-    public String getRemember() {
-        return remember;
-    }
+
 
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
@@ -81,13 +72,6 @@ public class Consultation extends DbEntity {
         this.details = details;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getTime() {
-        return time;
-    }
 
     @Override
     public long getID() {
