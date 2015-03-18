@@ -9,11 +9,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -39,6 +42,8 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         // create toolbar
         ToolbarBuilder.build(this, true);
+        // adicionando edit listeners aos campos de texto
+        addTextChangeListeners();
 
         // recuperando id passada no clique
         long consultaId = getIntent().getLongExtra("_ID_", -1);
@@ -59,17 +64,48 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         eObj.setConsultation_type(ConsultationType.ANDAR);
         eObj.setStartDate(c.getTime());
-        //eObj.setTime(c.getTime());
-        //eObj.setDescription(c.getDescription());
 
-        // setar o resto dos atributos
 
         return eObj;
+    }
+    private void addTextChangeListeners() {
+        EditText txtName = (EditText)findViewById(R.id.nome_medico);
+        txtName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionConsultation.setName(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        EditText txtObserv = (EditText)findViewById(R.id.detalhe);
+        txtObserv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionConsultation.setDetails(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
     }
 
 
     private void updateConsultationView() {
-
+        FormHelper.setTextBoxValue(this, R.id.nome_medico, sessionConsultation.getName());
+        FormHelper.setTextBoxValue(this, R.id.detalhe, sessionConsultation.getDetails());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.consultation_data_start, dateFormat.format(sessionConsultation.getStartDate()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -83,10 +119,10 @@ public class ConsultationFormActivity extends ActionBarActivity
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         // Pass null as the parent view because its going in the dialog layout
-        final View dialogView = inflater.inflate(R.layout.dialog_exerc_measure, null);
+        final View dialogView = inflater.inflate(R.layout.dialog_consul_measure, null);
 
         String[] arrValues = ConsultationType.getStringValues();
-        FormHelper.setupPicker(dialogView, R.id.dg_exerc_measure, 0, arrValues.length - 1, arrValues, 0);
+        FormHelper.setupPicker(dialogView, R.id.dg_consul_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
         builder.setTitle("Escolha uma lembrete")
@@ -94,7 +130,7 @@ public class ConsultationFormActivity extends ActionBarActivity
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        int measure = FormHelper.getPickerValue(dialogView, R.id.consultation_type);
+                        int measure = FormHelper.getPickerValue(dialogView, R.id.dg_consul_measure);
                         sessionConsultation.setConsultation_type(ConsultationType.fromInt(measure + 1));
                         updateConsultationView();
                     }

@@ -8,11 +8,11 @@ import java.util.List;
  */
 public enum ConsultationType {
 
-    NONE(0, "Prioridade"),
-    OBRIGATORO(1, "Obrigatoria"),
-    NADAR(2, "nadar"),
-    ANDAR(3, "andar"),
-    MALHAR(4, "malhar");
+    NONE(0, "Hoje"),
+    OBRIGATORO(1, "Um dia antes"),
+    NADAR(2, "Dois dias antes"),
+    ANDAR(3, "Três dias antes"),
+    MALHAR(4, "Quatro dias antes");
 
     private final int value;
     private final String name;
