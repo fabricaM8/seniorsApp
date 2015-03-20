@@ -46,6 +46,9 @@ public class ExerciseFormActivity extends ActionBarActivity
         // create toolbar
         ToolbarBuilder.build(this, true);
 
+        // adicionando edit listeners aos campos de texto
+        addTextChangeListeners();
+
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
         if (exerciseId == -1) {
@@ -71,11 +74,11 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
     private void addTextChangeListeners() {
-        EditText txtName = (EditText) findViewById(R.id.med_form_name);
+        EditText txtName = (EditText) findViewById(R.id.exercise_type);
         txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionExercise.setName(s.toString());
+                sessionExercise.setExercise_type(s.toString());
             }
 
             @Override
@@ -99,7 +102,6 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
     private void updateExerciseView() {
-
         FormHelper.setTextBoxValue(this, R.id.exercise_type, sessionExercise.getKeyType());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
