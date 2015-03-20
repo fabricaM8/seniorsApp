@@ -49,7 +49,7 @@ public class SchemaHelper {
                 Exercise.KEY_CLOUD_ID + " INTEGER," +
                 Exercise.KEY_START_DATE + " INTEGER ," +
                 Exercise.KEY_END_DATE + " INTEGER," +
-                Exercise.KEY_TYPE + " INTEGER, " +
+                Exercise.KEY_EXERCICE_TYPE + " TEXT, " +
                 Exercise.KEY_SUNDAY + " TEXT, " +
                 Exercise.KEY_MONDAY + " TEXT, " +
                 Exercise.KEY_TUESDAY + " TEXT, " +

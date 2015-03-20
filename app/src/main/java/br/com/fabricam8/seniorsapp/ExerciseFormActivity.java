@@ -1,31 +1,31 @@
 package br.com.fabricam8.seniorsapp;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
-import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -35,6 +35,8 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     private Exercise sessionExercise;
     private int dialogCaller;
+    private Date data_atual;
+    private View data_selecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +62,31 @@ public class ExerciseFormActivity extends ActionBarActivity
 
         Calendar c = Calendar.getInstance();
 
-        eObj.setType(ExerciseType.ANDAR);
+        c.getTime();
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(c.getTime());
-        //eObj.setDescription(c.getDescription());
-
         // setar o resto dos atributos
 
         return eObj;
     }
 
+    private void addTextChangeListeners() {
+        EditText txtName = (EditText) findViewById(R.id.med_form_name);
+        txtName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionExercise.setName(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
     /**
      * Evento chamado quando botão cancelar é apertado.
      * <p>
@@ -83,7 +100,7 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     private void updateExerciseView() {
 
-        FormHelper.setTextBoxValue(this, R.id.exc_form_type, sessionExercise.getMeasureType().toString());
+        FormHelper.setTextBoxValue(this, R.id.exercise_type, sessionExercise.getKeyType());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
         FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
@@ -91,33 +108,6 @@ public class ExerciseFormActivity extends ActionBarActivity
         FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
     }
 
-    public void openDialogMeasureActivities(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        // Get the layout inflater
-        LayoutInflater inflater = this.getLayoutInflater();
-        // Pass null as the parent view because its going in the dialog layout
-        final View dialogView = inflater.inflate(R.layout.dialog_exerc_measure, null);
-
-        String[] arrValues = ExerciseType.getStringValues();
-        FormHelper.setupPicker(dialogView, R.id.dg_exerc_measure, 0, arrValues.length - 1, arrValues, 0);
-
-        // montando dialog
-        builder.setTitle("Escolha uma atividade")
-                .setView(dialogView)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        int measure = FormHelper.getPickerValue(dialogView, R.id.dg_exerc_measure);
-                        sessionExercise.setType(ExerciseType.fromInt(measure + 1));
-                        updateExerciseView();
-                    }
-                })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                }).create().show();
-    }
 
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
@@ -138,7 +128,7 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         // reajustando dat ade inicio
-        sessionExercise.setStartDate(c.getTime());
+       // sessionExercise.setStartDate(c.getTime());
         updateExerciseView();
     }
 

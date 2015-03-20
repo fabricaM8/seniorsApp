@@ -4,15 +4,13 @@ import android.content.ContentValues;
 
 import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.enums.ExerciseType;
-
 /**
  * Created by laecy_000 on 22/02/2015.
  */
 public class Exercise extends DbEntity {
 
     // Entity Columns names
-    public static final String KEY_TYPE = "exercise_type";
+    public static final String KEY_EXERCICE_TYPE = "exercise_type";
     public static final String KEY_START_DATE = "start_date";
     public static final String KEY_END_DATE = "end_date";
     public static final String KEY_MONDAY    = "monday";
@@ -25,7 +23,7 @@ public class Exercise extends DbEntity {
 
 
     // Entity attributes
-    private ExerciseType type;  // Tipo de atividade
+    private String exercise_type;  // Tipo de atividade
     private Date startDate;     // data inicial
     private Date endDate;       // data final
     private String monday;  // Tipo de atividade
@@ -48,7 +46,7 @@ public class Exercise extends DbEntity {
 
         ContentValues values = new ContentValues();
         values.put(KEY_CLOUD_ID, getCloudId());
-        values.put(KEY_TYPE, getMeasureType().getValue());
+        values.put(KEY_EXERCICE_TYPE, getKeyType());
         values.put(KEY_START_DATE, getStartDate().getTime());
         values.put(KEY_END_DATE, getEndDate().getTime());
         values.put(KEY_SUNDAY, getSunday());
@@ -88,13 +86,16 @@ public class Exercise extends DbEntity {
         return thursday;
     }
 
-    public ExerciseType getMeasureType() {
-        return type;
+    public String getKeyType()
+    {
+       return  exercise_type;
+
     }
 
-    public void setType(ExerciseType type) {
-        this.type = type;
+    public void setExercise_type(String exercise_type) {
+        this.exercise_type = exercise_type;
     }
+
 
 
 
@@ -113,11 +114,6 @@ public class Exercise extends DbEntity {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-    @Override
-    public String toString() {
-        return String.format("%1$s ",
-                getMeasureType().toString());
     }
 
 

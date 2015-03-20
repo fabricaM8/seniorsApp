@@ -12,7 +12,6 @@ import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
-import br.com.fabricam8.seniorsapp.enums.ExerciseType;
 
 
 /**
@@ -71,7 +70,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
 
             cursor = db.query(getTableName(), new String[]{
                     Exercise.KEY_ID,
-                    Exercise.KEY_TYPE,
+                    Exercise.KEY_EXERCICE_TYPE,
                     Exercise.KEY_START_DATE,
                     Exercise.KEY_END_DATE,
             },Exercise.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
@@ -81,8 +80,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
 
             oRetVal = new Exercise();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setType(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
-
+            oRetVal.setName(cursor.getString(1));
             if(!cursor.isNull(2))
                 oRetVal.setStartDate(new Date(cursor.getLong(2)));
 
@@ -114,7 +112,7 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             // Select All Query
             String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_TYPE,
+            selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_EXERCICE_TYPE,
                     Exercise.KEY_START_DATE, Exercise.KEY_END_DATE);
             Log.i("Seniors db - query", selectQuery);
 
@@ -122,11 +120,13 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             cursor = db.rawQuery(selectQuery, null);
 
             // looping through all rows and adding to list
-            if (cursor.moveToFirst()) do {
+            if (cursor.moveToFirst())
+                do
+              {
                 Exercise entity = new Exercise();
                 entity.setID(cursor.getInt(0));
-                entity.setType(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
-
+                entity.setExercise_type(cursor.getString(1));
+                entity.setStartDate(new Date(cursor.getLong(2)));
                 if(!cursor.isNull(2))
                     entity.setStartDate(new Date(cursor.getLong(2)));
                 if(!cursor.isNull(3))

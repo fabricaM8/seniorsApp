@@ -63,8 +63,7 @@ public class EventsPhysicalActivitiesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Exercise entry = (Exercise) parent.getItemAtPosition(position);
-//                Toast.makeText(mContext, "Clicado", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, ExerciseInfoActivity.class);
+               Intent intent = new Intent(mContext, ExerciseInfoActivity.class);
 
                 intent.putExtra("_ID_", entry.getID());
                 startActivity(intent);

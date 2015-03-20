@@ -12,20 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/Tipo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="tipo de exercício"
-            android:textSize="@dimen/form_input_text_size"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/exc_form_type"
-            style="@style/vw_input_box"
+        <EditText
+            android:id="@+id/exercise_type"
             android:layout_width="fill_parent"
-            android:onClick="openDialogMeasureActivities" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginTop="10dp"
+            android:hint="Nome do exercício"
+            android:textColor="#222222"
+            android:textSize="@dimen/form_input_text_size" />
+
 
         <!--DURANTE-->
 
