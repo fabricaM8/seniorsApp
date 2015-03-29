@@ -221,7 +221,8 @@ public class ExerciseFormActivity extends ActionBarActivity
             {
 
                 long id = -1;
-                if (sessionExercise.getID() > 0) {
+                if (sessionExercise.getID() > 0)
+                {
                     id = sessionExercise.getID();
                     // atualizacao de dados
                     dbExc.update(sessionExercise);
