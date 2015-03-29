@@ -194,7 +194,8 @@ public class MedicationFormActivity extends ActionBarActivity
         try {
             MedicationDAL db = MedicationDAL.getInstance(context);
 
-            if (validateForm()) {
+            if (validateForm())
+            {
                 sessionMedication.setHasAlarm(FormHelper.getSwitchValue(this, R.id.med_form_alarm));
 
                 // creating medication

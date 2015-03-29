@@ -39,7 +39,7 @@
             android:id="@+id/exc_form_startingt"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
-            android:onClick="openDatePickerDialogActivity" />
+            android:onClick="saveMedication" />
 
         <!--A PARTIR DE-->
 

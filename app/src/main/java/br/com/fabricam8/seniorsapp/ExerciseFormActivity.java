@@ -57,19 +57,17 @@ public class ExerciseFormActivity extends ActionBarActivity
             this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
         }
         // atulizando a view de atividades
-        updateExerciseView();
+       updateExerciseView(1);
     }
 
-    private Exercise initExercise() {
+    private Exercise initExercise()
+    {
         Exercise eObj = new Exercise();
 
         Calendar c = Calendar.getInstance();
-
-        c.getTime();
         eObj.setStartDate(c.getTime());
-        eObj.setEndDate(c.getTime());
+        eObj.setEndDate(null);
         // setar o resto dos atributos
-
         return eObj;
     }
 
@@ -101,13 +99,19 @@ public class ExerciseFormActivity extends ActionBarActivity
         finish();
     }
 
-    private void updateExerciseView() {
+    private void updateExerciseView(int valor)
+    {
         FormHelper.setTextBoxValue(this, R.id.exercise_type, sessionExercise.getKeyType());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
-        FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
         FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
+        if(valor !=1)
+        {
+          FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
+        }
+
+
     }
 
 
@@ -116,6 +120,14 @@ public class ExerciseFormActivity extends ActionBarActivity
         newFragment.show(getFragmentManager(), "Selecione a data Inicial");
         dialogCaller = v.getId();
 
+    }
+
+    private boolean validateForm() {
+        // validating name
+        if (!FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message)))
+            return false;
+
+        return true;
     }
 
     public void openTimePickerDialogActivity(View v) {
@@ -129,9 +141,8 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.setTime(sessionExercise.getStartDate());
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        // reajustando dat ade inicio
-       // sessionExercise.setStartDate(c.getTime());
-        updateExerciseView();
+        // reajustando hora ade inicio
+        updateExerciseView(1);
     }
 
     public static class TimePickerFragment extends DialogFragment {
@@ -150,16 +161,17 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DATE, dayOfMonth);
-       if(dialogCaller == R.id.exc_form_startingt)
+        if(dialogCaller == R.id.exc_form_startingt)
         {
             sessionExercise.setStartDate(c.getTime());
+            updateExerciseView(1);
         }
-
         else if(dialogCaller == R.id.exc_form_dateand)
         {
             sessionExercise.setEndDate(c.getTime());
+            updateExerciseView(0);
         }
-        updateExerciseView();
+
     }
 
     public static class DatePickerFragment extends DialogFragment {
@@ -205,28 +217,27 @@ public class ExerciseFormActivity extends ActionBarActivity
             Context context = this;
             // TODO verificar salvamento na activity de Activity
             ExerciseDAL dbExc = ExerciseDAL.getInstance(this);
-            long id = -1;
-            if (sessionExercise.getID() > 0)
+            if (validateForm())
             {
-                id = sessionExercise.getID();
-                // atualizacao de dados
-                dbExc.update(sessionExercise);
-            }
-            else
-            {
-                id = dbExc.create(sessionExercise);
-            }
 
-            if (id > 0)
-            {
-                // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+                long id = -1;
+                if (sessionExercise.getID() > 0) {
+                    id = sessionExercise.getID();
+                    // atualizacao de dados
+                    dbExc.update(sessionExercise);
+                } else {
+                    id = dbExc.create(sessionExercise);
+                }
 
-                Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
-                finish(); // finalizando activty e retornando para tela anterior
-            } else
-            {
-                // TODO remover alarme (se existir) ?!!
-                Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                if (id > 0) {
+                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+
+                    Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                    finish(); // finalizando activty e retornando para tela anterior
+                } else {
+                    // TODO remover alarme (se existir) ?!!
+                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
             }
         } catch (Exception ex)
         {
