@@ -48,7 +48,11 @@ public class Exercise extends DbEntity {
         values.put(KEY_CLOUD_ID, getCloudId());
         values.put(KEY_EXERCICE_TYPE, getKeyType());
         values.put(KEY_START_DATE, getStartDate().getTime());
-        values.put(KEY_END_DATE, getEndDate().getTime());
+
+        if(getEndDate()== null)
+        {
+            values.put(KEY_END_DATE," ");
+        }
         values.put(KEY_SUNDAY, getSunday());
         values.put(KEY_MONDAY, getMonday());
         values.put(KEY_TUESDAY,getThusday());
@@ -108,7 +112,8 @@ public class Exercise extends DbEntity {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public Date getEndDate()
+    {
         return endDate;
     }
 
