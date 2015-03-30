@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.format.DateFormat;
@@ -56,7 +57,8 @@ public class MedicationFormActivity extends ActionBarActivity
         setContentView(R.layout.activity_medication_form);
 
         // create toolbar
-        ToolbarBuilder.build(this, true);
+        Toolbar mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
 
         // adicionando edit listeners aos campos de texto
         addTextChangeListeners();

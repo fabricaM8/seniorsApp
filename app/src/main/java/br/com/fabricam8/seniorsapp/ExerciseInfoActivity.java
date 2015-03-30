@@ -37,8 +37,9 @@ public class ExerciseInfoActivity extends ActionBarActivity {
         setContentView(R.layout.activity_exercise_info);
 
         // create toolbar
-        Toolbar toolbar = ToolbarBuilder.build(this, true);
-        toolbar.setTitle("Informações");
+        Toolbar mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+        mToolbar.setTitle("Informações");
     }
 
     @Override

@@ -35,6 +35,8 @@ public class EventsListActivity extends ActionBarActivity {
 
         // create toolbar
         mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+
         // Initialize the ViewPager and set an adapter
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(new SeniorTabProvider(getSupportFragmentManager()));

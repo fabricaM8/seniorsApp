@@ -219,9 +219,7 @@
                     android:id="@+id/btDashHealth"
                     style="@style/bt_action_dash_orange"
                     android:layout_gravity="center"
-                    android:onClick="viewEvents"
                     android:src="@drawable/ic_heart" />
-
 
                 <TextView
                     android:layout_width="match_parent"

@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -96,7 +97,9 @@ public class LocationActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_location);
 
         // create toolbar
-        ToolbarBuilder.build(this, true);
+        Toolbar mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_lite_blue));
+
 
         // Get handles to the UI view objects
         mAddress = (TextView) findViewById(R.id.address);

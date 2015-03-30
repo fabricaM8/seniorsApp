@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/seniors_terciary_color" />
+    <solid android:color="@color/seniors_active_dash_button_color_navy" />
 </shape>
