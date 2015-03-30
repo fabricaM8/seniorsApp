@@ -121,11 +121,12 @@ public class ExerciseInfoActivity extends ActionBarActivity {
         if (sessionExercise != null) {
 
             // setando valores
-           FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionExercise.getKeyType());
+           FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionExercise.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionExercise.getStartDate()));
             FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getEndDate()));
+
             // horarios
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             String hours = timeFormat.format(sessionExercise.getStartDate());
