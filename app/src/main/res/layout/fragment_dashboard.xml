@@ -106,7 +106,7 @@
                     style="@style/bt_action_dash_navy"
                     android:layout_gravity="center"
                     android:onClick="viewEvents"
-                    android:src="@drawable/ic_exercises" />
+                    android:src="@drawable/ic_events" />
 
                 <TextView
                     android:layout_width="match_parent"
