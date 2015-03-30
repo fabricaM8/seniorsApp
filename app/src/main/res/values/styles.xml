@@ -26,10 +26,39 @@
 
     <!--Botoes redondos-->
 
+    <style name="bt_dash" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">90dp</item>
+    </style>
+
     <style name="bt_action_dash" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">80dp</item>
         <item name="android:background">@drawable/bt_round</item>
+    </style>
+
+    <style name="bt_action_dash_red" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_red</item>
+    </style>
+
+    <style name="bt_action_dash_navy" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_navy</item>
+    </style>
+
+    <style name="bt_action_dash_green" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_green</item>
+    </style>
+
+    <style name="bt_action_dash_purple" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_purple</item>
+    </style>
+
+    <style name="bt_action_dash_orange" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_orange</item>
+    </style>
+
+    <style name="bt_action_dash_lite_blue" parent="bt_dash">
+        <item name="android:background">@drawable/bt_round_lite_blue</item>
     </style>
 
     <style name="bt_action_active" parent="@android:style/Widget.ImageButton">

@@ -2,6 +2,7 @@ package br.com.fabricam8.seniorsapp;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -36,6 +37,31 @@ public class DashboardActivity extends ActionBarActivity {
     public void openLocation(View v) {
         Intent i = new Intent(DashboardActivity.this, LocationActivity.class);
         startActivity(i);
+    }
+
+    /**
+     * Invoked when clicked on the dashboard.
+     *
+     * @param v The button which invoked the action.
+     */
+    public void openDialer(View v) {
+//        Uri number = Uri.parse("tel:82337077");
+//        Intent dial = new Intent(Intent.ACTION_CALL, number);
+//        startActivity(dial);
+        Intent dial = new Intent();
+        dial.setAction("android.intent.action.DIAL");
+        startActivity(dial);
+    }
+
+    /**
+     * Invoked when clicked on the dashboard.
+     *
+     * @param v The button which invoked the action.
+     */
+    public void openSms(View v) {
+        String uri= "smsto:";
+        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
+        startActivity(intent);
     }
 
     /**
