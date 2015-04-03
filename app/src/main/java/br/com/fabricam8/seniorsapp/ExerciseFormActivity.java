@@ -67,6 +67,8 @@ public class ExerciseFormActivity extends ActionBarActivity
         Exercise eObj = new Exercise();
 
         Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 07);
+        c.set(Calendar.MINUTE, 0);
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(null);
         // setar o resto dos atributos

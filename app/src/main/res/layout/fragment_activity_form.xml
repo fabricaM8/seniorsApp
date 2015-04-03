@@ -39,7 +39,7 @@
             android:id="@+id/exc_form_startingt"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
-            android:onClick="saveMedication" />
+            android:onClick="openDatePickerDialogActivity" />
 
         <!--A PARTIR DE-->
 
@@ -132,14 +132,15 @@
                     android:text="S"
                     android:textColor="@color/seniors_primary_color"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <CheckBox
                     android:id="@+id/segunda"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true" />
+                    android:checked="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +156,8 @@
                     android:text="T"
                     android:textColor="@color/seniors_primary_color"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox"
@@ -178,14 +180,15 @@
                     android:text="Q"
                     android:textColor="@color/seniors_primary_color"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
                 <CheckBox
                     android:id="@+id/checkBox2"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true" />
+                    android:checked="false"  />
             </LinearLayout>
 
             <LinearLayout
@@ -231,7 +234,7 @@
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true" />
+                    android:checked="false"  />
             </LinearLayout>
 
             <LinearLayout
