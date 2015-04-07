@@ -100,7 +100,7 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
         new AlertDialog.Builder(this)
                 .setTitle("Confirme")
-                .setMessage("Deseja realmente deletar medicação?")
+                .setMessage("Deseja realmente excluir a medicação?")
                 .setIcon(R.drawable.ic_action_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
