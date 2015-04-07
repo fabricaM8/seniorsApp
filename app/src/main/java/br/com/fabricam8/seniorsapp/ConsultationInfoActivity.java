@@ -121,22 +121,20 @@ public class ConsultationInfoActivity extends ActionBarActivity {
         sessionConsultation = db.findOne(id);
         if (sessionConsultation != null)
         {
-
             // setando valores
-            FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionConsultation.getName());
+            FormHelper.setTextBoxValue(this, R.id.consultation_info_name, sessionConsultation.getName());
+            FormHelper.setTextBoxValue(this, R.id.consultation_info_details, sessionConsultation.getDetails());
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-            FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionConsultation.getStartDate()));
-            //FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getEndDate()));
             // horarios
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+            String date = dateFormat.format(sessionConsultation.getStartDate());
             String hours = timeFormat.format(sessionConsultation.getStartDate());
-            FormHelper.setTextBoxValue(this, R.id.exe_info_horario, hours);
 
-            //SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            //  FormHelper.setTextBoxValue(this, R.id.exe_info_horario, "Iniciar às " + timeFormat.format(sessionExercise.getStartDate()));
-//            FormHelper.setTextBoxValue(this, R.id.exe_info_end_horario, "Finalizar às " + timeFormat.format(sessionExercise.getEndDate()));
+            FormHelper.setTextBoxValue(this, R.id.consultation_info_start_date, date + " " + hours );
 
+            // reminder
+            FormHelper.setTextBoxValue(this, R.id.consultation_info_observations, sessionConsultation.getReminderType().toString());
         }
     }
 }

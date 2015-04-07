@@ -26,7 +26,7 @@ import java.util.Calendar;
 
 import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
-import br.com.fabricam8.seniorsapp.enums.ConsultationType;
+import br.com.fabricam8.seniorsapp.enums.ReminderType;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -65,9 +65,8 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         Calendar c = Calendar.getInstance();
 
-        eObj.setConsultation_type(ConsultationType.ANDAR);
+        eObj.setReminderType(ReminderType.TRES_DIAS_ANTES);
         eObj.setStartDate(c.getTime());
-
 
         return eObj;
     }
@@ -110,10 +109,10 @@ public class ConsultationFormActivity extends ActionBarActivity
         FormHelper.setTextBoxValue(this, R.id.nome_medico, sessionConsultation.getName());
         FormHelper.setTextBoxValue(this, R.id.detalhe, sessionConsultation.getDetails());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        FormHelper.setTextBoxValue(this, R.id.consultation_data_start, dateFormat.format(sessionConsultation.getStartDate()));
+        FormHelper.setTextBoxValue(this, R.id.consultation_date_start, dateFormat.format(sessionConsultation.getStartDate()));
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         FormHelper.setTextBoxValue(this, R.id.consultation_time, timeFormat.format(sessionConsultation.getStartDate()));
-        FormHelper.setTextBoxValue(this, R.id.consultation_type, sessionConsultation.getRememberType().toString());
+        FormHelper.setTextBoxValue(this, R.id.consultation_type, sessionConsultation.getReminderType().toString());
     }
 
 
@@ -124,7 +123,7 @@ public class ConsultationFormActivity extends ActionBarActivity
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog_consul_measure, null);
 
-        String[] arrValues = ConsultationType.getStringValues();
+        String[] arrValues = ReminderType.getStringValues();
         FormHelper.setupPicker(dialogView, R.id.dg_consul_measure, 0, arrValues.length - 1, arrValues, 0);
 
         // montando dialog
@@ -134,7 +133,7 @@ public class ConsultationFormActivity extends ActionBarActivity
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         int measure = FormHelper.getPickerValue(dialogView, R.id.dg_consul_measure);
-                        sessionConsultation.setConsultation_type(ConsultationType.fromInt(measure + 1));
+                        sessionConsultation.setReminderType(ReminderType.fromInt(measure + 1));
                         updateConsultationView();
                     }
                 })

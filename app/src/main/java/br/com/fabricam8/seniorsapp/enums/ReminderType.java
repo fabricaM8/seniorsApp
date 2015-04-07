@@ -6,24 +6,24 @@ import java.util.List;
 /**
  * Created by laecy_000 on 22/02/2015.
  */
-public enum ConsultationType {
+public enum ReminderType {
 
     NONE(0, "Hoje"),
-    OBRIGATORO(1, "Um dia antes"),
-    NADAR(2, "Dois dias antes"),
-    ANDAR(3, "Três dias antes"),
-    MALHAR(4, "Quatro dias antes");
+    UM_DIA_ANTES(1, "Um dia antes"),
+    DOIS_DIAS_ANTES(2, "Dois dias antes"),
+    TRES_DIAS_ANTES(3, "Três dias antes"),
+    QUATRO_DIAS_ANTES(4, "Quatro dias antes");
 
     private final int value;
     private final String name;
 
-    private ConsultationType(int v, String s) {
+    private ReminderType(int v, String s) {
         value = v;
         name = s;
     }
-    public static ConsultationType fromInt(int i)
+    public static ReminderType fromInt(int i)
     {
-        for (ConsultationType d : ConsultationType.values()) {
+        for (ReminderType d : ReminderType.values()) {
             if (d.getValue() == i) {
                 return d;
             }
@@ -37,14 +37,14 @@ public enum ConsultationType {
     public boolean equalsName(String otherName) {
         return (otherName == null) ? false : name.equals(otherName);
     }
-    public boolean equals(ConsultationType d) {
+    public boolean equals(ReminderType d) {
         return this.value == d.value;
     }
 
     public static String[] getStringValues()
     {
 
-        ConsultationType[] values = ConsultationType.values();
+        ReminderType[] values = ReminderType.values();
 
         List<String> lstValues = new ArrayList();
         for (int i = 0; i < values.length; i++) {

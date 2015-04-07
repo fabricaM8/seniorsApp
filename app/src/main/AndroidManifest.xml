@@ -135,6 +135,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".EventsListActivity" />
         </activity>
+
+        <activity
+            android:name=".ConsultationInfoActivity"
+            android:label="@string/title_activity_info_summary"
+            android:parentActivityName=".ConsultationFormActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ConsultationFormActivity" />
+        </activity>
     </application>
 
 </manifest>

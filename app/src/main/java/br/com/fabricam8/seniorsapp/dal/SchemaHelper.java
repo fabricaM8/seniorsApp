@@ -73,7 +73,7 @@ public class SchemaHelper {
                 Consultation.KEY_ID + " INTEGER PRIMARY KEY," +
                 Consultation.KEY_CLOUD_ID + " INTEGER," +
                 Consultation.KEY_NAME + " TEXT," +
-                Consultation.KEY_DETALIS + " TEXT," +
+                Consultation.KEY_DETAILS + " TEXT," +
                 Consultation.KEY_START_DATE + " TEXT," +
                 Consultation.KEY_TYPE + " TEXT" +
                 ")";

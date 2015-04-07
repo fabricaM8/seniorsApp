@@ -51,7 +51,7 @@
 
 
     <TextView
-        android:id="@+id/consultation_info_detalhes"
+        android:id="@+id/consultation_info_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -72,7 +72,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold"
-        android:text="HORÁRIOS"
+        android:text="DATA DA CONSULTA"
         android:paddingBottom="10dp"
         android:textSize="@dimen/form_label_text_size"
         android:textColor="@android:color/black" />
@@ -116,11 +116,11 @@
         android:layout_weight="1" />
 
     <ImageButton
-        android:id="@+id/btEditExercise"
+        android:id="@+id/btEditConsultation"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_action_edit"
         android:background="@drawable/bt_round"
-        android:onClick="editExercise"
+        android:onClick="editConsultation"
         android:layout_gravity="right" />
 </LinearLayout>

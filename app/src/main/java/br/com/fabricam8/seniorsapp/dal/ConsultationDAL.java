@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Consultation;
-import br.com.fabricam8.seniorsapp.enums.ConsultationType;
+import br.com.fabricam8.seniorsapp.enums.ReminderType;
 
 /**
  * Created by laecy_000 on 09/03/2015.
@@ -68,9 +68,11 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
 
             cursor = db.query(getTableName(), new String[]{
                     Consultation.KEY_ID,
+                    Consultation.KEY_CLOUD_ID,
                     Consultation.KEY_NAME,
+                    Consultation.KEY_DETAILS,
+                    Consultation.KEY_TYPE,
                     Consultation.KEY_START_DATE,
-                    Consultation.KEY_DETALIS,
             }, Consultation.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             if (cursor != null)
@@ -78,12 +80,13 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
 
             oRetVal = new Consultation();
             oRetVal.setID(cursor.getInt(0));
-            //oRetVal.setName(cursor.isNull(1) ? ConsultationType.ANDAR : ConsultationType.fromInt(cursor.getInt(1)));
+            oRetVal.setCloudId(cursor.getInt(1));
+            oRetVal.setName(cursor.getString(2));
+            oRetVal.setDetails(cursor.getString(3));
+            oRetVal.setReminderType(cursor.isNull(4) ? ReminderType.NONE : ReminderType.fromInt(cursor.getInt(4)));
 
-            if(!cursor.isNull(2))
-                oRetVal.setStartDate(new Date(cursor.getLong(2)));
-
-
+            if(!cursor.isNull(5))
+                oRetVal.setStartDate(new Date(cursor.getLong(5)));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -107,10 +110,15 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s  FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Consultation.KEY_ID, Consultation.KEY_NAME,
-                    Consultation.KEY_DETALIS, Consultation.KEY_START_DATE);
+            selectQuery = String.format(selectQuery,
+                    Consultation.KEY_ID,
+                    Consultation.KEY_CLOUD_ID,
+                    Consultation.KEY_NAME,
+                    Consultation.KEY_DETAILS,
+                    Consultation.KEY_TYPE,
+                    Consultation.KEY_START_DATE);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -120,14 +128,13 @@ public class ConsultationDAL extends DbCRUD<Consultation>{
             if (cursor.moveToFirst()) do {
                 Consultation entity = new Consultation();
                 entity.setID(cursor.getInt(0));
-                entity.setName(cursor.getString(1));
-                //entity.setDetails(ConsultationType.valueOf());
-                //entity.setDetails(cursor.isNull(1) ? ExerciseType.NONE : ExerciseType.fromInt(cursor.getInt(1)));
+                entity.setCloudId(cursor.getInt(1));
+                entity.setName(cursor.getString(2));
+                entity.setDetails(cursor.getString(3));
+                entity.setReminderType(cursor.isNull(4) ? ReminderType.NONE : ReminderType.fromInt(cursor.getInt(4)));
 
-                if(!cursor.isNull(2))
-                    entity.setStartDate(new Date(cursor.getLong(2)));
-             //   if(!cursor.isNull(3))
-                  //  entity.setEndDate(new Date(cursor.getLong(3)));
+                if(!cursor.isNull(5))
+                    entity.setStartDate(new Date(cursor.getLong(5)));
 
                 // Adding entity to list
                 lstRetVal.add(entity);

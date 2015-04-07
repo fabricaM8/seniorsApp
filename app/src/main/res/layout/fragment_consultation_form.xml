@@ -50,7 +50,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/consultation_data_start"
+            android:id="@+id/consultation_date_start"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
