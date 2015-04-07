@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+         <!--   <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -127,7 +127,8 @@
                 android:padding="5dp"
                 android:text="Alarme"
                 android:textColor="?attr/colorPrimary"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
+<!--
 
             <Switch
                 android:id="@+id/med_form_alarm"
@@ -135,6 +136,7 @@
                 android:layout_height="wrap_content"
                 android:textOff="Não"
                 android:textOn="Sim" />
+-->
 
         </LinearLayout>
         <!--OBSERVACOES-->

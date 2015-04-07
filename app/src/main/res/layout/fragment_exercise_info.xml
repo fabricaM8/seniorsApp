@@ -84,16 +84,6 @@
         android:layout_marginBottom="10dp"></View>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold"
-        android:textSize="@dimen/form_label_text_size"
-        android:text="OBSERVAÇÕES"
-        android:paddingBottom="10dp"
-        android:textColor="@android:color/black" />
-
-    <TextView
         android:id="@+id/exe_info_observations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

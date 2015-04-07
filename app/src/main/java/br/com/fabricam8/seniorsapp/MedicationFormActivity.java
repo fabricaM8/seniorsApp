@@ -153,7 +153,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
         FormHelper.setTextBoxValue(this, R.id.med_form_observ, sessionMedication.getDescription());
 
-        FormHelper.setSwitchValue(this, R.id.med_form_alarm, sessionMedication.isHasAlarm());
+      //  FormHelper.setSwitchValue(this, R.id.med_form_alarm, sessionMedication.isHasAlarm());
     }
 
     @Override
@@ -198,7 +198,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
             if (validateForm())
             {
-                sessionMedication.setHasAlarm(FormHelper.getSwitchValue(this, R.id.med_form_alarm));
+           //     sessionMedication.setHasAlarm(FormHelper.getSwitchValue(this, R.id.med_form_alarm));
 
                 // creating medication
                 long id = -1;
