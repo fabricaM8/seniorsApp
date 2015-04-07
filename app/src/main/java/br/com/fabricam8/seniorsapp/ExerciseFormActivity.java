@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
@@ -158,13 +159,45 @@ public class ExerciseFormActivity extends ActionBarActivity
     }
 
     private boolean validateForm() {
-        // validating name
-        if (!FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message)))
-            return false;
 
+        Calendar c2 = Calendar.getInstance();
+        Date datatual = c2.getInstance().getTime();
+
+        if (!FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        else if((diffInDays(sessionExercise.getStartDate(),c2.getTime()))<0)
+        {
+            FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message1));
+            return false;
+        }
+
+        else if((diffInDays(sessionExercise.getEndDate(),sessionExercise.getStartDate()))<0)
+        {
+            FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message2));
+            return false;
+        }
         return true;
     }
 
+    public static int diffInDays(Date d1, Date d2) {
+        int MILLIS_IN_DAY = 86400000;
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(d1);
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(d2);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        return (int) ((c1.getTimeInMillis() - c2.getTimeInMillis()) / MILLIS_IN_DAY);
+    }
     public void openTimePickerDialogActivity(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getFragmentManager(), "Selecione a hora");
