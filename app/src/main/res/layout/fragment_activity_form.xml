@@ -36,7 +36,7 @@
 
 
         <TextView
-            android:id="@+id/exc_form_startingt"
+            android:id="@+id/exc_form_start_date"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
@@ -55,7 +55,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/exc_form_dateand"
+            android:id="@+id/exc_form_date_end"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
@@ -112,11 +112,13 @@
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/cb_Sun"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,11 +138,13 @@
                     />
 
                 <CheckBox
-                    android:id="@+id/segunda"
+                    android:id="@+id/cb_Mon"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -160,11 +164,13 @@
                     />
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/cb_Tue"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -184,11 +190,13 @@
                     />
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/cb_Wed"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"  />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -207,11 +215,14 @@
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/cb_Thu"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:nestedScrollingEnabled="false"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -230,11 +241,13 @@
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox4"
+                    android:id="@+id/cb_Fri"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"  />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:onClick="onChecked" />
             </LinearLayout>
 
             <LinearLayout
@@ -253,11 +266,14 @@
                     android:textStyle="bold" />
 
                 <CheckBox
-                    android:id="@+id/checkBox5"
+                    android:id="@+id/cb_Sat"
                     style="@style/cb_default"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false" />
+                    android:checked="false"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:onClick="onChecked" />
             </LinearLayout>
         </LinearLayout>
         <!--OBSERVACOES-->

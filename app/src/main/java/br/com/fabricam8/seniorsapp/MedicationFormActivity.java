@@ -122,7 +122,7 @@ public class MedicationFormActivity extends ActionBarActivity
         oRetVal.setDurationType(Duration.DIA);
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 7);
+        c.set(Calendar.HOUR_OF_DAY, 6);
         c.set(Calendar.MINUTE, 0);
         oRetVal.setStartDate(c.getTime());
 

@@ -159,4 +159,10 @@ public class FormHelper {
         return iRetVal;
     }
 
+    public static void setCheckboxValue(Activity ctx, int viewId, boolean value) {
+        View v = ctx.findViewById(viewId);
+        if (v != null && v instanceof CheckBox) {
+            ((CheckBox) v).setChecked(value);
+        }
+    }
 }

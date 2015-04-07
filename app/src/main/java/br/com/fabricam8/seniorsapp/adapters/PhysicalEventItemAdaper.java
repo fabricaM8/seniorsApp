@@ -34,9 +34,7 @@ public class PhysicalEventItemAdaper extends ArrayAdapter {
         View row = mInflater.inflate(R.layout.pager_events_physical_list_item, null, true);
 
         TextView txtName = (TextView) row.findViewById(R.id.exercise_item_name);
-        txtName.setText(mExercises.get(position).getKeyType());
-
-
+        txtName.setText(mExercises.get(position).getName());
 
         return row;
     }

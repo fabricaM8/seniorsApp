@@ -10,32 +10,27 @@ import java.util.Date;
 public class Exercise extends DbEntity {
 
     // Entity Columns names
-    public static final String KEY_EXERCICE_TYPE = "exercise_type";
     public static final String KEY_START_DATE = "start_date";
     public static final String KEY_END_DATE = "end_date";
     public static final String KEY_MONDAY    = "monday";
     public static final String KEY_SUNDAY    = "sunday";
     public static final String KEY_TUESDAY   = "tuesday";
     public static final String KEY_WEDNESDAY    = "wednesday";
-    public static final String KEY_THUSDAY = "thursday";
+    public static final String KEY_THURSDAY = "thursday";
     public static final String KEY_FRIDAY = "friday";
     public static final String KEY_SATURDAY = "saturday";
 
 
     // Entity attributes
-    private String exercise_type;  // Tipo de atividade
-    private Date startDate;     // data inicial
-    private Date endDate;       // data final
-    private String monday;  // Tipo de atividade
-    private String tuesday;  // Tipo de atividade
-    private String wednesday;  // Tipo de atividade
-    private String thursday;  // Tipo de atividade
-    private String friday;  // Tipo de atividade
-    private String saturday;  // Tipo de atividade
-    private String sunday;  // Tipo de atividade
-
-
-
+    private Date startDate;             // data inicial
+    private Date endDate;               // data final
+    private boolean repeatOnMonday;     // Se repete ou não nesse dia
+    private boolean repeatOnTuesday;    // Se repete ou não nesse dia
+    private boolean repeatOnWednesday;  // Se repete ou não nesse dia
+    private boolean repeatOnThursday;   // Se repete ou não nesse dia
+    private boolean repeatOnFriday;     // Se repete ou não nesse dia
+    private boolean repeatOnSaturday;   // Se repete ou não nesse dia
+    private boolean repeatOnSunday;     // Se repete ou não nesse dia
 
     // constructors
     public Exercise() {
@@ -43,66 +38,24 @@ public class Exercise extends DbEntity {
 
     @Override
     public ContentValues getContentValues() {
-
         ContentValues values = new ContentValues();
         values.put(KEY_CLOUD_ID, getCloudId());
-        values.put(KEY_EXERCICE_TYPE, getKeyType());
+        values.put(KEY_NAME, getName());
         values.put(KEY_START_DATE, getStartDate().getTime());
 
         if(getEndDate()== null)
         {
             values.put(KEY_END_DATE," ");
         }
-        values.put(KEY_SUNDAY, getSunday());
-        values.put(KEY_MONDAY, getMonday());
-        values.put(KEY_TUESDAY,getThusday());
-        values.put(KEY_WEDNESDAY, getWednesday());
-        values.put(KEY_THUSDAY, getThusday());
-        values.put(KEY_FRIDAY, getFriday());
-        values.put(KEY_SATURDAY, getSaturday());
+        values.put(KEY_SUNDAY, isRepeatOnSunday());
+        values.put(KEY_MONDAY, isRepeatOnMonday());
+        values.put(KEY_TUESDAY, isRepeatOnTuesday());
+        values.put(KEY_WEDNESDAY, isRepeatOnWednesday());
+        values.put(KEY_THURSDAY, isRepeatOnThursday());
+        values.put(KEY_FRIDAY, isRepeatOnFriday());
+        values.put(KEY_SATURDAY, isRepeatOnSaturday());
         return values;
     }
-    public String getThusday() {
-        return thursday;
-    }
-
-    public String getMonday() {
-        return monday;
-    }
-
-    public String getWednesday() {
-        return wednesday;
-    }
-
-    public String getFriday() {
-        return friday;
-    }
-
-    public String getSaturday() {
-        return saturday;
-    }
-
-    public String getSunday() {
-        return sunday;
-    }
-
-    public String getThursday() {
-        return thursday;
-    }
-
-    public String getKeyType()
-    {
-       return  exercise_type;
-
-    }
-
-    public void setExercise_type(String exercise_type) {
-        this.exercise_type = exercise_type;
-    }
-
-
-
-
 
     public Date getStartDate() {
         return startDate;
@@ -121,9 +74,62 @@ public class Exercise extends DbEntity {
         this.endDate = endDate;
     }
 
+    public boolean isRepeatOnMonday() {
+        return repeatOnMonday;
+    }
 
+    public void setRepeatOnMonday(boolean repeatOnMonday) {
+        this.repeatOnMonday = repeatOnMonday;
+    }
 
- }
+    public boolean isRepeatOnTuesday() {
+        return repeatOnTuesday;
+    }
+
+    public void setRepeatOnTuesday(boolean repeatOnTuesday) {
+        this.repeatOnTuesday = repeatOnTuesday;
+    }
+
+    public boolean isRepeatOnWednesday() {
+        return repeatOnWednesday;
+    }
+
+    public void setRepeatOnWednesday(boolean repeatOnWednesday) {
+        this.repeatOnWednesday = repeatOnWednesday;
+    }
+
+    public boolean isRepeatOnThursday() {
+        return repeatOnThursday;
+    }
+
+    public void setRepeatOnThursday(boolean repeatOnThursday) {
+        this.repeatOnThursday = repeatOnThursday;
+    }
+
+    public boolean isRepeatOnFriday() {
+        return repeatOnFriday;
+    }
+
+    public void setRepeatOnFriday(boolean repeatOnFriday) {
+        this.repeatOnFriday = repeatOnFriday;
+    }
+
+    public boolean isRepeatOnSaturday() {
+        return repeatOnSaturday;
+    }
+
+    public void setRepeatOnSaturday(boolean repeatOnSaturday) {
+        this.repeatOnSaturday = repeatOnSaturday;
+    }
+
+    public boolean isRepeatOnSunday() {
+        return repeatOnSunday;
+    }
+
+    public void setRepeatOnSunday(boolean repeatOnSunday) {
+        this.repeatOnSunday = repeatOnSunday;
+    }
+}
 
 
 

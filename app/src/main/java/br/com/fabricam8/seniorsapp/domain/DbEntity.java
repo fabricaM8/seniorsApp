@@ -16,13 +16,10 @@ public abstract class DbEntity {
     private int cloudId;
     private String name;
 
-
     public DbEntity() {
     }
 
-
     public abstract ContentValues getContentValues();
-
 
     public long getID() {
         return this.id;
@@ -48,9 +45,4 @@ public abstract class DbEntity {
     public void setName(String name) {
         this.name = name;
     }
-
-
-
-
-
 }

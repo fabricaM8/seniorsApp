@@ -69,10 +69,10 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
             db = this.getReadableDatabase();
 
             cursor = db.query(getTableName(), new String[]{
-                    Exercise.KEY_ID,
-                    Exercise.KEY_EXERCICE_TYPE,
-                    Exercise.KEY_START_DATE,
-                    Exercise.KEY_END_DATE,
+                    Exercise.KEY_ID, Exercise.KEY_CLOUD_ID, Exercise.KEY_NAME,
+                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATE, Exercise.KEY_SUNDAY,
+                    Exercise.KEY_MONDAY, Exercise.KEY_TUESDAY, Exercise.KEY_WEDNESDAY,
+                    Exercise.KEY_THURSDAY, Exercise.KEY_FRIDAY, Exercise.KEY_SATURDAY
             },Exercise.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             if (cursor != null)
@@ -80,12 +80,22 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
 
             oRetVal = new Exercise();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setName(cursor.getString(1));
-            if(!cursor.isNull(2))
-                oRetVal.setStartDate(new Date(cursor.getLong(2)));
+            oRetVal.setCloudId(cursor.getInt(1));
+            oRetVal.setName(cursor.getString(2));
 
             if(!cursor.isNull(3))
-                oRetVal.setEndDate(new Date(cursor.getLong(3)));
+                oRetVal.setStartDate(new Date(cursor.getLong(3)));
+
+            if(!cursor.isNull(4))
+                oRetVal.setEndDate(new Date(cursor.getLong(4)));
+
+            oRetVal.setRepeatOnSunday(cursor.isNull(5) ? false : (cursor.getInt(5) == 1 ? true : false));
+            oRetVal.setRepeatOnMonday(cursor.isNull(6) ? false : (cursor.getInt(6) == 1 ? true : false));
+            oRetVal.setRepeatOnTuesday(cursor.isNull(7) ? false : (cursor.getInt(7) == 1 ? true : false));
+            oRetVal.setRepeatOnWednesday(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+            oRetVal.setRepeatOnThursday(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
+            oRetVal.setRepeatOnFriday(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
+            oRetVal.setRepeatOnSaturday(cursor.isNull(11) ? false : (cursor.getInt(11) == 1 ? true : false));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -110,10 +120,12 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s, %11$s, %12$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_EXERCICE_TYPE,
-                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATE);
+            selectQuery = String.format(selectQuery, Exercise.KEY_ID, Exercise.KEY_CLOUD_ID, Exercise.KEY_NAME,
+                    Exercise.KEY_START_DATE, Exercise.KEY_END_DATE, Exercise.KEY_SUNDAY,
+                    Exercise.KEY_MONDAY, Exercise.KEY_TUESDAY, Exercise.KEY_WEDNESDAY,
+                    Exercise.KEY_THURSDAY, Exercise.KEY_FRIDAY, Exercise.KEY_SATURDAY);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -124,13 +136,23 @@ public class ExerciseDAL extends DbCRUD<Exercise> {
                 do
               {
                 Exercise entity = new Exercise();
-                entity.setID(cursor.getInt(0));
-                entity.setExercise_type(cursor.getString(1));
-                entity.setStartDate(new Date(cursor.getLong(2)));
-                if(!cursor.isNull(2))
-                    entity.setStartDate(new Date(cursor.getLong(2)));
-                if(!cursor.isNull(3))
-                    entity.setEndDate(new Date(cursor.getLong(3)));
+                  entity.setID(cursor.getInt(0));
+                  entity.setCloudId(cursor.getInt(1));
+                  entity.setName(cursor.getString(2));
+
+                  if(!cursor.isNull(3))
+                      entity.setStartDate(new Date(cursor.getLong(3)));
+
+                  if(!cursor.isNull(4))
+                      entity.setEndDate(new Date(cursor.getLong(4)));
+
+                  entity.setRepeatOnSunday(cursor.isNull(5) ? false : (cursor.getInt(5) == 1 ? true : false));
+                  entity.setRepeatOnMonday(cursor.isNull(6) ? false : (cursor.getInt(6) == 1 ? true : false));
+                  entity.setRepeatOnTuesday(cursor.isNull(7) ? false : (cursor.getInt(7) == 1 ? true : false));
+                  entity.setRepeatOnWednesday(cursor.isNull(8) ? false : (cursor.getInt(8) == 1 ? true : false));
+                  entity.setRepeatOnThursday(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
+                  entity.setRepeatOnFriday(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
+                  entity.setRepeatOnSaturday(cursor.isNull(11) ? false : (cursor.getInt(11) == 1 ? true : false));
 
                 // Adding entity to list
                 lstRetVal.add(entity);

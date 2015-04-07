@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -23,7 +24,6 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
@@ -36,8 +36,6 @@ public class ExerciseFormActivity extends ActionBarActivity
 
     private Exercise sessionExercise;
     private int dialogCaller;
-    private Date data_atual;
-    private View data_selecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +60,13 @@ public class ExerciseFormActivity extends ActionBarActivity
        updateExerciseView(1);
     }
 
+
     private Exercise initExercise()
     {
         Exercise eObj = new Exercise();
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 07);
+        c.set(Calendar.HOUR_OF_DAY, 06);
         c.set(Calendar.MINUTE, 0);
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(null);
@@ -80,7 +79,7 @@ public class ExerciseFormActivity extends ActionBarActivity
         txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionExercise.setExercise_type(s.toString());
+                sessionExercise.setName(s.toString());
             }
 
             @Override
@@ -92,6 +91,36 @@ public class ExerciseFormActivity extends ActionBarActivity
             }
         });
     }
+
+    public void onChecked(View v) {
+        switch (v.getId()) {
+            case R.id.cb_Sun :
+                sessionExercise.setRepeatOnSunday(((CheckBox)v).isChecked());
+                break;
+            case R.id.cb_Mon :
+                sessionExercise.setRepeatOnMonday(((CheckBox) v).isChecked());
+                break;
+            case R.id.cb_Tue :
+                sessionExercise.setRepeatOnTuesday(((CheckBox) v).isChecked());
+                break;
+            case R.id.cb_Wed :
+                sessionExercise.setRepeatOnWednesday(((CheckBox) v).isChecked());
+                break;
+            case R.id.cb_Thu :
+                sessionExercise.setRepeatOnThursday(((CheckBox) v).isChecked());
+                break;
+            case R.id.cb_Fri :
+                sessionExercise.setRepeatOnFriday(((CheckBox) v).isChecked());
+                break;
+            case R.id.cb_Sat :
+                sessionExercise.setRepeatOnSaturday(((CheckBox) v).isChecked());
+                break;
+            default :
+                break;
+        }
+    }
+
+
     /**
      * Evento chamado quando botão cancelar é apertado.
      * <p>
@@ -103,27 +132,29 @@ public class ExerciseFormActivity extends ActionBarActivity
         finish();
     }
 
-    private void updateExerciseView(int valor)
-    {
+    private void updateExerciseView(int valor) {
         FormHelper.setTextBoxValue(this, R.id.exercise_type, sessionExercise.getName());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        FormHelper.setTextBoxValue(this, R.id.exc_form_startingt, dateFormat.format(sessionExercise.getStartDate()));
+        FormHelper.setTextBoxValue(this, R.id.exc_form_start_date, dateFormat.format(sessionExercise.getStartDate()));
         FormHelper.setTextBoxValue(this, R.id.exc_form_time, timeFormat.format(sessionExercise.getStartDate()));
-        if(valor !=1)
-        {
-          FormHelper.setTextBoxValue(this, R.id.exc_form_dateand, dateFormat.format(sessionExercise.getEndDate()));
+        if (valor != 1) {
+            FormHelper.setTextBoxValue(this, R.id.exc_form_date_end, dateFormat.format(sessionExercise.getEndDate()));
         }
 
-
+        FormHelper.setCheckboxValue(this, R.id.cb_Sun, sessionExercise.isRepeatOnSunday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Mon, sessionExercise.isRepeatOnMonday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Tue, sessionExercise.isRepeatOnTuesday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Wed, sessionExercise.isRepeatOnWednesday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Thu, sessionExercise.isRepeatOnThursday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Fri, sessionExercise.isRepeatOnFriday());
+        FormHelper.setCheckboxValue(this, R.id.cb_Sat, sessionExercise.isRepeatOnSaturday());
     }
-
 
     public void openDatePickerDialogActivity(View v) {
         DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "Selecione a data Inicial");
+        newFragment.show(getFragmentManager(), "Selecione a data inicial");
         dialogCaller = v.getId();
-
     }
 
     private boolean validateForm() {
@@ -145,6 +176,8 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.setTime(sessionExercise.getStartDate());
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+
+        sessionExercise.setStartDate(c.getTime());
         // reajustando hora ade inicio
         updateExerciseView(1);
     }
@@ -165,12 +198,12 @@ public class ExerciseFormActivity extends ActionBarActivity
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DATE, dayOfMonth);
-        if(dialogCaller == R.id.exc_form_startingt)
+        if(dialogCaller == R.id.exc_form_start_date)
         {
             sessionExercise.setStartDate(c.getTime());
             updateExerciseView(1);
         }
-        else if(dialogCaller == R.id.exc_form_dateand)
+        else if(dialogCaller == R.id.exc_form_date_end)
         {
             sessionExercise.setEndDate(c.getTime());
             updateExerciseView(0);

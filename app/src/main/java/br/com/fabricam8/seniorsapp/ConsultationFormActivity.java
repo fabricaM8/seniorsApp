@@ -65,6 +65,9 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         Calendar c = Calendar.getInstance();
 
+        c.set(Calendar.HOUR_OF_DAY, 6);
+        c.set(Calendar.MINUTE, 0);
+
         eObj.setReminderType(ReminderType.TRES_DIAS_ANTES);
         eObj.setStartDate(c.getTime());
 

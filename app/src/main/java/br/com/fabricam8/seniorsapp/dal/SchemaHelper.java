@@ -47,16 +47,16 @@ public class SchemaHelper {
         String excTableSchema = "CREATE TABLE " + ExerciseDAL.TABLE_NAME + "(" +
                 Exercise.KEY_ID + " INTEGER PRIMARY KEY," +
                 Exercise.KEY_CLOUD_ID + " INTEGER," +
-                Exercise.KEY_START_DATE + " INTEGER ," +
+                Exercise.KEY_NAME + " TEXT," +
+                Exercise.KEY_START_DATE + " INTEGER," +
                 Exercise.KEY_END_DATE + " INTEGER," +
-                Exercise.KEY_EXERCICE_TYPE + " TEXT, " +
-                Exercise.KEY_SUNDAY + " TEXT, " +
-                Exercise.KEY_MONDAY + " TEXT, " +
-                Exercise.KEY_TUESDAY + " TEXT, " +
-                Exercise.KEY_WEDNESDAY + " TEXT, " +
-                Exercise.KEY_THUSDAY + " TEXT, " +
-                Exercise.KEY_FRIDAY + " TEXT, " +
-                Exercise.KEY_SATURDAY + " TEXT " +
+                Exercise.KEY_SUNDAY + " BIT, " +
+                Exercise.KEY_MONDAY + " BIT, " +
+                Exercise.KEY_TUESDAY + " BIT, " +
+                Exercise.KEY_WEDNESDAY + " BIT, " +
+                Exercise.KEY_THURSDAY + " BIT, " +
+                Exercise.KEY_FRIDAY + " BIT, " +
+                Exercise.KEY_SATURDAY + " BIT " +
                  ")";
 
         String alertReportTableSchema = "CREATE TABLE " + AlertEventReportEntryDAL.TABLE_NAME + "(" +

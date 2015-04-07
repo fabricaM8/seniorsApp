@@ -120,22 +120,36 @@ public class ExerciseInfoActivity extends ActionBarActivity {
         ExerciseDAL db = ExerciseDAL.getInstance(this);
         sessionExercise = db.findOne(id);
         if (sessionExercise != null) {
-
             // setando valores
            FormHelper.setTextBoxValue(this, R.id.exe_info_name, sessionExercise.getName());
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-            FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "Iniciar em: " + dateFormat.format(sessionExercise.getStartDate()));
-          //  FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em: " + dateFormat.format(sessionExercise.getEndDate()));
+            FormHelper.setTextBoxValue(this, R.id.exe_info_start_date, "A partir de " + dateFormat.format(sessionExercise.getStartDate()));
+
+            if(sessionExercise.getEndDate() != null &&
+                    sessionExercise.getEndDate().compareTo(sessionExercise.getStartDate()) == 1)
+                FormHelper.setTextBoxValue(this, R.id.exe_info_end_date, "Finalizar em " + dateFormat.format(sessionExercise.getEndDate()));
 
             // horarios
             SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             String hours = timeFormat.format(sessionExercise.getStartDate());
             FormHelper.setTextBoxValue(this, R.id.exe_info_horario, hours);
 
+            String daysOfWeek = "";
+            daysOfWeek += sessionExercise.isRepeatOnSunday() ? "Dom, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnMonday() ? "Seg, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnTuesday() ? "Ter, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnWednesday() ? "Qua, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnThursday() ? "Qui, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnFriday() ? "Sex, " : "";
+            daysOfWeek += sessionExercise.isRepeatOnSaturday() ? "Sab," : "";
+
+            // removendo ultima virgula
+            if(daysOfWeek.length() > 0)
+                daysOfWeek = daysOfWeek.substring(0, daysOfWeek.lastIndexOf(","));
+
+            FormHelper.setTextBoxValue(this, R.id.exe_info_days, daysOfWeek);
 
         }
     }
-
-
 }
