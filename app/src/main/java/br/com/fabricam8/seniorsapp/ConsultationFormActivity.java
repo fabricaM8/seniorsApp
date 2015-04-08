@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.dal.ConsultationDAL;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
@@ -50,8 +51,7 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         // recuperando id passada no clique
         long consultaId = getIntent().getLongExtra("_ID_", -1);
-        if (consultaId == -1)
-        {
+        if (consultaId == -1) {
             this.sessionConsultation = initConsultation();
         } else {
             this.sessionConsultation = ConsultationDAL.getInstance(this).findOne(consultaId);
@@ -86,11 +86,15 @@ public class ConsultationFormActivity extends ActionBarActivity
     }
 
     private void addTextChangeListeners() {
-        EditText txtName = (EditText)findViewById(R.id.nome_medico);
+        EditText txtName = (EditText) findViewById(R.id.nome_medico);
         txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionConsultation.setName(s.toString());
+                String seq = s.toString().toLowerCase();
+                if(seq.length() > 1)
+                    seq = seq.substring(0,1).toUpperCase() + seq.substring(1);
+
+                sessionConsultation.setName(seq);
             }
 
             @Override
@@ -102,7 +106,7 @@ public class ConsultationFormActivity extends ActionBarActivity
             }
         });
 
-        EditText txtObserv = (EditText)findViewById(R.id.detalhe);
+        EditText txtObserv = (EditText) findViewById(R.id.detalhe);
         txtObserv.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -218,36 +222,69 @@ public class ConsultationFormActivity extends ActionBarActivity
     }
 
     public void saveConsultation(View v) {
+        Context context = this;
+
         try {
-            Context context = this;
-            // TODO verificar salvamento na activity de Activity
-            ConsultationDAL dbCon = ConsultationDAL.getInstance(this);
-            long id = -1;
-            if (sessionConsultation.getID() > 0)
-            {
-                id = sessionConsultation.getID();
-                //atualizacao de dados
-                dbCon.update(sessionConsultation);
-            } else
-            {
-                id = dbCon.create(sessionConsultation);
+            if (validateForm()) {
+
+                ConsultationDAL dbCon = ConsultationDAL.getInstance(this);
+                long id = -1;
+                if (sessionConsultation.getID() > 0) {
+                    id = sessionConsultation.getID();
+                    //atualizacao de dados
+                    dbCon.update(sessionConsultation);
+                } else {
+                    id = dbCon.create(sessionConsultation);
+                }
+
+                if (id > 0) {
+                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+
+                    Toast.makeText(this, "A consulta foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                    finish(); // finalizando activty e retornando para tela anterior
+                } else {
+                    // TODO remover alarme (se existir) ?!!
+                    Toast.makeText(this, "Ocorreu uma falha e a consulta não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
             }
 
-            if (id > 0) {
-                // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
-
-                Toast.makeText(this, "A consulta foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
-                finish(); // finalizando activty e retornando para tela anterior
-            } else {
-                // TODO remover alarme (se existir) ?!!
-                Toast.makeText(this, "Ocorreu uma falha e a consulta não pode ser cadastrada.", Toast.LENGTH_LONG).show();
-            }
         } catch (Exception ex) {
             Log.e("Seniors App - Consulta", ex.getMessage());
-            Toast.makeText(this, "Ocorreu um erro e a consulta não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Efetua a validação do formulário.
+     *
+     * @return Retorna falso se algo está errado com o formulário e indica erro na tela.
+     */
+    private boolean validateForm() {
+        // validating name
+        if (!FormHelper.validateFormTextInput(this, R.id.nome_medico, getString(R.string.validation_error_message)))
+            return false;
+
+        // validando data
+        if (sessionConsultation.getStartDate().compareTo(new Date()) == -1) {
+            showAlert("Alerta", "A data da consulta não pode ser anterior a data atual. Verifique data e horário.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showAlert(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // montando dialog
+        builder.setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
 }
 
 

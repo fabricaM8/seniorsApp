@@ -70,7 +70,7 @@
     <string name="exemplo_acao">Menu Clicado</string>
     <string name="action_example">Example action</string>
     <!-- Itens de menu lateral -->
-    <string name="error_form_submit">Ocorreu um problema e o medicamento não pode ser cadastrado.</string>
+    <string name="error_form_submit">Ocorreu um problema e os dados não foram salvos.</string>
     <string name="success_medication_form_submit">Medicamento salvo com sucesso!</string>
     <string name="success_medication_deletion">Medicamento excluído com sucesso!</string>
     <string name="success_exercise_deletion">Atividade excluída com sucesso!</string>

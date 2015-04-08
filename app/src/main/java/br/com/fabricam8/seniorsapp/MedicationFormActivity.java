@@ -104,7 +104,11 @@ public class MedicationFormActivity extends ActionBarActivity
         txtObserv.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionMedication.setDescription(s.toString());
+                String seq = s.toString().toLowerCase();
+                if(seq.length() > 1)
+                    seq = seq.substring(0,1).toUpperCase() + seq.substring(1);
+
+                sessionMedication.setDescription(seq);
             }
 
             @Override
@@ -281,7 +285,7 @@ public class MedicationFormActivity extends ActionBarActivity
 
         // validando data
         if(sessionMedication.getStartDate().compareTo(new Date()) == -1) {
-            showAlert("Alerta", "A data de início não pode ser inferior a data de hoje");
+            showAlert("Alerta", "A data de início não pode ser anterior a data atual. Verifique data e horário.");
             return false;
         }
 
