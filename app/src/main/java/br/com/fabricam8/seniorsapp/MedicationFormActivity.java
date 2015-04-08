@@ -120,6 +120,7 @@ public class MedicationFormActivity extends ActionBarActivity
         oRetVal.setPeriodicity(Periodicity.DIAx3);
         oRetVal.setDuration(7);
         oRetVal.setDurationType(Duration.DIA);
+        oRetVal.setHasAlarm(true);
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 6);
@@ -198,8 +199,6 @@ public class MedicationFormActivity extends ActionBarActivity
 
             if (validateForm())
             {
-           //     sessionMedication.setHasAlarm(FormHelper.getSwitchValue(this, R.id.med_form_alarm));
-
                 // creating medication
                 long id = -1;
                 if(sessionMedication.getID() > 0 ) { // update
