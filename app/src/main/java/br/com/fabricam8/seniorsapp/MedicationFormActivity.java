@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
@@ -270,17 +271,13 @@ public class MedicationFormActivity extends ActionBarActivity
         if(med != null)
         {
             // TODO realizar equals????
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            // montando dialog
-            builder.setTitle("Alerta")
-                    .setMessage("Já existe um medicamento cadastrado com esse nome.")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    }).create().show();
+            showAlert("Alerta", "Já existe um medicamento cadastrado com esse nome.");
+            return false;
+        }
 
+        // validando data
+        if(sessionMedication.getStartDate().compareTo(new Date()) == -1) {
+            showAlert("Alerta", "A data de início não pode ser inferior a data de hoje");
             return false;
         }
 
@@ -514,4 +511,16 @@ public class MedicationFormActivity extends ActionBarActivity
         }
     }
 
+    private void showAlert(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // montando dialog
+        builder.setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
 }
