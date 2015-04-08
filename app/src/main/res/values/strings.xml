@@ -58,6 +58,8 @@
 
 
     <string name="validation_error_message">Campo obrigatório</string>
+    <string name="validation_error_message1">Data inicial não pode ser menor do que data atual.</string>
+    <string name="validation_error_message2">Data final não pode ser menor do que data inicial.</string>
     <!-- Itens de menu lateral(Navigation Drawer -->
     <string name="nav_medicacao">Medicamentos</string>
     <string name="nav_atividades">Atividades Físicas</string>
