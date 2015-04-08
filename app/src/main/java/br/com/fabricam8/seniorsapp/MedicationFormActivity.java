@@ -265,6 +265,25 @@ public class MedicationFormActivity extends ActionBarActivity
         if (!FormHelper.validateFormTextInput(this, R.id.med_form_name, getString(R.string.validation_error_message)))
             return false;
 
+        MedicationDAL db = MedicationDAL.getInstance(this);
+        Medication med = db.findByName(FormHelper.getTextBoxValue(this, R.id.med_form_name));
+        if(med != null)
+        {
+            // TODO realizar equals????
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            // montando dialog
+            builder.setTitle("Alerta")
+                    .setMessage("Já existe um medicamento cadastrado com esse nome.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }).create().show();
+
+            return false;
+        }
+
         return true;
     }
 

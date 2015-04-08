@@ -65,57 +65,7 @@ public class MedicationDAL extends DbCRUD<Medication> {
 
     @Override
     public Medication findOne(long id) {
-        Medication oRetVal = null;
-
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        try {
-            db = this.getReadableDatabase();
-
-            cursor = db.query(getTableName(), new String[]{
-                    Medication.KEY_ID,
-                    Medication.KEY_NAME,
-                    Medication.KEY_DESCRIPTION,
-                    Medication.KEY_DOSAGE,
-                    Medication.KEY_DOSAGE_TYPE,
-                    Medication.KEY_PERIODICITY,
-                    Medication.KEY_DURATION,
-                    Medication.KEY_DURATION_TYPE,
-                    Medication.KEY_START_DATE,
-                    Medication.KEY_CONTINUOUS,
-                    Medication.KEY_ALARM
-            }, Medication.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
-
-            if (cursor != null)
-                cursor.moveToFirst();
-
-            oRetVal = new Medication();
-            oRetVal.setID(cursor.getInt(0));
-            oRetVal.setName(cursor.getString(1));
-            oRetVal.setDescription(cursor.getString(2));
-            oRetVal.setDosage(cursor.getString(3));
-            oRetVal.setDosageMeasureType(cursor.isNull(4) ? DosageMeasure.NONE : DosageMeasure.fromInt(cursor.getInt(4)));
-            oRetVal.setPeriodicity(cursor.isNull(5) ? Periodicity.NONE : Periodicity.fromInt(cursor.getInt(5)));
-            oRetVal.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
-            oRetVal.setDurationType(cursor.isNull(7) ? Duration.NONE : Duration.fromInt(cursor.getInt(7)));
-            if (!cursor.isNull(8))
-                oRetVal.setStartDate(new Date(cursor.getLong(8)));
-
-            oRetVal.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
-            oRetVal.setHasAlarm(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
-
-        } catch (Exception ex) {
-            Log.e("Seniors DB", ex.getMessage());
-            oRetVal = null;
-        } finally {
-            if (cursor != null)
-                cursor.close();
-
-            if (db != null && db.isOpen())
-                db.close();
-        }
-
-        return oRetVal;
+        return findByKeyAndValue(Medication.KEY_ID, String.valueOf(id));
     }
 
     @Override
@@ -216,5 +166,73 @@ public class MedicationDAL extends DbCRUD<Medication> {
         }
 
         return iRetVal;
+    }
+
+    /**
+     * Encontra e retorna um medicamento pelo seu nome.
+     * @param name O nome do medicamento.
+     * @return O medicamento encontrado, nulo caso contrário.
+     */
+    public Medication findByName(String name) {
+       return findByKeyAndValue(Medication.KEY_NAME, name);
+    }
+
+    /**
+     * Encontra uma medicamento cadastrado pela key e valor.
+     * @param key A chave de pesquisa: name, id, etc
+     * @param value O valor da chave
+     */
+    private Medication findByKeyAndValue(String key, String value) {
+        Medication oRetVal = null;
+
+        SQLiteDatabase db = null;
+        Cursor cursor = null;
+        try {
+            db = this.getReadableDatabase();
+
+            cursor = db.query(getTableName(), new String[]{
+                    Medication.KEY_ID,
+                    Medication.KEY_NAME,
+                    Medication.KEY_DESCRIPTION,
+                    Medication.KEY_DOSAGE,
+                    Medication.KEY_DOSAGE_TYPE,
+                    Medication.KEY_PERIODICITY,
+                    Medication.KEY_DURATION,
+                    Medication.KEY_DURATION_TYPE,
+                    Medication.KEY_START_DATE,
+                    Medication.KEY_CONTINUOUS,
+                    Medication.KEY_ALARM
+            }, key + "=?", new String[]{value}, null, null, null, null);
+
+            if (cursor != null)
+                cursor.moveToFirst();
+
+            oRetVal = new Medication();
+            oRetVal.setID(cursor.getInt(0));
+            oRetVal.setName(cursor.getString(1));
+            oRetVal.setDescription(cursor.getString(2));
+            oRetVal.setDosage(cursor.getString(3));
+            oRetVal.setDosageMeasureType(cursor.isNull(4) ? DosageMeasure.NONE : DosageMeasure.fromInt(cursor.getInt(4)));
+            oRetVal.setPeriodicity(cursor.isNull(5) ? Periodicity.NONE : Periodicity.fromInt(cursor.getInt(5)));
+            oRetVal.setDuration(cursor.isNull(6) ? -1 : cursor.getInt(6));
+            oRetVal.setDurationType(cursor.isNull(7) ? Duration.NONE : Duration.fromInt(cursor.getInt(7)));
+            if (!cursor.isNull(8))
+                oRetVal.setStartDate(new Date(cursor.getLong(8)));
+
+            oRetVal.setContinuosUse(cursor.isNull(9) ? false : (cursor.getInt(9) == 1 ? true : false));
+            oRetVal.setHasAlarm(cursor.isNull(10) ? false : (cursor.getInt(10) == 1 ? true : false));
+
+        } catch (Exception ex) {
+            Log.e("Seniors DB", ex.getMessage());
+            oRetVal = null;
+        } finally {
+            if (cursor != null)
+                cursor.close();
+
+            if (db != null && db.isOpen())
+                db.close();
+        }
+
+        return oRetVal;
     }
 }
