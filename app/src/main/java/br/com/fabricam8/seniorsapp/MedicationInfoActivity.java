@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
 import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.AlertEventReportEntryDAL;
@@ -190,6 +191,10 @@ public class MedicationInfoActivity extends ActionBarActivity {
 
 
     private void showAlarmDialog(long alertId) {
+
+        // stopping alarm - if any
+        this.stopService(new Intent(this, AlarmPlayerService.class));
+
         if (sessionMedication != null) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
