@@ -76,12 +76,12 @@ public class MedicationDAL extends DbCRUD<Medication> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s FROM "
-                    + getTableName();
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s, %6$s, %7$s, %8$s, %9$s, %10$s, %11$s FROM %12$s ORDER BY %13$s ASC";
             selectQuery = String.format(selectQuery, Medication.KEY_ID, Medication.KEY_NAME,
                     Medication.KEY_DESCRIPTION, Medication.KEY_DOSAGE, Medication.KEY_DOSAGE_TYPE,
                     Medication.KEY_PERIODICITY, Medication.KEY_DURATION, Medication.KEY_DURATION_TYPE,
-                    Medication.KEY_START_DATE, Medication.KEY_CONTINUOUS, Medication.KEY_ALARM);
+                    Medication.KEY_START_DATE, Medication.KEY_CONTINUOUS, Medication.KEY_ALARM,
+                    getTableName(), Medication.KEY_NAME);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();

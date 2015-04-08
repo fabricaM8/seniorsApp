@@ -85,7 +85,11 @@ public class MedicationFormActivity extends ActionBarActivity
         txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionMedication.setName(s.toString());
+                String seq = s.toString().toLowerCase();
+                if(seq.length() > 1)
+                    seq = seq.substring(0,1).toUpperCase() + seq.substring(1);
+
+                sessionMedication.setName(seq);
             }
 
             @Override
