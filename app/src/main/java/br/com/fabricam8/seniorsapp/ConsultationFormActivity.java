@@ -73,6 +73,18 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         return eObj;
     }
+
+    /**
+     * Evento chamado quando botão cancelar é apertado.
+     * <p>
+     * Finaliza a Activity e retorna para tela anterior.
+     * </p>
+     */
+    public void cancel(View v) {
+        // end activity
+        finish();
+    }
+
     private void addTextChangeListeners() {
         EditText txtName = (EditText)findViewById(R.id.nome_medico);
         txtName.addTextChangedListener(new TextWatcher() {
