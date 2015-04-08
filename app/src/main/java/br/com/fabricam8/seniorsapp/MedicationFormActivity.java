@@ -274,13 +274,14 @@ public class MedicationFormActivity extends ActionBarActivity
         if (!FormHelper.validateFormTextInput(this, R.id.med_form_name, getString(R.string.validation_error_message)))
             return false;
 
-        MedicationDAL db = MedicationDAL.getInstance(this);
-        Medication med = db.findByName(FormHelper.getTextBoxValue(this, R.id.med_form_name));
-        if(med != null)
-        {
-            // TODO realizar equals????
-            showAlert("Alerta", "Já existe um medicamento cadastrado com esse nome.");
-            return false;
+        if(sessionMedication.getID() == 0) {
+            MedicationDAL db = MedicationDAL.getInstance(this);
+            Medication med = db.findByName(FormHelper.getTextBoxValue(this, R.id.med_form_name));
+            if (med != null) {
+                // TODO realizar equals????
+                showAlert("Alerta", "Já existe um medicamento cadastrado com esse nome.");
+                return false;
+            }
         }
 
         // validando data
