@@ -41,10 +41,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
-                    android:text="Aercio Melo"
+                    android:text="NOME USUARIO"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/seniors_primary_color"
                     android:textSize="24dp"
+                    android:paddingLeft="5dp"
                     android:textStyle="bold" />
             </LinearLayout>
 

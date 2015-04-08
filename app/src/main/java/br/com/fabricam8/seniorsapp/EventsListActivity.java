@@ -15,7 +15,6 @@ import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import br.com.fabricam8.seniorsapp.fragments.EventsAllFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsConsultationFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsMedicationFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPhysicalActivitiesFragment;
@@ -98,7 +97,8 @@ public class EventsListActivity extends ActionBarActivity {
      */
     private class SeniorTabProvider extends FragmentPagerAdapter {
 
-        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
+        private final String[] TABS = {"Medicamentos", "Atividades", "Consultas"};
+//        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
 
         public SeniorTabProvider(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);
@@ -109,13 +109,19 @@ public class EventsListActivity extends ActionBarActivity {
 
             switch (position) {
                 case 0:
-                    return new EventsAllFragment();
-                case 1:
                     return new EventsMedicationFragment();
-                case 2:
+                case 1:
                     return new EventsPhysicalActivitiesFragment();
-                case 3:
+                case 2:
                     return new EventsConsultationFragment();
+//                case 0:
+//                    return new EventsAllFragment();
+//                case 1:
+//                    return new EventsMedicationFragment();
+//                case 2:
+//                    return new EventsPhysicalActivitiesFragment();
+//                case 3:
+//                    return new EventsConsultationFragment();
             }
 
             return null;
