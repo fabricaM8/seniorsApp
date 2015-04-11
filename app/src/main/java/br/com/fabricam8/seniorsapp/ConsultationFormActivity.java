@@ -225,7 +225,8 @@ public class ConsultationFormActivity extends ActionBarActivity
         Context context = this;
 
         try {
-            if (validateForm()) {
+            if (validateForm())
+            {
 
                 ConsultationDAL dbCon = ConsultationDAL.getInstance(this);
                 long id = -1;

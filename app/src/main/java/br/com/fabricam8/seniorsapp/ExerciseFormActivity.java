@@ -1,10 +1,12 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -168,18 +170,30 @@ public class ExerciseFormActivity extends ActionBarActivity
         }
         else if((diffInDays(sessionExercise.getStartDate(),c2.getTime()))<0)
         {
-            FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message1));
+            showAlert("Alerta", "Data inicial não pode ser menor do que data atual.");
             return false;
         }
 
         else if((diffInDays(sessionExercise.getEndDate(),sessionExercise.getStartDate()))<0)
         {
-            FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message2));
+
+            showAlert("Alerta", "Data final não pode ser menor do que data inicial.");
             return false;
         }
         return true;
     }
-
+    private void showAlert(String title, String msg) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // montando dialog
+        builder.setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
     public static int diffInDays(Date d1, Date d2) {
         int MILLIS_IN_DAY = 86400000;
 

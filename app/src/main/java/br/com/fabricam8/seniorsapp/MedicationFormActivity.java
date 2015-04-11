@@ -285,7 +285,8 @@ public class MedicationFormActivity extends ActionBarActivity
         }
 
         // validando data
-        if(sessionMedication.getStartDate().compareTo(new Date()) == -1) {
+        if(sessionMedication.getStartDate().compareTo(new Date()) == -1)
+        {
             showAlert("Alerta", "A data de início não pode ser anterior a data atual. Verifique data e horário.");
             return false;
         }
