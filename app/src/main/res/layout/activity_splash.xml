@@ -1,0 +1,41 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="br.com.fabricam8.seniorsapp.SplashActivity">
+
+    <ImageView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:src="@drawable/bg_splash_small" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/splash_title"
+        android:textColor="@color/seniors_secondary_color"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:shadowColor="#7F000000"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="15"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:keepScreenOn="true"
+        android:text="@string/splash_moto"
+        android:textColor="@color/seniors_primary_color"
+        android:paddingTop="70dp"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"/>
+
+</FrameLayout>

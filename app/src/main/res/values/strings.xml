@@ -18,7 +18,6 @@
     <string name="title_activity_consultation_form">Cadastrar consulta</string>
     <string name="title_activity_info_summary">Resumo</string>
 
-
     <!-- Address format -->
     <string name="address_output_string">%1$s %2$s %3$s</string>
 
@@ -52,11 +51,7 @@
     <string name="request_location_updates_in_progress">Impossível requisitar nova localização (anterior ainda não finalizou)</string>
     <string name="unknown">--Desconhecido--</string>
     <string name="unknown_activity_request_code">Código de solicitação desconhecido %1$d em onActivityResult.</string>
-
-
     <string name="alarm_service_label">hora de acordar!!!!</string>
-
-
     <string name="validation_error_message">Campo obrigatório</string>
       <!-- Itens de menu lateral(Navigation Drawer -->
     <string name="nav_medicacao">Medicamentos</string>
@@ -76,4 +71,9 @@
     <string name="fail_exercise_deletion">Não foi possível remover a atividade.</string>
     <string name="fail_consultation_deletion">Não foi possível remover a consulta.</string>
     <string name="fail_medication_deletion">Não foi possível remover o medicamento.</string>
+
+    <string name="title_activity_splash">Senior\'s App</string>
+    <string name="splash_title">Senior\'s App</string>
+    <string name="splash_moto">"Ajudando a cuidar de quem você ama!"</string>
+
 </resources>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
 
     <style name="Theme.Seniors" parent="@style/Theme.AppCompat.Light.NoActionBar">
@@ -24,7 +23,7 @@
         <item name="android:background">@drawable/default_button</item>
     </style>
 
-    <!--Botoes redondos-->
+    <!-- Botoes redondos -->
 
     <style name="bt_dash" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">90dp</item>
@@ -75,7 +74,7 @@
         <item name="android:background">@drawable/bt_round_grey</item>
     </style>
 
-    <!--Formularios-->
+    <!-- Formularios -->
 
     <style name="vw_input_box">
         <item name="android:layout_height">60dp</item>
@@ -93,8 +92,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!--Checkbox-->
-
+    <!-- Checkbox -->
 
     <style name="cb_default">
         <item name="android:layout_width">30dp</item>
@@ -106,4 +104,22 @@
         <item name="android:textColor">@drawable/cb_seniors_text_color</item>
         <item name="android:background">@drawable/cb_seniors</item>
     </style>
+
+    <style name="FullscreenTheme" parent="android:Theme.NoTitleBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">@style/ButtonBar</item>
+        <item name="metaButtonBarButtonStyle">@style/ButtonBarButton</item>
+    </style>
+
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+
+    <style name="ButtonBarButton" />
+
 </resources>
