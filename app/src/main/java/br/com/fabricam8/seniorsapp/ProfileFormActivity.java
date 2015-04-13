@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -119,6 +120,10 @@ public class ProfileFormActivity extends Activity {//ActionBarActivity {
 
             editor.putBoolean(GlobalParams.SHARED_PROPERTY_PROFILE_SET, true);
             editor.commit();
+
+            Intent i = new Intent(ProfileFormActivity.this, DashboardActivity.class);
+            startActivity(i);
+            finish();
         }
         else {
             showAlert("Alerta", "Por favor, preencha os campos destacados.");
@@ -143,8 +148,6 @@ public class ProfileFormActivity extends Activity {//ActionBarActivity {
      * @return Application's {@code SharedPreferences}.
      */
     private SharedPreferences getSharedPrefs() {
-
         return getSharedPreferences(GlobalParams.SHARED_PREFS_ID, Context.MODE_PRIVATE);
-
     }
 }

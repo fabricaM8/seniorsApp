@@ -36,12 +36,11 @@
                     android:src="@drawable/ico_usuario" />
 
                 <TextView
-                    android:id="@+id/txtUserName"
+                    android:id="@+id/dash_txtUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
-                    android:text="NOME USUARIO"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/seniors_primary_color"
                     android:textSize="24dp"

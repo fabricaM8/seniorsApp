@@ -1,7 +1,9 @@
 package br.com.fabricam8.seniorsapp;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
+import br.com.fabricam8.seniorsapp.util.FormHelper;
+import br.com.fabricam8.seniorsapp.util.GlobalParams;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 public class DashboardActivity extends ActionBarActivity {
@@ -20,6 +24,8 @@ public class DashboardActivity extends ActionBarActivity {
 
         // create toolbar
         ToolbarBuilder.build(this, false);
+
+        loadInfo();
     }
 
     @Override
@@ -87,5 +93,17 @@ public class DashboardActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Loads the shared prefs info
+     */
+    private void loadInfo() {
+        // inicializando shared prefs
+        final SharedPreferences prefs = getSharedPreferences(GlobalParams.SHARED_PREFS_ID, Context.MODE_PRIVATE);
+        String userName = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_NAME, "");
+        if (!userName.isEmpty()) {
+            FormHelper.setTextBoxValue(DashboardActivity.this, R.id.dash_txtUserName, userName);
+        }
     }
 }
