@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -42,8 +43,14 @@ public class SplashActivity extends Activity {
 
         context = SplashActivity.this;
 
-        // register app or continue
-        registerInBackground();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // register app or continue
+                registerInBackground();
+            }
+        }, 1500);
+
     }
 
     /**
@@ -80,7 +87,7 @@ public class SplashActivity extends Activity {
                 if(isProfileSet()) {
                     i = new Intent(SplashActivity.this, DashboardActivity.class);
                 } else {
-                    i = new Intent(SplashActivity.this, DashboardActivity.class);
+                    i = new Intent(SplashActivity.this, ProfileFormActivity.class);
                 }
 
                 startActivity(i);

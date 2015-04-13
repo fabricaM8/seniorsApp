@@ -1,0 +1,84 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="br.com.fabricam8.seniorsapp.ProfileFormActivity">
+
+    <ImageView
+        android:id="@+id/fullscreen_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitStart"
+        android:src="@drawable/bg_splash_small" />
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:text="@string/profile_info_1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingTop="20dp"
+            android:text="@string/profile_info_2"/>
+
+        <EditText
+            android:id="@+id/profile_form_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginTop="10dp"
+            android:hint="Qual o seu nome?"
+            android:textColor="#222222"
+            android:textSize="@dimen/form_input_text_size" />
+        <!--Borda inferior da caixa de texto-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@color/seniors_primary_color"></View>
+
+        <!--telefone-->
+
+        <EditText
+            android:id="@+id/profile_form_phone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginTop="10dp"
+            android:inputType="phone"
+            android:hint="(XX) XXXX-XXXX"
+            android:textColor="#222222"
+            android:textSize="@dimen/form_input_text_size" />
+
+        <!--Borda inferior da caixa de texto-->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@color/seniors_primary_color"></View>
+    </LinearLayout>
+
+
+    <ImageButton
+        android:id="@+id/btSaveMedication"
+        style="@style/bt_action_active"
+        android:onClick="saveProfile"
+        android:src="@drawable/ic_action_confirm"
+        android:layout_gravity="right|bottom" />
+</FrameLayout>
