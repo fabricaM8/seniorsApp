@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="-6dp"
             android:layout_marginTop="10dp"
+            android:inputType="textCapWords"
             android:hint="Nome do medicamento"
             android:textColor="#222222"
             android:textSize="@dimen/form_input_text_size" />

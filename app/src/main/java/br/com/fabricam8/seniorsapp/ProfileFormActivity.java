@@ -8,8 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
@@ -37,26 +35,6 @@ public class ProfileFormActivity extends Activity {//ActionBarActivity {
      * Este método adiciona text edit listeners aos campos de texto da página.
      */
     private void addTextChangeListeners() {
-        EditText txtName = (EditText)findViewById(R.id.profile_form_name);
-        txtName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String seq = s.toString().toLowerCase();
-                if (seq.length() > 1)
-                    seq = seq.substring(0, 1).toUpperCase() + seq.substring(1);
-
-//                sessionMedication.setName(seq);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
         EditText inputField = (EditText) findViewById(R.id.profile_form_phone);
         inputField.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
