@@ -87,7 +87,7 @@ public class SplashActivity extends Activity {
                 if(isProfileSet()) {
                     i = new Intent(SplashActivity.this, DashboardActivity.class);
                 } else {
-                    i = new Intent(SplashActivity.this, ProfileFormActivity.class);
+                    i = new Intent(SplashActivity.this, ProfileRegistrationActivity.class);
                 }
 
                 startActivity(i);

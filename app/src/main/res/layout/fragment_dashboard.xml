@@ -43,6 +43,8 @@
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="@color/seniors_primary_color"
+                    android:clickable="true"
+                    android:onClick="viewProfile"
                     android:textSize="24dp"
                     android:paddingLeft="5dp"
                     android:textStyle="bold" />

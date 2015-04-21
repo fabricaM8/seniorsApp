@@ -81,18 +81,27 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".ProfileFormActivity"
+            android:name=".ProfileRegistrationActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name=".ProfileFormActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
         </activity>
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location"
             android:parentActivityName=".DashboardActivity"
             android:screenOrientation="portrait" >
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />

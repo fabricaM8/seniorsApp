@@ -1,52 +1,37 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.GlobalParams;
-import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
+import br.com.fabricam8.seniorsapp.util.SysUtil;
 
 
-public class ProfileFormActivity extends ActionBarActivity {
+public class ProfileRegistrationActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_form);
-
-        // create toolbar
-        Toolbar mToolbar = ToolbarBuilder.build(this, true);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_primary_color));
-
-        loadProfile();
+        setContentView(R.layout.activity_profile_registration);
+        // adicionando edit listeners aos campos de texto
+        addTextChangeListeners();
     }
 
-    private void loadProfile() {
-
-        // inicializando shared prefs
-        final SharedPreferences prefs = getSharedPreferences(GlobalParams.SHARED_PREFS_ID, Context.MODE_PRIVATE);
-        String userName = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_NAME, "");
-        if (!userName.isEmpty()) {
-            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_name, userName);
-        }
-
-        String phone = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_PHONE, "");
-        if (!userName.isEmpty()) {
-            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_phone, phone);
-        }
-
-        String cloudId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, "");
-        if (!userName.isEmpty()) {
-            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_cloudId, cloudId);
-        }
+    /**
+     * Este método adiciona text edit listeners aos campos de texto da página.
+     */
+    private void addTextChangeListeners() {
+        EditText inputField = (EditText) findViewById(R.id.profile_rego_phone);
+        inputField.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     /**
@@ -67,7 +52,10 @@ public class ProfileFormActivity extends ActionBarActivity {
      */
     private boolean validateForm() {
         // validating name
-        if (!FormHelper.validateFormTextInput(this, R.id.profile_form_name, getString(R.string.validation_error_message)))
+        if (!FormHelper.validateFormTextInput(this, R.id.profile_rego_name, getString(R.string.validation_error_message)))
+            return false;
+
+        if (!FormHelper.validateFormTextInput(this, R.id.profile_rego_phone, getString(R.string.validation_error_message)))
             return false;
 
         return true;
@@ -78,19 +66,35 @@ public class ProfileFormActivity extends ActionBarActivity {
      * {@code SharedPreferences}.
      *
      */
-    public void saveProfileForm(View view) {
+    public void saveRegistrationProfile(View view) {
         if (validateForm())
         {
             // inicializando shared prefs
             final SharedPreferences prefs = getSharedPrefs();
             SharedPreferences.Editor editor = prefs.edit();
 
-            String name = FormHelper.getTextBoxValue(ProfileFormActivity.this, R.id.profile_form_name);
+            if(SysUtil.isOnline(ProfileRegistrationActivity.this)) {
+                String key = "";
+
+                // Acessando api rest
+
+                if(!key.isEmpty()) {
+                    // so setar se conseguiu sncronizar
+                    editor.putString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, key);
+                    editor.putBoolean(GlobalParams.SHARED_PROPERTY_PROFILE_SYNC, true);
+                }
+            }
+
+            String name = FormHelper.getTextBoxValue(ProfileRegistrationActivity.this, R.id.profile_rego_name);
             editor.putString(GlobalParams.SHARED_PROPERTY_REG_NAME, name);
+
+            String phone = FormHelper.getTextBoxValue(ProfileRegistrationActivity.this, R.id.profile_rego_phone);
+            editor.putString(GlobalParams.SHARED_PROPERTY_REG_PHONE, phone);
+
+            editor.putBoolean(GlobalParams.SHARED_PROPERTY_PROFILE_SET, true);
             editor.commit();
 
-            showAlert("Informação","Perfil salvo com sucesso.");
-            Intent i = new Intent(ProfileFormActivity.this, DashboardActivity.class);
+            Intent i = new Intent(ProfileRegistrationActivity.this, DashboardActivity.class);
             startActivity(i);
             finish();
         }

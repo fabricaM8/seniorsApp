@@ -84,6 +84,16 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(i);
     }
 
+    /**
+     * Invoked when clicked on the dashboard.
+     *
+     * @param v The button which invoked the action.
+     */
+    public void viewProfile(View v) {
+        Intent i = new Intent(DashboardActivity.this, ProfileFormActivity.class);
+        startActivity(i);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
