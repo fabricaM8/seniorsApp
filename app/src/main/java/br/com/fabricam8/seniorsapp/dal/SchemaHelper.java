@@ -7,6 +7,7 @@ import android.util.Log;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
+import br.com.fabricam8.seniorsapp.domain.Contacts;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
@@ -78,11 +79,22 @@ public class SchemaHelper {
                 Consultation.KEY_TYPE + " TEXT" +
                 ")";
 
+
+        String contactsTableSchema = "CREATE TABLE " + ContactsDAL.TABLE_NAME + "(" +
+                Contacts.KEY_ID + " INTEGER PRIMARY KEY," +
+                Contacts.KEY_CLOUD_ID + " INTEGER," +
+                Contacts.KEY_NAME + " TEXT," +
+                Contacts.KEY_FONE1 + " TEXT," +
+                Contacts.KEY_FONE2 + " TEXT" +
+                ")";
+
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
         db.execSQL(alertReportTableSchema);
         db.execSQL(excTableSchema);
         db.execSQL(consultTableSchema);
+        db.execSQL(contactsTableSchema);
+
     }
 
     // Upgrading database

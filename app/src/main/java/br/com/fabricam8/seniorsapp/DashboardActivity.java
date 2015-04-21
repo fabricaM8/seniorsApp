@@ -44,6 +44,10 @@ public class DashboardActivity extends ActionBarActivity {
         Intent i = new Intent(DashboardActivity.this, LocationActivity.class);
         startActivity(i);
     }
+    public void openContacts(View v) {
+        Intent i = new Intent(DashboardActivity.this,ContactsActivity.class);
+        startActivity(i);
+    }
 
     /**
      * Invoked when clicked on the dashboard.

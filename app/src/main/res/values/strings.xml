@@ -77,6 +77,9 @@
     <string name="splash_moto">"Ajudando a cuidar de quem você ama!"</string>
     <string name="profile_info_1">Seja muito bem vindo!</string>
     <string name="profile_info_2">Para nos ajudar a cuidar de você, por favor preencha os campos abaixo:</string>
+    <string name="title_activity_contatos">contatos</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 </resources>

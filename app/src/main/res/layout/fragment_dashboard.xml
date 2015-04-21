@@ -81,7 +81,9 @@
                     android:id="@+id/btDashLocal"
                     style="@style/bt_action_dash_red"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_emergency" />
+                    android:src="@drawable/ic_emergency"
+                    android:onClick="openContacts"
+                    android:nestedScrollingEnabled="false" />
 
                 <TextView
                     android:layout_width="match_parent"
