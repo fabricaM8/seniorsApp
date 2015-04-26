@@ -322,7 +322,7 @@ public class ConsultationFormActivity extends ActionBarActivity
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            rootView = inflater.inflate(R.layout.pager_contacts, container, false);
+            rootView = inflater.inflate(R.layout.pager_events_contacts, container, false);
             ViewCompat.setElevation(rootView, 50);
             return rootView;
         }

@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/events_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.fabricam8.seniorsapp.EventsListActivity">
+
+    <include layout="@layout/seniors_toolbar"/>
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_tab" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+</LinearLayout>
+
+
+
+
+
+
+
