@@ -82,13 +82,18 @@ public class ContactsActivity extends ActionBarActivity {
 
     private boolean validateForm() {
 
-        if (!FormHelper.validateFormTextInput(this, R.id.nome_contacts, getString(R.string.validation_error_message))) {
+        if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        if (!FormHelper.validateFormTextInput(this, R.id.nome2, getString(R.string.validation_error_message))) {
             return false;
         }
         if (!FormHelper.validateFormTextInput(this, R.id.fone1_contacts, getString(R.string.validation_error_message))) {
             return false;
         }
-
+        if (!FormHelper.validateFormTextInput(this, R.id.fone2_contacts, getString(R.string.validation_error_message))) {
+            return false;
+        }
         return true;
     }
 

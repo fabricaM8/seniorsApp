@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/nome_contacts"
+            android:id="@+id/nome1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-6dp"
@@ -27,25 +27,29 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="-6dp"
             android:layout_marginTop="10dp"
-            android:hint="Casa"
+            android:hint="Fone"
             android:textColor="#222222"
             android:textSize="@dimen/form_input_text_size" />
-           <EditText
+        <EditText
+            android:id="@+id/nome2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-6dp"
+            android:layout_marginTop="10dp"
+            android:hint="Nome"
+            android:textColor="#222222"
+            android:textSize="@dimen/form_input_text_size" />
+        <EditText
             android:id="@+id/fone2_contacts"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="-6dp"
             android:layout_marginTop="10dp"
-            android:hint="Celular"
+            android:hint="Fone "
             android:textColor="#222222"
             android:textSize="@dimen/form_input_text_size" />
 
-
         <!--ACTION BUTTONS-->
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"></View>
 
 
         <LinearLayout
