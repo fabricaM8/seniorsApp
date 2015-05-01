@@ -1,101 +1,123 @@
 package br.com.fabricam8.seniorsapp;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
-import br.com.fabricam8.seniorsapp.dal.ContactsDAL;
+import com.astuetz.PagerSlidingTabStrip;
+
 import br.com.fabricam8.seniorsapp.domain.Contacts;
-import br.com.fabricam8.seniorsapp.util.FormHelper;
+import br.com.fabricam8.seniorsapp.fragments.EventsContactsFragment;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
 public class ContactsActivity extends ActionBarActivity {
     private Contacts sessionContacts;
+    private Toolbar mToolbar;
+    private ViewPager mPager;
+    private PagerSlidingTabStrip mTabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+        setContentView(R.layout.activity_contacts_list);
+        // create toolbar
+        mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+
+        // Initialize the ViewPager and set an adapter
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new SeniorTabProvider(getSupportFragmentManager()));
+
+        // Bind the mTabs to the ViewPager
+        mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mTabs.setViewPager(mPager);
+
+    }
+    protected void onResume() {
+        super.onResume();
     }
 
+    public void viewAddContatos(View v) {
+        startActivity(new Intent(ContactsActivity.this, ContactsFormActivity.class));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_contatos, menu);
+        getMenuInflater().inflate(R.menu.menu_events_view, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.action_help_events_list:
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void saveContacts(View v) {
-        try {
-            Context context = this;
-            // TODO verificar salvamento na activity de Activity
-            ContactsDAL dbConta = ContactsDAL.getInstance(this);
-            if (validateForm())
-            {
-               System.out.println("teste");
-                long id = -1;
-                if (sessionContacts.getID() > 0)
-                {
-                    id = sessionContacts.getID();
-                    // atualizacao de dados
-                    dbConta.update(sessionContacts);
-                } else {
-                    id = dbConta.create(sessionContacts);
-                }
+   private class SeniorTabProvider extends FragmentPagerAdapter {
 
-                if (id > 0) {
-                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+          private final String[] TABS = {"Contatos"};
+//        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
 
-                    Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
-                    finish(); // finalizando activty e retornando para tela anterior
-                } else {
-                    // TODO remover alarme (se existir) ?!!
-                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
-                }
-            }
-        } catch (Exception ex)
-        {
-            Log.e("Seniors App - Atividades", ex.getMessage());
-            Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
-        }
-    }
+       public SeniorTabProvider(FragmentManager supportFragmentManager) {
+           super(supportFragmentManager);
+       }
 
-    private boolean validateForm() {
+       @Override
+       public Fragment getItem(int position) {
 
-        if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.nome2, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.fone1_contacts, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.fone2_contacts, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        return true;
-    }
+           switch (position) {
+               case 0:
+                  return new EventsContactsFragment();
+               //case 1:
+                   //return new EventsContactsFragment();
+                  // return new EventsConsultationFragment();
 
 
-}
+               //   case 2:
+              //     return new EventsConsultationFragment();
+//                case 0:
+//                    return new EventsAllFragment();
+//                case 1:
+//                    return new EventsMedicationFragment();
+//                case 2:
+//                    return new EventsPhysicalActivitiesFragment();
+//                case 3:
+//                    return new EventsConsultationFragment();
+           }
+
+           return null;
+       }
+
+       @Override
+       public int getCount() {
+           return TABS.length;
+       }
+
+       @Override
+       public CharSequence getPageTitle(int position) {
+           return TABS[position];
+       }
+
+   }
+ }

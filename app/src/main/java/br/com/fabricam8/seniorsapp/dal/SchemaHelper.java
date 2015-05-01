@@ -83,8 +83,9 @@ public class SchemaHelper {
         String contactsTableSchema = "CREATE TABLE " + ContactsDAL.TABLE_NAME + "(" +
                 Contacts.KEY_ID + " INTEGER PRIMARY KEY," +
                 Contacts.KEY_CLOUD_ID + " INTEGER," +
-                Contacts.KEY_NAME + " TEXT," +
+                Contacts.KEY_NAME1 + " TEXT," +
                 Contacts.KEY_FONE1 + " TEXT," +
+                Contacts.KEY_NAME2 + " TEXT," +
                 Contacts.KEY_FONE2 + " TEXT" +
                 ")";
 

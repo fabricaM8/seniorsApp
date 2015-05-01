@@ -24,7 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="viewAddAppointmentsFrament"
+        android:onClick="viewAddContatos"
         android:nestedScrollingEnabled="true" />
 
     <TextView android:id="@+id/empty_list"

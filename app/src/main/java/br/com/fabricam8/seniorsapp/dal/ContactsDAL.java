@@ -34,7 +34,8 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         return _instance;
     }
 
-    public String getTableName() {
+
+     public String getTableName() {
         return TABLE_NAME;
     }
 
