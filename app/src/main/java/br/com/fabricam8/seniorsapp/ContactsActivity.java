@@ -28,18 +28,91 @@ public class ContactsActivity extends ActionBarActivity {
     private ViewPager mPager;
     private PagerSlidingTabStrip mTabs;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_contacts_list);
         setContentView(R.layout.activity_contacts_form);
         EditText telefone = (EditText) findViewById(R.id.fone1_contacts);
-        telefone.addTextChangedListener(Mask.insert("(##)####-####", telefone));
+        telefone.addTextChangedListener(Mask.insert("(99)999-9999", telefone));
         EditText telefone2 = (EditText) findViewById(R.id.fone2_contacts);
         telefone2.addTextChangedListener(Mask.insert("(##)####-####", telefone2));
+        // adicionando edit listeners aos campos de texto
+        addTextChangeListeners();
 
     }
+
+    private void addTextChangeListeners()
+    {
+        EditText txtName = (EditText) findViewById(R.id.nome1);
+        txtName.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionContacts.setNome1(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        EditText txtName2 = (EditText) findViewById(R.id.nome2);
+        txtName2.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionContacts.setNome2(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        EditText txtFone1 = (EditText) findViewById(R.id.fone1_contacts);
+        txtName2.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionContacts.setFone1(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+        EditText txtFone2 = (EditText) findViewById(R.id.fone2_contacts);
+        txtName2.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sessionContacts.setFone2(s.toString());
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
+
+    }
+
     protected void onResume() {
         super.onResume();
     }
@@ -70,40 +143,56 @@ public class ContactsActivity extends ActionBarActivity {
     }
 
     public void saveContacts(View v) {
-        try {
+        try
+        {
+
             Context context = this;
             // TODO verificar salvamento na activity de Activity
             ContactsDAL dbConta = ContactsDAL.getInstance(this);
+/*
             if (validateForm())
             {
-                long id = -1;
+*/
+             long id = -1;
+
+
+             id = dbConta.create(sessionContacts);
+
+
+                /*
                 if (sessionContacts.getID() > 0)
                 {
                     id = sessionContacts.getID();
-                    // atualizacao de dados
+                      //atualizacao de dados
                        dbConta.update(sessionContacts);
                 } else
                 {
-                   System.out.println("ajustar");
-                    id = dbConta.create(sessionContacts);
+               //      id = dbConta.create(sessionContacts);
+                     //System.out.println("######################LAECYO##############################");
                 }
+               */
 
-                if (id > 0) {
-                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+               // Toast.makeText(this,id, Toast.LENGTH_LONG).show();
+                 //Log.i("balasasas",""+id);
 
+               if (id > 0)
+                {
                     Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
                     finish(); // finalizando activty e retornando para tela anterior
-                } else {
-                    // TODO remover alarme (se existir) ?!!
-                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
                 }
-            }
-        } catch (Exception ex)
+                else if(id == -1)
+                {
+                    // TODO remover alarme (se existir) ?!!
+                    Toast.makeText(this, "Ocorreu uma falha e a consulta não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
+        }
+       /* }*/ catch (Exception ex)
         {
             Log.e("Seniors App - Atividades", ex.getMessage());
             Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
-    }
+  }
+
 
     private boolean validateForm() {
 

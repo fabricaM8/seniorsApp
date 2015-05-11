@@ -45,4 +45,6 @@ public abstract class DbEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

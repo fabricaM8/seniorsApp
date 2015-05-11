@@ -51,11 +51,22 @@ public class Contacts extends DbEntity {
     public String getFone2() {
         return fone2;
     }
+
+
     public void setFone1(String fone1) {
         this.fone1 = fone1;
     }
     public void setFone2(String fone2) {
         this.fone2 = fone2;
     }
+
+    public void setNome1(String nome1) {
+        this.fone1 = nome1;
+    }
+    public void setNome2(String nome2) {
+        this.fone1 = nome2;
+    }
+
+
 }
 

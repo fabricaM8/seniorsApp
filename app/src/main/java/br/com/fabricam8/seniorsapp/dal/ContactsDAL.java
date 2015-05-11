@@ -165,11 +165,15 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         return iRetVal;
     }
     @Override
-    public long create(Contacts entity) {
+    public long create(Contacts entity)
+    {
         long iRetVal = -1;
 
         SQLiteDatabase db = null;
-        try {
+        try
+        {
+
+
             // opening db
             db = this.getWritableDatabase();
             // getting content
@@ -180,7 +184,9 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         {
             Log.e("Seniors DB", ex.getMessage());
             iRetVal = -1;
-        } finally {
+        }
+        finally
+        {
             if (db != null && db.isOpen())
                 db.close();
         }

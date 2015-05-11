@@ -54,9 +54,11 @@ public class ExerciseFormActivity extends ActionBarActivity
 
         // recuperando id passada no clique
         long exerciseId = getIntent().getLongExtra("_ID_", -1);
-        if (exerciseId == -1) {
+        if (exerciseId == -1)
+        {
             this.sessionExercise = initExercise();
-        } else {
+        } else
+        {
             this.sessionExercise = ExerciseDAL.getInstance(this).findOne(exerciseId);
         }
         // atulizando a view de atividades
@@ -77,9 +79,11 @@ public class ExerciseFormActivity extends ActionBarActivity
         return eObj;
     }
 
-    private void addTextChangeListeners() {
+    private void addTextChangeListeners()
+    {
         EditText txtName = (EditText) findViewById(R.id.exercise_type);
-        txtName.addTextChangedListener(new TextWatcher() {
+        txtName.addTextChangedListener(new TextWatcher()
+        {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 sessionExercise.setName(s.toString());
