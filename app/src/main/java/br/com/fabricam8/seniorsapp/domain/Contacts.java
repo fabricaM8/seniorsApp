@@ -24,7 +24,8 @@ public class Contacts extends DbEntity {
     }
 
     @Override
-    public ContentValues getContentValues() {
+    public ContentValues getContentValues()
+    {
         ContentValues values = new ContentValues();
         values.put(KEY_CLOUD_ID, getCloudId());
         values.put(KEY_NAME1, getName1());

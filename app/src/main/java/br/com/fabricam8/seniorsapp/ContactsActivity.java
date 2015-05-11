@@ -1,23 +1,25 @@
 package br.com.fabricam8.seniorsapp;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import br.com.fabricam8.seniorsapp.dal.ContactsDAL;
 import br.com.fabricam8.seniorsapp.domain.Contacts;
-import br.com.fabricam8.seniorsapp.fragments.EventsContactsFragment;
-import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
+import br.com.fabricam8.seniorsapp.util.FormHelper;
 
 
 public class ContactsActivity extends ActionBarActivity {
@@ -28,27 +30,18 @@ public class ContactsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_list);
-        // create toolbar
-        mToolbar = ToolbarBuilder.build(this, true);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
-
-        // Initialize the ViewPager and set an adapter
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new SeniorTabProvider(getSupportFragmentManager()));
-
-        // Bind the mTabs to the ViewPager
-        mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
-        mTabs.setViewPager(mPager);
+       // setContentView(R.layout.activity_contacts_list);
+        setContentView(R.layout.activity_contacts_form);
+        EditText telefone = (EditText) findViewById(R.id.fone1_contacts);
+        telefone.addTextChangedListener(Mask.insert("(##)####-####", telefone));
+        EditText telefone2 = (EditText) findViewById(R.id.fone2_contacts);
+        telefone2.addTextChangedListener(Mask.insert("(##)####-####", telefone2));
 
     }
     protected void onResume() {
         super.onResume();
     }
 
-    public void viewAddContatos(View v) {
-        startActivity(new Intent(ContactsActivity.this, ContactsFormActivity.class));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,50 +67,111 @@ public class ContactsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-   private class SeniorTabProvider extends FragmentPagerAdapter {
+    public void saveContacts(View v) {
+        try {
+            Context context = this;
+            // TODO verificar salvamento na activity de Activity
+            ContactsDAL dbConta = ContactsDAL.getInstance(this);
+            if (validateForm())
+            {
+                long id = -1;
+                if (sessionContacts.getID() > 0)
+                {
+                    id = sessionContacts.getID();
+                    // atualizacao de dados
+                    // dbConta.update(sessionContacts);
+                } else {
+                    // id = dbConta.create(sessionContacts);
+                }
 
-          private final String[] TABS = {"Contatos"};
-//        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
+                if (id > 0) {
+                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
 
-       public SeniorTabProvider(FragmentManager supportFragmentManager) {
-           super(supportFragmentManager);
-       }
+                    Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                    finish(); // finalizando activty e retornando para tela anterior
+                } else {
+                    // TODO remover alarme (se existir) ?!!
+                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
+            }
+        } catch (Exception ex)
+        {
+            Log.e("Seniors App - Atividades", ex.getMessage());
+            Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+        }
+    }
 
-       @Override
-       public Fragment getItem(int position) {
+    private boolean validateForm() {
 
-           switch (position) {
-               case 0:
-                  return new EventsContactsFragment();
-               //case 1:
-                   //return new EventsContactsFragment();
-                  // return new EventsConsultationFragment();
+        if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        if (!FormHelper.validateFormTextInput(this, R.id.nome2, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        if (!FormHelper.validateFormTextInput(this, R.id.fone1_contacts, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        if (!FormHelper.validateFormTextInput(this, R.id.fone2_contacts, getString(R.string.validation_error_message))) {
+            return false;
+        }
+        return true;
+    }
 
 
-               //   case 2:
-              //     return new EventsConsultationFragment();
-//                case 0:
-//                    return new EventsAllFragment();
-//                case 1:
-//                    return new EventsMedicationFragment();
-//                case 2:
-//                    return new EventsPhysicalActivitiesFragment();
-//                case 3:
-//                    return new EventsConsultationFragment();
-           }
+    public abstract static class Mask {
 
-           return null;
-       }
+        public static String unmask(String s) {
+            return s.replaceAll("[.]", "").replaceAll("[-]", "")
+                    .replaceAll("[/]", "").replaceAll("[(]", "")
+                    .replaceAll("[)]", "");
+        }
 
-       @Override
-       public int getCount() {
-           return TABS.length;
-       }
+        public static TextWatcher insert(final String mask, final EditText ediTxt) {
+            return new TextWatcher() {
+                boolean isUpdating;
+                String old = "";
 
-       @Override
-       public CharSequence getPageTitle(int position) {
-           return TABS[position];
-       }
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
+                    String str = Mask.unmask(s.toString());
+                    String mascara = "";
+                    if (isUpdating) {
+                        old = str;
+                        isUpdating = false;
+                        return;
+                    }
+                    int i = 0;
+                    for (char m : mask.toCharArray()) {
+                        if (m != '#' && str.length() > old.length()) {
+                            mascara += m;
+                            continue;
+                        }
+                        try {
+                            mascara += str.charAt(i);
+                        } catch (Exception e) {
+                            break;
+                        }
+                        i++;
+                    }
+                    isUpdating = true;
+                    ediTxt.setText(mascara);
+                    ediTxt.setSelection(mascara.length());
+                }
 
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
+                }
+
+                public void afterTextChanged(Editable s) {
+                }
+            };
+        }
+
+    }
    }
- }
+
+
+
+
+

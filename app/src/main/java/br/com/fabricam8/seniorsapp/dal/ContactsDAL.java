@@ -103,10 +103,10 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Contacts.KEY_ID, Contacts.KEY_NAME, Contacts.KEY_FONE1,
-                    Contacts.KEY_FONE2);
+            selectQuery = String.format(selectQuery, Contacts.KEY_ID, Contacts.KEY_NAME1, Contacts.KEY_FONE1,
+                    Contacts.KEY_FONE2,Contacts.KEY_NAME2);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
