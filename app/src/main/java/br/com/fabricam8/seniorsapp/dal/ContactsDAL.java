@@ -25,7 +25,8 @@ public class ContactsDAL extends DbCRUD<Contacts> {
        super(context);
     }
 
-    public static synchronized ContactsDAL getInstance(Context context) {
+    public static synchronized ContactsDAL getInstance(Context context)
+    {
         if (_instance == null)
         {
             _instance = new ContactsDAL(context);

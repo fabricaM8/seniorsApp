@@ -29,6 +29,8 @@ public class ContactsActivity extends ActionBarActivity {
     private PagerSlidingTabStrip mTabs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_contacts_list);
         setContentView(R.layout.activity_contacts_form);
@@ -79,9 +81,11 @@ public class ContactsActivity extends ActionBarActivity {
                 {
                     id = sessionContacts.getID();
                     // atualizacao de dados
-                    // dbConta.update(sessionContacts);
-                } else {
-                    // id = dbConta.create(sessionContacts);
+                       dbConta.update(sessionContacts);
+                } else
+                {
+                   System.out.println("ajustar");
+                    id = dbConta.create(sessionContacts);
                 }
 
                 if (id > 0) {
