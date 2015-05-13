@@ -131,7 +131,8 @@ public class MedicationFormActivity extends ActionBarActivity
         return oRetVal;
     }
 
-    private void updateMedicationView() {
+    private void updateMedicationView()
+    {
         FormHelper.setTextBoxValue(this, R.id.med_form_name, sessionMedication.getName());
 
         FormHelper.setTextBoxValue(this, R.id.med_form_qty, sessionMedication.getDosage());
@@ -196,21 +197,25 @@ public class MedicationFormActivity extends ActionBarActivity
         Context context = this;
 
         try {
-            MedicationDAL db = MedicationDAL.getInstance(context);
+
+              MedicationDAL db = MedicationDAL.getInstance(context);
 
             if (validateForm())
             {
                 // creating medication
                 long id = -1;
-                if(sessionMedication.getID() > 0 ) { // update
+                if(sessionMedication.getID() > 0 )
+                { // update
                     id = sessionMedication.getID();
                     db.update(sessionMedication);
                 }
-                else {
+                else
+                {
                     id = db.create(sessionMedication);
                 }
 
-                if (id > 0 && sessionMedication.isHasAlarm()) {
+                if (id > 0 && sessionMedication.isHasAlarm())
+                {
                     AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
                     // verificando se ja existe alarme para essa entidade
                     AlertEvent alert = dbAlert.findOneByEntityIdAndType(id, Medication.class.getName());

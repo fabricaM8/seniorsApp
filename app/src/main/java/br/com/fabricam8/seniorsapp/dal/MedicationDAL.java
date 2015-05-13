@@ -29,7 +29,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     public static synchronized MedicationDAL getInstance(Context context) {
-        if (_instance == null) {
+        if (_instance == null)
+        {
             _instance = new MedicationDAL(context);
         }
 
@@ -41,7 +42,8 @@ public class MedicationDAL extends DbCRUD<Medication> {
     }
 
     @Override
-    public long create(Medication entity) {
+    public long create(Medication entity)
+    {
         long iRetVal = -1;
 
         SQLiteDatabase db = null;

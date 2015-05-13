@@ -172,8 +172,6 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         SQLiteDatabase db = null;
         try
         {
-
-
             // opening db
             db = this.getWritableDatabase();
             // getting content

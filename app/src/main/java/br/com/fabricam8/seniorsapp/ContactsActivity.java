@@ -33,11 +33,11 @@ public class ContactsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contacts_form);
         EditText telefone = (EditText) findViewById(R.id.fone1_contacts);
-        telefone.addTextChangedListener(Mask.insert("(99)999-9999", telefone));
+        telefone.addTextChangedListener(Mask.insert("(##)####-####", telefone));
         EditText telefone2 = (EditText) findViewById(R.id.fone2_contacts);
         telefone2.addTextChangedListener(Mask.insert("(##)####-####", telefone2));
         // adicionando edit listeners aos campos de texto
-        addTextChangeListeners();
+       // addTextChangeListeners();
 
     }
 
@@ -142,12 +142,21 @@ public class ContactsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void updateContactsView()
+    {
+        FormHelper.setTextBoxValue(this, R.id.nome1, sessionContacts.getName1());
+
+        FormHelper.setTextBoxValue(this, R.id.fone1_contacts, sessionContacts.getFone1());
+        FormHelper.setTextBoxValue(this, R.id.nome2, sessionContacts.getName2());
+
+       }
+
     public void saveContacts(View v) {
         try
         {
-
             Context context = this;
-            // TODO verificar salvamento na activity de Activity
+            ContactsDAL db = ContactsDAL.getInstance(context);
+           // TODO verificar salvamento na activity de Activity
             ContactsDAL dbConta = ContactsDAL.getInstance(this);
 /*
             if (validateForm())
@@ -262,7 +271,11 @@ public class ContactsActivity extends ActionBarActivity {
         }
 
     }
-   }
+
+
+
+
+}
 
 
 
