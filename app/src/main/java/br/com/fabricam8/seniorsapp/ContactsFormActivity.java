@@ -1,29 +1,22 @@
 package br.com.fabricam8.seniorsapp;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 import br.com.fabricam8.seniorsapp.dal.ContactsDAL;
-import br.com.fabricam8.seniorsapp.domain.Consultation;
-import br.com.fabricam8.seniorsapp.enums.ReminderType;
+import br.com.fabricam8.seniorsapp.domain.Contacts;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
-public class ContactsFormActivity extends ActionBarActivity
-{
+public class ContactsFormActivity extends ActionBarActivity {
 
-   private Consultation sessionContacts;
+    private boolean isEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,108 +27,47 @@ public class ContactsFormActivity extends ActionBarActivity
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
 
-        // adicionando edit listeners aos campos de texto
-        addTextChangeListeners();
-
-        // recuperando id passada no clique
-        long consultaId = getIntent().getLongExtra("_ID_", -1);
-        if (consultaId == -1) {
-            this.sessionContacts = initConsultation();
-        } else {
-            //this.sessionContacts = ContactsDAL.getInstance(this).findOne(consultaId);
+        // recuperando contato
+        Contacts contact = ContactsDAL.getInstance(this).findOne(1);
+        if(contact != null) {
+            isEdit = true;
+            FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName());
         }
-        // atulizando a view de atividades
-        //updateConsultationView();
-
     }
 
+    public void saveContacts(View v) {
+        try {
+            ContactsDAL dbConta = ContactsDAL.getInstance(this);
+            if (validateForm()) {
+                Contacts contacts = new Contacts();
+                contacts.setNome1(FormHelper.getTextBoxValue(this, R.id.nome1));
+                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
+                contacts.setNome2(FormHelper.getTextBoxValue(this, R.id.nome2));
+                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
 
-    private Consultation initConsultation() {
-        Consultation eObj = new Consultation();
+                long i = 0;
 
-        Calendar c = Calendar.getInstance();
-
-        c.set(Calendar.HOUR_OF_DAY, 6);
-        c.set(Calendar.MINUTE, 0);
-
-        eObj.setReminderType(ReminderType.TRES_DIAS_ANTES);
-        eObj.setStartDate(c.getTime());
-
-        return eObj;
-    }
-
-    private void addTextChangeListeners() {
-        EditText txtName = (EditText) findViewById(R.id.nome_medico);
-        txtName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String seq = s.toString().toLowerCase();
-                if(seq.length() > 1)
-                    seq = seq.substring(0,1).toUpperCase() + seq.substring(1);
-
-                sessionContacts.setName(seq);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
-        EditText txtObserv = (EditText) findViewById(R.id.detalhe);
-        txtObserv.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                sessionContacts.setDetails(s.toString());
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
-
-
-        public void saveContacts(View v) {
-            try {
-                Context context = this;
-                // TODO verificar salvamento na activity de Activity
-                ContactsDAL dbConta = ContactsDAL.getInstance(this);
-                if (validateForm())
-                {
-                    long id = -1;
-                    if (sessionContacts.getID() > 0)
-                    {
-                        id = sessionContacts.getID();
-                        // atualizacao de dados
-                       // dbConta.update(sessionContacts);
-                    } else {
-                       // id = dbConta.create(sessionContacts);
-                    }
-
-                    if (id > 0) {
-                        // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
-
-                        Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
-                        finish(); // finalizando activty e retornando para tela anterior
-                    } else {
-                        // TODO remover alarme (se existir) ?!!
-                        Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
-                    }
+                if(isEdit) {
+                    // atualizacao de dados
+                    contacts.setID(1);
+                    i = dbConta.update(contacts);
+                } else {
+                    i = dbConta.create(contacts);
                 }
-            } catch (Exception ex)
-            {
-                Log.e("Seniors App - Atividades", ex.getMessage());
-                Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+
+                if (i > 0) {
+                    Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
+                    finish(); // finalizando activty e retornando para tela anterior
+                } else {
+                    Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
+                }
             }
+        } catch (Exception ex) {
+            Log.e("Seniors App - Atividades", ex.getMessage());
+            Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
+    }
+
     private boolean validateForm() {
 
         if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
@@ -151,6 +83,18 @@ public class ContactsFormActivity extends ActionBarActivity
             return false;
         }
         return true;
+    }
+
+
+    /**
+     * Evento chamado quando botão cancelar é apertado.
+     * <p>
+     * Finaliza a Activity e retorna para tela anterior.
+     * </p>
+     */
+    public void cancel(View v) {
+        // end activity
+        finish();
     }
 
 }
