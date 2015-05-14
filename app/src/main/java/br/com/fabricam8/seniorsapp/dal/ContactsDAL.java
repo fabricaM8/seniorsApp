@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.domain.Contacts;
-import br.com.fabricam8.seniorsapp.domain.Exercise;
 
 
 /**
@@ -67,20 +66,21 @@ public class ContactsDAL extends DbCRUD<Contacts> {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
+
             db = this.getReadableDatabase();
 
             cursor = db.query(getTableName(), new String[]{
-                    Contacts.KEY_ID, Contacts.KEY_NAME, Contacts.KEY_FONE1,
+                    Contacts.KEY_ID, Contacts.KEY_NAME1,Contacts.KEY_NAME2, Contacts.KEY_FONE1,
                     Contacts.KEY_FONE2
-            },Exercise.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
-
-            if (cursor != null)
-                cursor.moveToFirst();
+            },Contacts.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
             oRetVal = new Contacts();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setCloudId(cursor.getInt(1));
-            oRetVal.setName(cursor.getString(2));
+            oRetVal.setNome1(cursor.getString(1));
+            oRetVal.setNome2(cursor.getString(2));
+            oRetVal.setFone1(cursor.getString(3));
+            oRetVal.setFone2(cursor.getString(4));
+
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
             oRetVal = null;

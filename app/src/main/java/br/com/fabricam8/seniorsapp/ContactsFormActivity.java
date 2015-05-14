@@ -21,28 +21,33 @@ public class ContactsFormActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts_form);
 
+        setContentView(R.layout.activity_contacts_form);
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
-
+      //  System.out.println("teste3");
         // recuperando contato
         Contacts contact = ContactsDAL.getInstance(this).findOne(1);
-        if(contact != null) {
+        if(contact != null)
+        {
             isEdit = true;
-            FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName());
+            FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName1());
+            FormHelper.setTextBoxValue(this, R.id.nome2, contact.getName2());
+            FormHelper.setTextBoxValue(this, R.id.fone1_contacts, contact.getFone1());
+            FormHelper.setTextBoxValue(this, R.id.fone2_contacts, contact.getFone2());
         }
     }
 
-    public void saveContacts(View v) {
+          public void saveContacts(View v) {
         try {
             ContactsDAL dbConta = ContactsDAL.getInstance(this);
-            if (validateForm()) {
+            if (validateForm())
+            {
                 Contacts contacts = new Contacts();
-                contacts.setNome1(FormHelper.getTextBoxValue(this, R.id.nome1));
+                contacts.setName1(FormHelper.getTextBoxValue(this, R.id.nome1));
                 contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
-                contacts.setNome2(FormHelper.getTextBoxValue(this, R.id.nome2));
+                contacts.setName2(FormHelper.getTextBoxValue(this, R.id.nome2));
                 contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
 
                 long i = 0;

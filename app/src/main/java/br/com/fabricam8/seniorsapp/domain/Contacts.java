@@ -30,11 +30,15 @@ public class Contacts extends DbEntity {
         values.put(KEY_CLOUD_ID, getCloudId());
         values.put(KEY_NAME1, getName1());
         values.put(KEY_FONE1, getFone1());
-        values.put(KEY_NAME2, getName());
+        values.put(KEY_NAME2, getName2());
         values.put(KEY_FONE2, getFone1());
 
 
         return values;
+    }
+
+    public void setName1(String name1) {
+        this.name1 = name1;
     }
 
     public String getName1() {
@@ -60,13 +64,9 @@ public class Contacts extends DbEntity {
         this.fone2 = fone2;
     }
 
-    public void setNome1(String nome1) {
-        this.fone1 = nome1;
-    }
-    public void setNome2(String nome2) {
-        this.fone1 = nome2;
-    }
 
-
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
 }
 
