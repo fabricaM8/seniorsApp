@@ -49,6 +49,11 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(i);
     }
 
+    public void viewEventsListSaude(View v) {
+        Intent i = new Intent(DashboardActivity.this, EventsListSaude.class);
+        startActivity(i);
+    }
+
     /**
      * Invoked when clicked on the dashboard.
      *
@@ -73,6 +78,8 @@ public class DashboardActivity extends ActionBarActivity {
         Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse(uri));
         startActivity(intent);
     }
+
+
 
     /**
      * Invoked when clicked on the dashboard.

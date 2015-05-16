@@ -1,9 +1,16 @@
 package br.com.fabricam8.seniorsapp;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import br.com.fabricam8.seniorsapp.fragments.EventsBatimentoCardiocoFragment;
+import br.com.fabricam8.seniorsapp.fragments.EventsGlicoseFragment;
+import br.com.fabricam8.seniorsapp.fragments.EventsPesoFragment;
+import br.com.fabricam8.seniorsapp.fragments.EventsPressaoArterialFragment;
 
 
 public class EventsListSaude extends ActionBarActivity {
@@ -35,5 +42,46 @@ public class EventsListSaude extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Tab adapter
+     */
+    private class SeniorTabProvider extends FragmentPagerAdapter {
+
+        private final String[] TABS = {"Peso", "Pressão Arterial", "Glicose","Batimentos Cardiacos"};
+//        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
+
+        public SeniorTabProvider(FragmentManager supportFragmentManager) {
+            super(supportFragmentManager);
+        }
+
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+
+            switch (position) {
+                case 0:
+                    return new EventsPesoFragment();
+                case 1:
+                    return new EventsPressaoArterialFragment();
+                case 2:
+                    return new EventsGlicoseFragment();
+                case 3:
+                    return new EventsBatimentoCardiocoFragment();
+
+            }
+
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return TABS.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TABS[position];
+        }
     }
 }
