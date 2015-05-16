@@ -11,7 +11,7 @@ public class EventsListSaude extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_saude_list);
+        setContentView(R.layout.activity_saude_list);
     }
 
 
