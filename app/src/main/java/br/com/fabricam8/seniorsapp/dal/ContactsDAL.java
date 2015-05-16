@@ -76,8 +76,8 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
             oRetVal = new Contacts();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setNome1(cursor.getString(1));
-            oRetVal.setNome2(cursor.getString(2));
+            oRetVal.setName1(cursor.getString(1));
+            oRetVal.setName2(cursor.getString(2));
             oRetVal.setFone1(cursor.getString(3));
             oRetVal.setFone2(cursor.getString(4));
 

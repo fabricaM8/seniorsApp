@@ -36,12 +36,13 @@ public class ContactsActivity extends ActionBarActivity {
 
     public void saveContacts(View v) {
         try {
+
             ContactsDAL dbConta = ContactsDAL.getInstance(this);
             if (validateForm()) {
                 Contacts contacts = new Contacts();
-                contacts.setNome1(FormHelper.getTextBoxValue(this, R.id.nome1));
+                contacts.setName1(FormHelper.getTextBoxValue(this, R.id.nome1));
                 contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
-                contacts.setNome2(FormHelper.getTextBoxValue(this, R.id.nome2));
+                contacts.setName2(FormHelper.getTextBoxValue(this, R.id.nome2));
                 contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
 
                 long i = 0;

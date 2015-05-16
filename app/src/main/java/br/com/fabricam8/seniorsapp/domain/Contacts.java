@@ -37,6 +37,11 @@ public class Contacts extends DbEntity {
         return values;
     }
 
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
     public void setName1(String name1) {
         this.name1 = name1;
     }
@@ -60,13 +65,12 @@ public class Contacts extends DbEntity {
     public void setFone1(String fone1) {
         this.fone1 = fone1;
     }
-    public void setFone2(String fone2) {
+    public void setFone2(String fone2)
+    {
         this.fone2 = fone2;
     }
 
 
-    public void setName2(String name2) {
-        this.name2 = name2;
-    }
+
 }
 
