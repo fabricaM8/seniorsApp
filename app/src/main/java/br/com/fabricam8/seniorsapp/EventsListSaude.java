@@ -3,22 +3,45 @@ package br.com.fabricam8.seniorsapp;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import br.com.fabricam8.seniorsapp.fragments.EventsBatimentoCardiocoFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsGlicoseFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPesoFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPressaoArterialFragment;
+import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
 public class EventsListSaude extends ActionBarActivity {
 
+    private Toolbar mToolbar;
+    private ViewPager mPager;
+    private PagerSlidingTabStrip mTabs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_saude_list);
+
+        // create toolbar
+        mToolbar = ToolbarBuilder.build(this, true);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+
+        // Initialize the ViewPager and set an adapter
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new SeniorTabProvider(getSupportFragmentManager()));
+
+        // Bind the mTabs to the ViewPager
+        mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mTabs.setViewPager(mPager);
     }
 
 

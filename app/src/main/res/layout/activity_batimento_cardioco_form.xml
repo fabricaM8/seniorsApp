@@ -1,0 +1,13 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/medication_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.com.fabricam8.seniorsapp.ContactsFormActivity">
+
+    <include layout="@layout/seniors_toolbar"/>
+
+    <include layout="@layout/fragment_batimento_cardiaco_form"/>
+
+</LinearLayout>

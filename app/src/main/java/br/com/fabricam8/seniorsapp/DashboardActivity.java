@@ -49,8 +49,9 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(i);
     }
 
-    public void viewEventsListSaude(View v) {
-        Intent i = new Intent(DashboardActivity.this, EventsListSaude.class);
+    public void viewEventsListSaude(View v)
+    {
+        Intent i = new Intent(DashboardActivity.this, EventsListActivity.class);
         startActivity(i);
     }
 
