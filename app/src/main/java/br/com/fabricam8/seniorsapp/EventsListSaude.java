@@ -29,6 +29,7 @@ public class EventsListSaude extends ActionBarActivity {
 
         super.onCreate(savedInstanceState);
 
+        
         setContentView(R.layout.activity_saude_list);
 
         // create toolbar
