@@ -22,7 +22,7 @@ public class ContactsFormActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_contacts_form);
+        setContentView(R.layout.activity_emergency);
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
@@ -33,9 +33,9 @@ public class ContactsFormActivity extends ActionBarActivity {
         {
             isEdit = true;
             FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName1());
-            FormHelper.setTextBoxValue(this, R.id.nome2, contact.getName2());
-            FormHelper.setTextBoxValue(this, R.id.fone1_contacts, contact.getFone1());
-            FormHelper.setTextBoxValue(this, R.id.fone2_contacts, contact.getFone2());
+//            FormHelper.setTextBoxValue(this, R.id.nome2, contact.getName2());
+//            FormHelper.setTextBoxValue(this, R.id.fone1_contacts, contact.getFone1());
+//            FormHelper.setTextBoxValue(this, R.id.fone2_contacts, contact.getFone2());
         }
     }
 
@@ -46,9 +46,9 @@ public class ContactsFormActivity extends ActionBarActivity {
             {
                 Contacts contacts = new Contacts();
                 contacts.setName1(FormHelper.getTextBoxValue(this, R.id.nome1));
-                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
-                contacts.setName2(FormHelper.getTextBoxValue(this, R.id.nome2));
-                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
+//                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
+//                contacts.setName2(FormHelper.getTextBoxValue(this, R.id.nome2));
+//                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
 
                 long i = 0;
 
@@ -75,18 +75,18 @@ public class ContactsFormActivity extends ActionBarActivity {
 
     private boolean validateForm() {
 
-        if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.nome2, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.fone1_contacts, getString(R.string.validation_error_message))) {
-            return false;
-        }
-        if (!FormHelper.validateFormTextInput(this, R.id.fone2_contacts, getString(R.string.validation_error_message))) {
-            return false;
-        }
+//        if (!FormHelper.validateFormTextInput(this, R.id.nome1, getString(R.string.validation_error_message))) {
+//            return false;
+//        }
+//        if (!FormHelper.validateFormTextInput(this, R.id.nome2, getString(R.string.validation_error_message))) {
+//            return false;
+//        }
+//        if (!FormHelper.validateFormTextInput(this, R.id.fone1_contacts, getString(R.string.validation_error_message))) {
+//            return false;
+//        }
+//        if (!FormHelper.validateFormTextInput(this, R.id.fone2_contacts, getString(R.string.validation_error_message))) {
+//            return false;
+//        }
         return true;
     }
 

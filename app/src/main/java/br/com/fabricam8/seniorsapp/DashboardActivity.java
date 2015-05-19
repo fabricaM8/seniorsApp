@@ -45,13 +45,13 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(i);
     }
     public void openContacts(View v) {
-        Intent i = new Intent(DashboardActivity.this,ContactsActivity.class);
+        Intent i = new Intent(DashboardActivity.this,EmergencyActivity.class);
         startActivity(i);
     }
 
     public void viewEventsListSaude(View v)
     {
-        Intent i = new Intent(DashboardActivity.this, EventsListActivity.class);
+        Intent i = new Intent(DashboardActivity.this, EventsListSaude.class);
         startActivity(i);
     }
 

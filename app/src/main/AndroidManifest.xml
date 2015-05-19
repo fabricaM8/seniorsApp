@@ -188,9 +188,30 @@
                 android:value=".ConsultationFormActivity" />
         </activity>
         <activity
-            android:name=".ContactsActivity"
-            android:label="@string/title_activity_contatos" >
+            android:name=".EmergencyActivity"
+            android:label="@string/title_activity_contatos"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
         </activity>
+
+
+        <activity
+            android:name=".EventsListSaude"
+            android:label="Minha Saúde"
+            android:parentActivityName=".DashboardActivity"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
     </application>
 
 </manifest>
