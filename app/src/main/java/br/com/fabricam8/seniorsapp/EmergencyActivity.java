@@ -1,5 +1,7 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -85,7 +87,6 @@ public class EmergencyActivity extends ActionBarActivity {
         return true;
     }
 
-
     /**
      * Evento chamado quando botão cancelar é apertado.
      * <p>
@@ -97,6 +98,20 @@ public class EmergencyActivity extends ActionBarActivity {
         finish();
     }
 
+    /**
+     * Evento chamado quando botão cancelar é apertado.
+     * <p>
+     * Finaliza a Activity e retorna para tela anterior.
+     * </p>
+     */
+    public void doEmergencyCall(View v) {
+        String phone = v.getTag() != null ? v.getTag().toString() : "";
+        if(phone.length() > 0) {
+        Uri number = Uri.parse("tel:"+phone);
+        Intent dial = new Intent(Intent.ACTION_CALL, number);
+        startActivity(dial);
+        }
+    }
 }
 
 

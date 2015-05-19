@@ -61,9 +61,6 @@ public class DashboardActivity extends ActionBarActivity {
      * @param v The button which invoked the action.
      */
     public void openDialer(View v) {
-//        Uri number = Uri.parse("tel:82337077");
-//        Intent dial = new Intent(Intent.ACTION_CALL, number);
-//        startActivity(dial);
         Intent dial = new Intent();
         dial.setAction("android.intent.action.DIAL");
         startActivity(dial);
