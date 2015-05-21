@@ -1,5 +1,6 @@
 package br.com.fabricam8.seniorsapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -44,8 +46,20 @@ public class EventsListSaude extends ActionBarActivity {
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
     }
+    public void viewAddPeso(View v) {
+        startActivity(new Intent(EventsListSaude.this, PesoFormActivity.class));
+    }
 
+    public void viewAddPressaoArterial(View v) {
+        startActivity(new Intent(EventsListSaude.this, PressaoFormActivity.class));
+    }
 
+    public void viewAddGlicose(View v) {
+        startActivity(new Intent(EventsListSaude.this, GlicoseFormActivity.class));
+    }
+    public void viewAddBatimento(View v) {
+        startActivity(new Intent(EventsListSaude.this, BatimentoFormActivity.class));
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

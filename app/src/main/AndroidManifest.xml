@@ -212,6 +212,36 @@
                 android:value=".DashboardActivity" />
         </activity>
 
+        <activity
+            android:name=".PesoFormActivity"
+            android:label="Meu peso"
+            android:parentActivityName=".EventsListSaude"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".BatimentoFormActivity"
+            android:label="Meu batimento"
+            android:parentActivityName=".EventsListSaude"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".GlicoseFormActivity"
+            android:label="Minha  glicose"
+            android:parentActivityName=".EventsListSaude"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".PressaoFormActivity"
+            android:label="Minha  pressão"
+            android:parentActivityName=".EventsListSaude"
+            android:screenOrientation="portrait" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+
     </application>
 
 </manifest>

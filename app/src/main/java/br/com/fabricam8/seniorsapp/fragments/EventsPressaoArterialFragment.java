@@ -44,7 +44,7 @@ public class EventsPressaoArterialFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pager_events_medication, container, false);
+        rootView = inflater.inflate(R.layout.pager_saude_pressao, container, false);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
     }
