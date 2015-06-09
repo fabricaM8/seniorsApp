@@ -26,7 +26,8 @@
                 android:text="SAMU\n(192)"
                 android:tag="192"
                 android:onClick="doEmergencyCall"
-                style="@style/emergencySamuButton"/>
+                style="@style/emergencyButtonStyle"
+                android:id="@+id/btEmergencyDial_Samu" />
 
             <Button
                 android:layout_width="0dip"
@@ -35,7 +36,8 @@
                 android:text="Bombeiros\n(193)"
                 android:tag="193"
                 android:onClick="doEmergencyCall"
-                style="@style/emergencyFireButton"/>
+                style="@style/emergencyButtonStyle"
+                android:id="@+id/btEmergencyDial_Fire" />
         </LinearLayout>
 
         <LinearLayout
@@ -51,14 +53,16 @@
                 android:text="Polícia\n(190)"
                 android:tag="190"
                 android:onClick="doEmergencyCall"
-                style="@style/emergencyPoliceButton" />
+                style="@style/emergencyButtonStyle"
+                android:id="@+id/btEmergencyDial_Police" />
 
             <Button
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="(vazio)"
-                style="@style/defaultButton"/>
+                style="@style/defaultButton"
+                android:id="@+id/btEmergencyDial_Custom1" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,14 +76,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="(vazio)"
-                style="@style/defaultButton" />
+                style="@style/defaultButton"
+                android:id="@+id/btEmergencyDial_Custom2" />
 
             <Button
                 android:layout_width="0dip"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="(vazio)"
-                style="@style/defaultButton"/>
+                style="@style/defaultButton"
+                android:id="@+id/btEmergencyDial_Custom3" />
         </LinearLayout>
 
     </LinearLayout>

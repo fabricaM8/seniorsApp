@@ -124,17 +124,7 @@
 
     <!--Botoes de Emergencia-->
 
-    <style name="emergencySamuButton" parent="defaultButton">
-        <item name="android:background">@drawable/emergency_samu_button</item>
-        <item name="android:textColor">@color/abc_primary_text_material_dark</item>
-    </style>
-
-    <style name="emergencyPoliceButton" parent="defaultButton">
-        <item name="android:background">@drawable/emergency_police_button</item>
-        <item name="android:textColor">@color/abc_primary_text_material_dark</item>
-    </style>
-
-    <style name="emergencyFireButton" parent="defaultButton">
+    <style name="emergencyButtonStyle" parent="defaultButton">
         <item name="android:background">@drawable/emergency_fire_button</item>
         <item name="android:textColor">@color/abc_primary_text_material_dark</item>
     </style>
