@@ -18,6 +18,24 @@ import java.lang.reflect.Field;
  */
 public class FormHelper {
 
+    public static String getTextBoxValue(View parentView, int resourceId) {
+        String strRetVal = "";
+
+        View v = parentView.findViewById(resourceId);
+        if (v != null && v instanceof TextView) {
+            strRetVal = ((TextView) v).getText().toString().trim();
+        }
+
+        return strRetVal;
+    }
+
+    public static void setTextBoxValue(View parentView, int resourceId, String value) {
+        View v = parentView.findViewById(resourceId);
+        if (v != null && v instanceof TextView) {
+            ((TextView) v).setText(value);
+        }
+    }
+
     public static void setTextBoxValue(Activity ctx, int viewId, String value) {
         View v = ctx.findViewById(viewId);
         if (v != null && v instanceof TextView) {

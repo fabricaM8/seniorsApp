@@ -9,46 +9,42 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.domain.Contacts;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 
 
 /**
- * Created by laecy_000 on 22/02/2015.
+ * Created by laecyo on 22/02/2015.
  */
-public class ContactsDAL extends DbCRUD<Contacts> {
+public class EmergencyContactDAL extends DbCRUD<EmergencyContact> {
 
     public static final String TABLE_NAME = "contacts";
-    private static ContactsDAL _instance;
+    private static EmergencyContactDAL _instance;
 
-    private ContactsDAL(Context context) {
-       super(context);
+    private EmergencyContactDAL(Context context) {
+        super(context);
     }
 
-    public static synchronized ContactsDAL getInstance(Context context)
-    {
-        if (_instance == null)
-        {
-            _instance = new ContactsDAL(context);
+    public static synchronized EmergencyContactDAL getInstance(Context context) {
+        if (_instance == null) {
+            _instance = new EmergencyContactDAL(context);
         }
 
         return _instance;
     }
 
-
-     public String getTableName() {
+    public String getTableName() {
         return TABLE_NAME;
     }
 
-
     @Override
-    public int remove(Contacts entity) {
+    public int remove(EmergencyContact entity) {
         int iRetVal = 0;
 
         SQLiteDatabase db = null;
         try {
             db = this.getWritableDatabase();
 
-            iRetVal = db.delete(getTableName(), Contacts.KEY_ID + " = ?",
+            iRetVal = db.delete(getTableName(), EmergencyContact.KEY_ID + " = ?",
                     new String[]{String.valueOf(entity.getID())});
         } catch (Exception ex) {
             Log.e("Seniors DB - delete", ex.getMessage());
@@ -59,9 +55,10 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
         return iRetVal;
     }
+
     @Override
-    public Contacts findOne(long id) {
-        Contacts oRetVal = null;
+    public EmergencyContact findOne(long id) {
+        EmergencyContact oRetVal = null;
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
@@ -70,16 +67,16 @@ public class ContactsDAL extends DbCRUD<Contacts> {
             db = this.getReadableDatabase();
 
             cursor = db.query(getTableName(), new String[]{
-                    Contacts.KEY_ID, Contacts.KEY_NAME1,Contacts.KEY_NAME2, Contacts.KEY_FONE1,
-                    Contacts.KEY_FONE2
-            },Contacts.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+                    EmergencyContact.KEY_ID, EmergencyContact.KEY_NAME, EmergencyContact.KEY_PHONE
+            }, EmergencyContact.KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
 
-            oRetVal = new Contacts();
+            if (cursor != null)
+                cursor.moveToFirst();
+
+            oRetVal = new EmergencyContact();
             oRetVal.setID(cursor.getInt(0));
-            oRetVal.setName1(cursor.getString(1));
-            oRetVal.setName2(cursor.getString(2));
-            oRetVal.setFone1(cursor.getString(3));
-            oRetVal.setFone2(cursor.getString(4));
+            oRetVal.setName(cursor.getString(1));
+            oRetVal.setPhone(cursor.getString(2));
 
         } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
@@ -97,17 +94,17 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
 
     @Override
-    public List<Contacts> findAll() {
-        List<Contacts> lstRetVal = new ArrayList<>();
+    public List<EmergencyContact> findAll() {
+        List<EmergencyContact> lstRetVal = new ArrayList<>();
 
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
             // Select All Query
-            String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s, %5$s FROM "
+            String selectQuery = "SELECT %1$s, %2$s, %3$s FROM "
                     + getTableName();
-            selectQuery = String.format(selectQuery, Contacts.KEY_ID, Contacts.KEY_NAME1, Contacts.KEY_FONE1,
-                    Contacts.KEY_FONE2,Contacts.KEY_NAME2);
+            selectQuery = String.format(selectQuery, EmergencyContact.KEY_ID, EmergencyContact.KEY_NAME,
+                    EmergencyContact.KEY_PHONE);
             Log.i("Seniors db - query", selectQuery);
 
             db = this.getWritableDatabase();
@@ -115,18 +112,15 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
             // looping through all rows and adding to list
             if (cursor.moveToFirst())
-                do
-              {
-                  Contacts entity = new Contacts();
-                  entity.setID(cursor.getInt(0));
-                  entity.setCloudId(cursor.getInt(1));
-                  entity.setName(cursor.getString(2));
-                  entity.setFone1(cursor.getString(3));
-                  entity.setFone2(cursor.getString(4));
+                do {
+                    EmergencyContact entity = new EmergencyContact();
+                    entity.setID(cursor.getInt(0));
+                    entity.setName(cursor.getString(1));
+                    entity.setPhone(cursor.getString(2));
 
-                 // Adding entity to list
-                lstRetVal.add(entity);
-            } while (cursor.moveToNext());
+                    // Adding entity to list
+                    lstRetVal.add(entity);
+                } while (cursor.moveToNext());
         } catch (Exception ex) {
             Log.e("Seniors DB - find all", ex.getMessage());
             // reset list
@@ -144,7 +138,7 @@ public class ContactsDAL extends DbCRUD<Contacts> {
     }
 
     @Override
-    public int update(Contacts entity) {
+    public int update(EmergencyContact entity) {
         int iRetVal = 0;
 
         SQLiteDatabase db = null;
@@ -153,7 +147,7 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
             ContentValues values = entity.getContentValues();
             // updating row
-            iRetVal = db.update(getTableName(), values, Contacts.KEY_ID + " = ?",
+            iRetVal = db.update(getTableName(), values, EmergencyContact.KEY_ID + " = ?",
                     new String[]{String.valueOf(entity.getID())});
         } catch (Exception ex) {
             Log.e("Seniors DB - update", ex.getMessage());
@@ -164,27 +158,23 @@ public class ContactsDAL extends DbCRUD<Contacts> {
 
         return iRetVal;
     }
+
     @Override
-    public long create(Contacts entity)
-    {
+    public long create(EmergencyContact entity) {
         long iRetVal = -1;
 
         SQLiteDatabase db = null;
-        try
-        {
+        try {
             // opening db
             db = this.getWritableDatabase();
             // getting content
             ContentValues values = entity.getContentValues();
             // Inserting Row
             iRetVal = db.insert(getTableName(), null, values);
-        } catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Log.e("Seniors DB", ex.getMessage());
             iRetVal = -1;
-        }
-        finally
-        {
+        } finally {
             if (db != null && db.isOpen())
                 db.close();
         }

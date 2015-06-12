@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
-import br.com.fabricam8.seniorsapp.domain.Contacts;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 
 
 /**
@@ -20,9 +20,9 @@ public class ContactsEventItemAdaper extends ArrayAdapter {
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<Contacts> mMeds;
+    private List<EmergencyContact> mMeds;
 
-    public ContactsEventItemAdaper(Context context, List<Contacts> medications) {
+    public ContactsEventItemAdaper(Context context, List<EmergencyContact> medications) {
         super(context, R.layout.pager_events_contacts, medications);
         this.mContext = context;
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

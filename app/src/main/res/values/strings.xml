@@ -12,6 +12,7 @@
     <string name="action_help">Ajuda</string>
     <string name="action_delete">Deletar</string>
     <string name="action_cancel">Cancelar</string>
+    <string name="action_edit">Editar</string>
     <string name="title_activity_location">Minha localização</string>
     <string name="title_activity_profile">Meu Perfil</string>
     <string name="title_activity_medication_form">Cadastrar medicamento</string>
@@ -120,6 +121,7 @@
     <string name="dismiss_error">Dismiss</string>
     <string name="oops">Oops</string>
     <string name="title_activity_saude_list">saude_list</string>
+    <string name="hint_emergency_empty">(vazio)</string>
 
 
 </resources>

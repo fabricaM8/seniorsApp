@@ -191,15 +191,12 @@
             android:name=".EmergencyActivity"
             android:label="@string/title_activity_contatos"
             android:parentActivityName=".DashboardActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
+            android:screenOrientation="portrait">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-
-
         <activity
             android:name=".EventsListSaude"
             android:label="Minha Saúde"
@@ -211,7 +208,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-
         <activity
             android:name=".PesoFormActivity"
             android:label="Meu peso"
@@ -241,7 +237,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
-
     </application>
 
 </manifest>

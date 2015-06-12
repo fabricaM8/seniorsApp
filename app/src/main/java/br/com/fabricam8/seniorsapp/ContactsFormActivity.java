@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import br.com.fabricam8.seniorsapp.dal.ContactsDAL;
-import br.com.fabricam8.seniorsapp.domain.Contacts;
+import br.com.fabricam8.seniorsapp.dal.EmergencyContactDAL;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -26,38 +26,36 @@ public class ContactsFormActivity extends ActionBarActivity {
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
-      //  System.out.println("teste3");
+
         // recuperando contato
-        Contacts contact = ContactsDAL.getInstance(this).findOne(1);
-        if(contact != null)
-        {
+        EmergencyContact contact = EmergencyContactDAL.getInstance(this).findOne(1);
+        if (contact != null) {
             isEdit = true;
-            FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName1());
+            FormHelper.setTextBoxValue(this, R.id.nome1, contact.getName());
 //            FormHelper.setTextBoxValue(this, R.id.nome2, contact.getName2());
 //            FormHelper.setTextBoxValue(this, R.id.fone1_contacts, contact.getFone1());
 //            FormHelper.setTextBoxValue(this, R.id.fone2_contacts, contact.getFone2());
         }
     }
 
-          public void saveContacts(View v) {
+    public void saveContacts(View v) {
         try {
-            ContactsDAL dbConta = ContactsDAL.getInstance(this);
-            if (validateForm())
-            {
-                Contacts contacts = new Contacts();
-                contacts.setName1(FormHelper.getTextBoxValue(this, R.id.nome1));
+            EmergencyContactDAL dbConta = EmergencyContactDAL.getInstance(this);
+            if (validateForm()) {
+                EmergencyContact emergencyContact = new EmergencyContact();
+                emergencyContact.setName(FormHelper.getTextBoxValue(this, R.id.nome1));
 //                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone1_contacts));
 //                contacts.setName2(FormHelper.getTextBoxValue(this, R.id.nome2));
 //                contacts.setFone2(FormHelper.getTextBoxValue(this, R.id.fone2_contacts));
 
                 long i = 0;
 
-                if(isEdit) {
+                if (isEdit) {
                     // atualizacao de dados
-                    contacts.setID(1);
-                    i = dbConta.update(contacts);
+                    emergencyContact.setID(1);
+                    i = dbConta.update(emergencyContact);
                 } else {
-                    i = dbConta.create(contacts);
+                    i = dbConta.create(emergencyContact);
                 }
 
                 if (i > 0) {

@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.R;
-import br.com.fabricam8.seniorsapp.dal.ContactsDAL;
-import br.com.fabricam8.seniorsapp.domain.Contacts;
+import br.com.fabricam8.seniorsapp.dal.EmergencyContactDAL;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 
 public class EventsContactsFragment extends Fragment {
 
@@ -46,8 +46,8 @@ public class EventsContactsFragment extends Fragment {
     private void load(View v) {
 
 
-        ContactsDAL  db= ContactsDAL.getInstance(mContext);
-        List<Contacts> evts = db.findAll();
+        EmergencyContactDAL db= EmergencyContactDAL.getInstance(mContext);
+        List<EmergencyContact> evts = db.findAll();
 /*
         ContactsEventItemAdaper adapter = new ContactsEventItemAdaper(mContext.getApplicationContext(), evts);
         ListView listView = (ListView) v.findViewById(R.id.listView);

@@ -7,7 +7,7 @@ import android.util.Log;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
-import br.com.fabricam8.seniorsapp.domain.Contacts;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
@@ -18,7 +18,7 @@ public class SchemaHelper {
 
     // Creating Tables
     public static void createTable(SQLiteDatabase db) {
-        Log.i("Senior' app", "Creating table schemas");
+        Log.i("SeniorsApp", "Creating table schemas");
 
         String medTableSchema = "CREATE TABLE " + MedicationDAL.TABLE_NAME + "("
                 + Medication.KEY_ID + " INTEGER PRIMARY KEY,"
@@ -80,13 +80,11 @@ public class SchemaHelper {
                 ")";
 
 
-        String contactsTableSchema = "CREATE TABLE " + ContactsDAL.TABLE_NAME + "(" +
-                Contacts.KEY_ID + " INTEGER PRIMARY KEY," +
-                Contacts.KEY_CLOUD_ID + " INTEGER," +
-                Contacts.KEY_NAME1 + " TEXT," +
-                Contacts.KEY_FONE1 + " TEXT," +
-                Contacts.KEY_NAME2 + " TEXT," +
-                Contacts.KEY_FONE2 + " TEXT" +
+        String contactsTableSchema = "CREATE TABLE " + EmergencyContactDAL.TABLE_NAME + "(" +
+                EmergencyContact.KEY_ID + " INTEGER PRIMARY KEY," +
+                EmergencyContact.KEY_CLOUD_ID + " INTEGER," +
+                EmergencyContact.KEY_NAME + " TEXT," +
+                EmergencyContact.KEY_PHONE + " TEXT" +
                 ")";
 
         db.execSQL(medTableSchema);
@@ -109,6 +107,7 @@ public class SchemaHelper {
             db.execSQL("DROP TABLE IF EXISTS " + ExerciseDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventReportEntryDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + ConsultationDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + EmergencyContactDAL.TABLE_NAME);
             // Create tables again
             createTable(db);
         }
