@@ -39,12 +39,12 @@ public class ProfileFormActivity extends ActionBarActivity {
         }
 
         String phone = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_PHONE, "");
-        if (!userName.isEmpty()) {
+        if (!phone.isEmpty()) {
             FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_phone, phone);
         }
 
         String cloudId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, "");
-        if (!userName.isEmpty()) {
+        if (!cloudId.isEmpty()) {
             FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_cloudId, cloudId);
         }
     }
