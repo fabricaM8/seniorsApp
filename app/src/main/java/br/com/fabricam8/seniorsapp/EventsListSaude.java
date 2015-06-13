@@ -36,7 +36,7 @@ public class EventsListSaude extends ActionBarActivity {
 
         // create toolbar
         mToolbar = ToolbarBuilder.build(this, true);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_orange));
 
         // Initialize the ViewPager and set an adapter
         mPager = (ViewPager) findViewById(R.id.pager);
