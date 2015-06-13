@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="-6dp"
             android:layout_marginTop="10dp"
-            android:inputType="phone"
-            android:hint="(XX) XXXX-XXXX"
-            android:maxLength="12"
+            android:inputType="phone|textCapWords"
+            android:hint="Telefone"
+            android:maxLength="11"
             android:textColor="#222222"
             android:textSize="@dimen/form_input_text_size" />
 

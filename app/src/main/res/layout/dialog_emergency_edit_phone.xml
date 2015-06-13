@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:hint="Nome"
+        android:singleLine="true"
         android:inputType="textCapWords"
-        android:maxLength="12"
+        android:maxLength="15"
         android:textColor="#222222"
         android:textSize="@dimen/form_input_text_size" />
 
@@ -24,7 +25,7 @@
         android:layout_margin="5dp"
         android:hint="Telefone"
         android:inputType="textCapWords|phone"
-        android:maxLength="12"
+        android:maxLength="11"
         android:textColor="#222222"
         android:textSize="@dimen/form_input_text_size" />
 

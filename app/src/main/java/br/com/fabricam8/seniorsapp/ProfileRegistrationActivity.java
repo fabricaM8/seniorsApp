@@ -22,16 +22,6 @@ public class ProfileRegistrationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_registration);
-        // adicionando edit listeners aos campos de texto
-        addTextChangeListeners();
-    }
-
-    /**
-     * Este método adiciona text edit listeners aos campos de texto da página.
-     */
-    private void addTextChangeListeners() {
-        EditText inputField = (EditText) findViewById(R.id.profile_rego_phone);
-        inputField.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
     /**

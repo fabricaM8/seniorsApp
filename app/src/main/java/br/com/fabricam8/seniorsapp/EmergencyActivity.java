@@ -197,8 +197,8 @@ public class EmergencyActivity extends ActionBarActivity {
 
         for (int i = 0; i< arrIds.length; i++) {
             Button b = (Button)findViewById(arrIds[i]);
-            if(b!=null && !b.getText().toString().equals("(vazio)")) {
-                if(!isEdit)
+            if(b!=null) {
+                if(!isEdit)// && b.getText().toString().equalsIgnoreCase("(vazio)"))
                     b.setBackgroundColor(Color.LTGRAY);
                 else
                     b.setBackgroundColor(Color.GRAY);
