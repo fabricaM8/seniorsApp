@@ -1,5 +1,4 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
@@ -48,55 +47,55 @@
             android:background="@color/seniors_primary_color"></View>
 
         <!--Telefone-->
-        <EditText
-            android:id="@+id/profile_form_phone"
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:inputType="phone"
-            android:enabled="false"
-            android:maxLength="12"
-            android:textColor="#222222"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="@dimen/form_input_text_size" />
+            android:layout_gravity="center_horizontal"
+            android:text="Telefone Registrado"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
 
-        <!--Borda inferior da caixa de texto-->
-        <View
+        <TextView
+            android:id="@+id/profile_form_phone"
+            android:clickable="false"
             android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="@color/seniors_primary_color"></View>
+            android:drawableRight="@drawable/ic_transparent"
+            android:drawableEnd="@drawable/ic_transparent"
+            android:textStyle="italic|bold"
+            style="@style/vw_input_box" />
 
         <!--cloud id -->
-        <EditText
-            android:id="@+id/profile_form_cloudId"
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:maxLength="12"
-            android:textStyle="italic|bold"
-            android:textColor="#111111"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="@dimen/form_input_text_size" />
+            android:layout_gravity="center_horizontal"
+            android:text="Número de Registro"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
 
-        <!--Borda inferior da caixa de texto-->
-        <View
+        <TextView
+            android:id="@+id/profile_form_cloudId"
+            android:clickable="false"
             android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:background="@color/seniors_primary_color"></View>
+            android:drawableRight="@drawable/ic_transparent"
+            android:drawableEnd="@drawable/ic_transparent"
+            android:textStyle="italic|bold"
+            style="@style/vw_input_box" />
 
+        <!--Tipo Sanguineo-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Tipo Sanguineo"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/profile_form_blood_type"
+            android:onClick="openDialogBloodType"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
 
         <!--ACTION BUTTONS-->
         <View

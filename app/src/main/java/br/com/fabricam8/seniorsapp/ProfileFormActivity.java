@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,7 +35,15 @@ import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 public class ProfileFormActivity extends ActionBarActivity {
 
     private ImageView imgPicEdit;
+    private String bloodType;
 
+    private static String[] PICKER_BLOOD_TYPE = {
+            "A", "B", "AB", "O"
+    };
+
+    private static String[] PICKER_BLOOD_FACTOR = {
+            "+", "-"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +55,11 @@ public class ProfileFormActivity extends ActionBarActivity {
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_primary_color));
 
         imgPicEdit = (ImageView)findViewById(R.id.imgPicEdit);
-
         loadProfile();
+        findViewById(R.id.profile_form_phone).requestFocus();
     }
 
     private void loadProfile() {
-
         // inicializando shared prefs
         final SharedPreferences prefs = getSharedPreferences(GlobalParams.SHARED_PREFS_ID, Context.MODE_PRIVATE);
         String userName = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_NAME, "");
@@ -62,6 +70,11 @@ public class ProfileFormActivity extends ActionBarActivity {
         String phone = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_PHONE, "");
         if (!phone.isEmpty()) {
             FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_phone, phone);
+        }
+
+        String blood = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_BLOOD, "");
+        if (!blood.isEmpty()) {
+            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_blood_type, blood);
         }
 
         String cloudId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, "");
@@ -113,9 +126,16 @@ public class ProfileFormActivity extends ActionBarActivity {
 
             String name = FormHelper.getTextBoxValue(ProfileFormActivity.this, R.id.profile_form_name);
             editor.putString(GlobalParams.SHARED_PROPERTY_REG_NAME, name);
+            editor.putString(GlobalParams.SHARED_PROPERTY_REG_BLOOD, bloodType);
             editor.commit();
 
             showAlert("Informação","Perfil salvo com sucesso.");
+
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ignore) {
+            }
+
             Intent i = new Intent(ProfileFormActivity.this, DashboardActivity.class);
             startActivity(i);
             finish();
@@ -193,4 +213,41 @@ public class ProfileFormActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /**
+     * Evento chamado para abertura de dialog de tipo sanguineo
+     */
+    public void openDialogBloodType(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialogView = inflater.inflate(R.layout.dialog_profile_blood, null);
+
+        FormHelper.setupPicker(dialogView, R.id.dg_profile_blood_type, 0, PICKER_BLOOD_TYPE.length-1,
+                PICKER_BLOOD_TYPE, 0);
+        FormHelper.setupPicker(dialogView, R.id.dg_profile_blood_factor, 0, PICKER_BLOOD_FACTOR.length-1,
+                PICKER_BLOOD_FACTOR, 0);
+
+        // montando dialog
+        builder.setTitle("Selecione seu Tipo Sanguineo")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        String type = PICKER_BLOOD_TYPE[FormHelper.getPickerValue(dialogView, R.id.dg_profile_blood_type)];
+                        String factor = PICKER_BLOOD_FACTOR[FormHelper.getPickerValue(dialogView, R.id.dg_profile_blood_factor)];
+                        String blood = type + factor;
+
+                        bloodType = blood;
+                        FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_blood_type, blood);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
+
 }
