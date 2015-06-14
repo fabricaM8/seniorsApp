@@ -30,10 +30,12 @@
 
                 <br.com.fabricam8.seniorsapp.util.RoundedImageView
                     android:id="@+id/imgPic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ico_usuario" />
+                    android:src="@drawable/ico_usuario"
+                    android:clickable="true"
+                    android:onClick="viewProfile"/>
 
                 <TextView
                     android:id="@+id/dash_txtUserName"
@@ -42,7 +44,7 @@
                     android:layout_gravity="center"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@color/seniors_primary_color"
+                    android:textColor="@color/seniors_active_dash_button_color_orange"
                     android:clickable="true"
                     android:onClick="viewProfile"
                     android:textSize="24dp"

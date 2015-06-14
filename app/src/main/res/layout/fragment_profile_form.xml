@@ -33,8 +33,9 @@
             android:hint="Seu nome"
             android:singleLine="true"
             android:inputType="textCapWords"
-            android:nextFocusForward="@+id/profile_form_phone"
-            android:nextFocusDown="@+id/profile_form_phone"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textColor="#222222"
             android:textSize="@dimen/form_input_text_size" />
         <!--Borda inferior da caixa de texto-->
@@ -55,9 +56,11 @@
             android:layout_marginTop="10dp"
             android:inputType="phone"
             android:enabled="false"
-            android:hint="(XX) XXXX-XXXX"
             android:maxLength="12"
             android:textColor="#222222"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAlignment="center"
             android:textSize="@dimen/form_input_text_size" />
 
         <!--Borda inferior da caixa de texto-->
