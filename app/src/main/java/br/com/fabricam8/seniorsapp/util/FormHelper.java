@@ -1,8 +1,11 @@
 package br.com.fabricam8.seniorsapp.util;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -182,5 +185,11 @@ public class FormHelper {
         if (v != null && v instanceof CheckBox) {
             ((CheckBox) v).setChecked(value);
         }
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedByte = Base64.decode(input, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 }

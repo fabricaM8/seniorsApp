@@ -12,5 +12,6 @@ public class GlobalParams {
     public final static String SHARED_PROPERTY_REG_CLOUD_ID = "__profile.gcm.cloud_id";
     public final static String SHARED_PROPERTY_PROFILE_SET = "__profile.set";
     public final static String SHARED_PROPERTY_PROFILE_SYNC = "__profile.sync";
+    public final static String SHARED_PROPERTY_PROFILE_PHOTO = "__profile.photo";
 
 }

@@ -5,10 +5,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.GlobalParams;
@@ -16,6 +29,9 @@ import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
 public class ProfileFormActivity extends ActionBarActivity {
+
+    private ImageView imgPicEdit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +41,8 @@ public class ProfileFormActivity extends ActionBarActivity {
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_primary_color));
+
+        imgPicEdit = (ImageView)findViewById(R.id.imgPicEdit);
 
         loadProfile();
     }
@@ -46,6 +64,11 @@ public class ProfileFormActivity extends ActionBarActivity {
         String cloudId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, "");
         if (!cloudId.isEmpty()) {
             FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_cloudId, cloudId);
+        }
+
+        String b64Img = prefs.getString(GlobalParams.SHARED_PROPERTY_PROFILE_PHOTO, "");
+        if (!b64Img.isEmpty()) {
+            imgPicEdit.setImageBitmap(FormHelper.decodeBase64(b64Img));
         }
     }
 
@@ -118,5 +141,42 @@ public class ProfileFormActivity extends ActionBarActivity {
      */
     private SharedPreferences getSharedPrefs() {
         return getSharedPreferences(GlobalParams.SHARED_PREFS_ID, Context.MODE_PRIVATE);
+    }
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    public void takePicture(View view) {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            imgPicEdit.setImageBitmap(imageBitmap);
+
+            final SharedPreferences prefs = getSharedPrefs();
+            SharedPreferences.Editor editor = prefs.edit();
+
+            // encoding image
+            String b64Img = encodeTobase64(imageBitmap);
+            editor.putString(GlobalParams.SHARED_PROPERTY_PROFILE_PHOTO, b64Img);
+            editor.commit();
+        }
+    }
+
+    private static String encodeTobase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Log.d("Image Log:", imageEncoded);
+        return imageEncoded;
     }
 }

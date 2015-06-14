@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
@@ -123,6 +124,13 @@ public class DashboardActivity extends ActionBarActivity {
         String userName = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_NAME, "");
         if (!userName.isEmpty()) {
             FormHelper.setTextBoxValue(DashboardActivity.this, R.id.dash_txtUserName, userName);
+        }
+
+
+        String b64Img = prefs.getString(GlobalParams.SHARED_PROPERTY_PROFILE_PHOTO, "");
+        if (!b64Img.isEmpty()) {
+            ImageView imgPic = (ImageView) findViewById(R.id.imgPic);
+            imgPic.setImageBitmap(FormHelper.decodeBase64(b64Img));
         }
     }
 }
