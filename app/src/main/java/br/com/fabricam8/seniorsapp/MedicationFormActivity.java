@@ -124,7 +124,7 @@ public class MedicationFormActivity extends ActionBarActivity
         oRetVal.setHasAlarm(true);
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 6);
+        c.set(Calendar.HOUR_OF_DAY, new Date().getHours() + 1);
         c.set(Calendar.MINUTE, 0);
         oRetVal.setStartDate(c.getTime());
 
@@ -247,7 +247,7 @@ public class MedicationFormActivity extends ActionBarActivity
                     if(alert != null) {
                         // Cancelando alarme
                         NotificationEventService.cancelAlarm(this, alert.getID());
-                        Log.i("Seniors - Medication Form", "Removendo alarme");
+                        Log.i("Seniors - Medication", "Removendo alarme");
                         alertDb.remove(alert);
                     }
                 }
