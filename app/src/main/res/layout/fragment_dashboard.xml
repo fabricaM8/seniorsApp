@@ -30,8 +30,8 @@
 
                 <br.com.fabricam8.seniorsapp.util.RoundedImageView
                     android:id="@+id/imgPic"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ico_usuario"
                     android:clickable="true"
@@ -60,6 +60,15 @@
                 android:layout_weight="0.7"
                 android:background="@drawable/bg_bar_top"
                 android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textStyle="bold|italic"
+                    android:text="-- Próximos Eventos --"/>
+                <include layout="@layout/fragment_dashboard_events"/>
 
             </LinearLayout>
 

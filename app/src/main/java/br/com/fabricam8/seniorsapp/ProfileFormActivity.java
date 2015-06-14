@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -72,9 +73,9 @@ public class ProfileFormActivity extends ActionBarActivity {
             FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_phone, phone);
         }
 
-        String blood = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_BLOOD, "");
-        if (!blood.isEmpty()) {
-            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_blood_type, blood);
+        bloodType = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_BLOOD, "");
+        if (!bloodType.isEmpty()) {
+            FormHelper.setTextBoxValue(ProfileFormActivity.this, R.id.profile_form_blood_type, bloodType);
         }
 
         String cloudId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_CLOUD_ID, "");
@@ -129,12 +130,7 @@ public class ProfileFormActivity extends ActionBarActivity {
             editor.putString(GlobalParams.SHARED_PROPERTY_REG_BLOOD, bloodType);
             editor.commit();
 
-            showAlert("Informação","Perfil salvo com sucesso.");
-
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ignore) {
-            }
+            Toast.makeText(this, "Pefil salvo com sucesso", Toast.LENGTH_LONG).show();
 
             Intent i = new Intent(ProfileFormActivity.this, DashboardActivity.class);
             startActivity(i);
