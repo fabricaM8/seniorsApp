@@ -214,7 +214,7 @@ public class MedicationFormActivity extends ActionBarActivity
                     id = db.create(sessionMedication);
                 }
 
-                if (id > 0 && sessionMedication.isHasAlarm())
+                if (id > 0)// && sessionMedication.isHasAlarm())
                 {
                     AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
                     // verificando se ja existe alarme para essa entidade
@@ -240,17 +240,17 @@ public class MedicationFormActivity extends ActionBarActivity
                     // setando alarme
                     NotificationEventService.setupAlarm(this, alert);
                 }
-                else {
-                    // remova alarme exixstente (se houver)
-                    AlertEventDAL alertDb = AlertEventDAL.getInstance(this);
-                    AlertEvent alert = alertDb.findOneByEntityIdAndType(id, Medication.class.getName());
-                    if(alert != null) {
-                        // Cancelando alarme
-                        NotificationEventService.cancelAlarm(this, alert.getID());
-                        Log.i("Seniors - Medication", "Removendo alarme");
-                        alertDb.remove(alert);
-                    }
-                }
+//                else {
+//                    // remova alarme exixstente (se houver)
+//                    AlertEventDAL alertDb = AlertEventDAL.getInstance(this);
+//                    AlertEvent alert = alertDb.findOneByEntityIdAndType(id, Medication.class.getName());
+//                    if(alert != null) {
+//                        // Cancelando alarme
+//                        NotificationEventService.cancelAlarm(this, alert.getID());
+//                        Log.i("Seniors - Medication", "Removendo alarme");
+//                        alertDb.remove(alert);
+//                    }
+//                }
 
                 Toast.makeText(this, getString(R.string.success_medication_form_submit), Toast.LENGTH_LONG).show();
                 finish();

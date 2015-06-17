@@ -14,6 +14,7 @@ import android.widget.EditText;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.GlobalParams;
 import br.com.fabricam8.seniorsapp.util.SysUtil;
+import br.com.fabricam8.seniorsapp.util.WebPortalConsumer;
 
 
 public class ProfileRegistrationActivity extends Activity {
@@ -83,6 +84,9 @@ public class ProfileRegistrationActivity extends Activity {
 
             editor.putBoolean(GlobalParams.SHARED_PROPERTY_PROFILE_SET, true);
             editor.commit();
+
+            // try to register senior (if not set yet)
+            WebPortalConsumer.getInstance(ProfileRegistrationActivity.this).registerSenior();
 
             Intent i = new Intent(ProfileRegistrationActivity.this, DashboardActivity.class);
             startActivity(i);

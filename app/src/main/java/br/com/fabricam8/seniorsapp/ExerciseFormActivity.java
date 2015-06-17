@@ -28,8 +28,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.fabricam8.seniorsapp.alarm.NotificationEventService;
+import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
 import br.com.fabricam8.seniorsapp.dal.ExerciseDAL;
+import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
+import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -71,10 +75,11 @@ public class ExerciseFormActivity extends ActionBarActivity
         Exercise eObj = new Exercise();
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 06);
+        c.set(Calendar.HOUR_OF_DAY, new Date().getHours() + 1);
         c.set(Calendar.MINUTE, 0);
         eObj.setStartDate(c.getTime());
         eObj.setEndDate(null);
+
         // setar o resto dos atributos
         return eObj;
     }
@@ -319,18 +324,46 @@ public class ExerciseFormActivity extends ActionBarActivity
                 }
 
                 if (id > 0) {
-                    // TODO salvar alarme (de acordo) com modelo em MedicationFormActivity
+                    AlertEventDAL dbAlert = AlertEventDAL.getInstance(context);
+                    // verificando se ja existe alarme para essa entidade
+                    AlertEvent alert = dbAlert.findOneByEntityIdAndType(id, Exercise.class.getName());
+                    if(alert == null) {
+                        alert = new AlertEvent();
+                        alert.setEntityId(id);
+                        alert.setEntityClass(Exercise.class.getName());
+                    }
+
+                    alert.setEvent(sessionExercise.getName());
+                    // setando numero de alarmes
+                    int numAlarms = sessionExercise.getNumOfAlarms();
+                    alert.setMaxAlarms(numAlarms);
+                    alert.setAlarmsPlayed(0);
+
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(sessionExercise.getStartDate());
+                    c.add(Calendar.HOUR_OF_DAY, -1);
+                    c.set(Calendar.MINUTE, 0);
+
+                    alert.setNextAlert(c.getTime());
+
+                    long alertId = dbAlert.create(alert);
+
+                    // setando id para enviar pra servico de alarme
+                    alert.setID(alertId);
+
+                    // setando alarme
+                    NotificationEventService.setupAlarm(this, alert);
 
                     Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
                     finish(); // finalizando activty e retornando para tela anterior
-                } else {
-                    // TODO remover alarme (se existir) ?!!
+                }
+                else {
                     Toast.makeText(this, "Ocorreu uma falha e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
                 }
             }
         } catch (Exception ex)
         {
-            Log.e("Seniors App - Atividades", ex.getMessage());
+            Log.e("SeniorsApp - Atividades", ex.getMessage());
             Toast.makeText(this, "Ocorreu um erro e a atividade não pode ser cadastrada.", Toast.LENGTH_LONG).show();
         }
     }

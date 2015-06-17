@@ -16,6 +16,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import java.io.IOException;
 
 import br.com.fabricam8.seniorsapp.util.GlobalParams;
+import br.com.fabricam8.seniorsapp.util.WebPortalConsumer;
 
 
 public class SplashActivity extends Activity {
@@ -85,6 +86,9 @@ public class SplashActivity extends Activity {
                 // Start your app main activity
                 Intent i = null;
                 if(isProfileSet()) {
+                    // try to register senior (if not set yet)
+                    WebPortalConsumer.getInstance(SplashActivity.this).registerSenior();
+
                     i = new Intent(SplashActivity.this, DashboardActivity.class);
                 } else {
                     i = new Intent(SplashActivity.this, ProfileRegistrationActivity.class);
@@ -140,7 +144,7 @@ public class SplashActivity extends Activity {
     private void storeRegistrationId(String regId) {
         final SharedPreferences prefs = getSharedPrefs();
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(GlobalParams.SHARED_PROPERTY_REG_ID, regId);
+        editor.putString(GlobalParams.SHARED_PROPERTY_GCM_REG_ID, regId);
         editor.commit();
     }
 
@@ -154,7 +158,7 @@ public class SplashActivity extends Activity {
      */
     private String getRegistrationId() {
         final SharedPreferences prefs = getSharedPrefs();
-        String registrationId = prefs.getString(GlobalParams.SHARED_PROPERTY_REG_ID, "");
+        String registrationId = prefs.getString(GlobalParams.SHARED_PROPERTY_GCM_REG_ID, "");
         if (registrationId.isEmpty()) {
             Log.i(TAG, "Registration not found.");
             return registrationId;

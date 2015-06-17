@@ -2,6 +2,7 @@ package br.com.fabricam8.seniorsapp.domain;
 
 import android.content.ContentValues;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -128,6 +129,22 @@ public class Exercise extends DbEntity {
 
     public void setRepeatOnSunday(boolean repeatOnSunday) {
         this.repeatOnSunday = repeatOnSunday;
+    }
+
+
+    public int getNumOfAlarms() {
+        if (getEndDate() == null)
+            return AlertEvent.FOREVER;
+
+        int days = (int)((startDate.getTime() - endDate.getTime()) / (1000 * 60 * 60 * 24));
+        // todo verify marked days
+        return days;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return (int) getID() * getStartDate().hashCode() * getName().length();
     }
 }
 
