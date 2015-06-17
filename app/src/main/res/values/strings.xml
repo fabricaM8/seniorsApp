@@ -74,8 +74,8 @@
     <string name="fail_consultation_deletion">Não foi possível remover a consulta.</string>
     <string name="fail_medication_deletion">Não foi possível remover o medicamento.</string>
 
-    <string name="title_activity_splash">Senior\'s App</string>
-    <string name="splash_title">Senior\'s App</string>
+    <string name="title_activity_splash">Seniors App</string>
+    <string name="splash_title">Seniors App</string>
     <string name="splash_moto">"Ajudando a cuidar de quem você ama!"</string>
     <string name="profile_info_1">Seja muito bem vindo!</string>
     <string name="profile_info_2">Para nos ajudar a cuidar de você, por favor preencha os campos abaixo:</string>
