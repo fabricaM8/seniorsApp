@@ -107,7 +107,7 @@ public class JSONParser extends AsyncTask<String, Void, String> {
         }
 
         // return JSON String
-        return jObj.toString();
+        return jObj == null ? "" : jObj.toString();
     }
 
     protected void onPostExecute(String page)
