@@ -5,6 +5,8 @@ import android.content.ContentValues;
 import java.util.Calendar;
 import java.util.Date;
 
+import br.com.fabricam8.seniorsapp.ExerciseFormActivity;
+
 /**
  * Created by laecy_000 on 22/02/2015.
  */
@@ -133,10 +135,11 @@ public class Exercise extends DbEntity {
 
 
     public int getNumOfAlarms() {
-        if (getEndDate() == null)
+        if (getEndDate() == null
+                && getEndDate().compareTo(new Date(0)) == 0)
             return AlertEvent.FOREVER;
 
-        int days = (int)((startDate.getTime() - endDate.getTime()) / (1000 * 60 * 60 * 24));
+        int days = diffInDays(startDate, endDate);
         // todo verify marked days
         return days;
     }
@@ -145,6 +148,26 @@ public class Exercise extends DbEntity {
     @Override
     public int hashCode() {
         return (int) getID() * getStartDate().hashCode() * getName().length();
+    }
+
+
+    private int diffInDays(Date d1, Date d2) {
+        int MILLIS_IN_DAY = 86400000;
+
+        Calendar c1 = Calendar.getInstance();
+        c1.setTime(d1);
+        c1.set(Calendar.MILLISECOND, 0);
+        c1.set(Calendar.SECOND, 0);
+        c1.set(Calendar.MINUTE, 0);
+        c1.set(Calendar.HOUR_OF_DAY, 0);
+
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(d2);
+        c2.set(Calendar.MILLISECOND, 0);
+        c2.set(Calendar.SECOND, 0);
+        c2.set(Calendar.MINUTE, 0);
+        c2.set(Calendar.HOUR_OF_DAY, 0);
+        return (int) ((c1.getTimeInMillis() - c2.getTimeInMillis()) / MILLIS_IN_DAY);
     }
 }
 

@@ -172,20 +172,20 @@ public class ExerciseFormActivity extends ActionBarActivity
     private boolean validateForm() {
 
         Calendar c2 = Calendar.getInstance();
-        Date datatual = c2.getInstance().getTime();
 
         if (!FormHelper.validateFormTextInput(this, R.id.exercise_type, getString(R.string.validation_error_message))) {
             return false;
         }
-        else if((diffInDays(sessionExercise.getStartDate(),c2.getTime()))<0)
+        else if(sessionExercise.getStartDate() != null &&
+                (diffInDays(sessionExercise.getStartDate(),c2.getTime()))<0)
         {
             showAlert("Alerta", "Data inicial não pode ser menor do que data atual.");
             return false;
         }
-
-        else if((diffInDays(sessionExercise.getEndDate(),sessionExercise.getStartDate()))<0)
+        else if(sessionExercise.getEndDate() != null
+                && sessionExercise.getEndDate().compareTo(new Date(0)) != 0
+                && (diffInDays(sessionExercise.getEndDate(),sessionExercise.getStartDate()))<0)
         {
-
             showAlert("Alerta", "Data final não pode ser menor do que data inicial.");
             return false;
         }

@@ -41,7 +41,6 @@ public class DashboardActivity extends ActionBarActivity {
         // create toolbar
         ToolbarBuilder.build(this, false);
 
-        loadInfo();
     }
 
     @Override
@@ -49,6 +48,7 @@ public class DashboardActivity extends ActionBarActivity {
         super.onResume();
         // stopping alarm - if any
         this.stopService(new Intent(this, AlarmPlayerService.class));
+        loadInfo();
     }
 
     /**
