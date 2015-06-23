@@ -66,6 +66,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_users"
+            android:onClick="sendLocation"
             android:text="Enviar localização" />
 
         <Button

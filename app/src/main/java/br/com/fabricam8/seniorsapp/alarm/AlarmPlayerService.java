@@ -43,18 +43,24 @@ public class AlarmPlayerService extends Service {
     }
 
     private Uri getAvailabeSound() {
-        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        Uri soundUri = null;
 
-        if (soundUri == null) {
-            // soundUri is null, using backup
-            soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        try {
+            soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
-            // I can't see this ever being null (as always have a default notification)
-            // but just incase
             if (soundUri == null) {
-                // soundUri backup is null, using 2nd backup
-                soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                // soundUri is null, using backup
+                soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+                // I can't see this ever being null (as always have a default notification)
+                // but just incase
+                if (soundUri == null) {
+                    // soundUri backup is null, using 2nd backup
+                    soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                }
             }
+        } catch (Exception ignore) {
+            // faz nada
         }
 
         return soundUri;

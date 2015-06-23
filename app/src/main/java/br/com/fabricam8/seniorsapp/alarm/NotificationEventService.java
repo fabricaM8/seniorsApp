@@ -116,17 +116,17 @@ public class NotificationEventService extends Service {
 
                         // creating intent to open alarm
                         Intent i = new Intent(mContext, DashboardActivity.class);
-                        Log.i("Alarme Service - Seniors", "entityClass = " + alert.getEntityClass());
+                        Log.i("Alarme - Seniors", "entityClass = " + alert.getEntityClass());
                         if (alert.getEntityClass().equals(Medication.class.getName())) {
                             i = new Intent(mContext, MedicationInfoActivity.class);
                             if (oMed != null) {
-                                Log.i("Alarme Service - Seniors", "Setando bunde id para abrir alarme medicacao");
+                                Log.i("Alarme - Seniors", "Setando bundle id para abrir alarme medicacao");
                                 i.putExtra(MedicationInfoActivity.BUNDLE_ID, oMed.getID());
                             }
                         }
                         // else outras classes
 
-                        Log.i("Alarme Service - Seniors", "Setando bunde alarme id: " + alert.getID());
+                        Log.i("Alarme - Seniors", "Setando bundle alarme id: " + alert.getID());
                         i.putExtra(BUNDLE_ALERT_ID, alert.getID());
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -134,10 +134,10 @@ public class NotificationEventService extends Service {
 
                         // Creating notification
                         Notification notification = new Notification.Builder(mContext)
-                                .setContentTitle("Senior's App")
+                                .setContentTitle("Seniors App")
                                 .setContentText(notificationMessage)
                                 .setSmallIcon(R.drawable.ic_toolbar_seniors)
-                                .setLights(Color.RED, 3000, 3000)
+                                .setLights(Color.BLUE, 3000, 3000)
                                 .setContentIntent(pni)
                                 .getNotification();
                         notification.flags |= Notification.FLAG_AUTO_CANCEL;

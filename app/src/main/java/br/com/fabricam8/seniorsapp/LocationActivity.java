@@ -34,6 +34,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import br.com.fabricam8.seniorsapp.dal.EmergencyContactDAL;
+import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 import br.com.fabricam8.seniorsapp.location.LocationUtils;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
@@ -448,6 +451,29 @@ public class LocationActivity extends ActionBarActivity implements
             this.startActivity(intent);
         } else {
             // show error
+        }
+    }
+
+    public void sendLocation(View v) {
+        if (mLastLocation != null) {
+            String uri = String.format(Locale.ENGLISH, "http://maps.google.com/?q=%f,%f",
+                    mLastLocation.getLatitude(), mLastLocation.getLongitude());
+
+            EmergencyContactDAL contactDb = EmergencyContactDAL.getInstance(this);
+            List<EmergencyContact> contacts = contactDb.findAll();
+
+            if(contacts != null && !contacts.isEmpty()) {
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage(contacts.get(0).getPhone(), null, "Minha localização: " + uri, null, null);
+                Toast.makeText(this, "Mensagem enviada!", Toast.LENGTH_LONG);
+            }
+            else {
+                Toast.makeText(this, "Não foi possível enviar sua localização. Por favor, cadastre pelo menos um contato de emergência.", Toast.LENGTH_LONG);
+            }
+
+        } else {
+            // show error
+            Toast.makeText(this, "Não foi possível enviar sua localização. Verifique se o seu aparelho está com a localização ativada.", Toast.LENGTH_LONG);
         }
     }
 
