@@ -2,20 +2,7 @@ package br.com.fabricam8.seniorsapp.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.InputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -60,20 +47,14 @@ public class WebPortalConsumer {
 
                 try {
 
-                    JSONParser jp = new JSONParser(remoteUrl + "mobile/senior", params);
+                    RegistrationJSONParser jp = new RegistrationJSONParser(mContext, remoteUrl + "mobile/senior", params);
                     jp.execute();
-//                    HttpResponse response = makeRequest(remoteUrl + "mobile/senior", params);
-//                    if (response.getStatusLine().getStatusCode() == 200) {
-//
-//                    }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignore) {
+                    ignore.printStackTrace();
                 }
             }
         }
     }
-
 
     /**
      * @return Application's {@code SharedPreferences}.
