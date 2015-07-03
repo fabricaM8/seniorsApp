@@ -1,7 +1,9 @@
 package br.com.fabricam8.seniorsapp.adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -54,19 +57,31 @@ public class GlucosisRowItemAdaper extends ArrayAdapter {
 
                 @Override
                 public void onClick(View v) {
-                    long id = Long.parseLong(v.getTag().toString());
+                    final long id = Long.parseLong(v.getTag().toString());
 
-                    GlucosisDAL db = GlucosisDAL.getInstance(mContext);
-                    Glucosis w = db.findOne(id);
-                    if(w != null) {
-                        db.remove(w);
-                    }
-
-                    Intent i = new Intent(mContext, HealthListActivity.class);
-                    i.putExtra(HealthListActivity.BUNDLE_KEY, 2);
-                    mContext.startActivity(i);
-                    // close this activity
-                    ((Activity) mContext).finish();
+                    new AlertDialog.Builder(mContext)
+                            .setTitle("Confirme")
+                            .setMessage("Deseja realmente deletar o registro?")
+                            .setIcon(R.drawable.ic_action_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    GlucosisDAL db = GlucosisDAL.getInstance(mContext);
+                                    Glucosis w = db.findOne(id);
+                                    if (w != null) {
+                                        if (db.remove(w) > 0) {
+                                            Toast.makeText(mContext, mContext.getString(R.string.success_pressure_deletion), Toast.LENGTH_LONG).show();
+                                        } else {
+                                            Toast.makeText(mContext, mContext.getString(R.string.fail_health_deletion), Toast.LENGTH_LONG).show();
+                                        }
+                                        Intent i = new Intent(mContext, HealthListActivity.class);
+                                        i.putExtra(HealthListActivity.BUNDLE_KEY, 2);
+                                        mContext.startActivity(i);
+                                        // close this activity
+                                        ((Activity) mContext).finish();
+                                    }
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
                 }
             });
 

@@ -73,8 +73,12 @@
     <string name="success_medication_deletion">Medicamento excluído com sucesso!</string>
     <string name="success_exercise_deletion">Atividade excluída com sucesso!</string>
     <string name="success_consultation_deletion">Consulta excluída com sucesso!</string>
+    <string name="success_weight_deletion">Registro de peso excluído com sucesso!</string>
+    <string name="success_pressure_deletion">Registro de pressão arterial excluído com sucesso!</string>
+    <string name="success_glucosis_deletion">Registro de glicose excluído com sucesso!</string>
     <string name="fail_exercise_deletion">Não foi possível remover a atividade.</string>
     <string name="fail_consultation_deletion">Não foi possível remover a consulta.</string>
+    <string name="fail_health_deletion">Não foi possível remover a registro.</string>
     <string name="fail_medication_deletion">Não foi possível remover o medicamento.</string>
 
     <string name="title_activity_splash">Seniors App</string>
