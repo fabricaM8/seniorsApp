@@ -2,7 +2,6 @@ package br.com.fabricam8.seniorsapp.fragments;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jjoe64.graphview.GraphView;
@@ -22,17 +20,13 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.Date;
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.MedicationInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
+import br.com.fabricam8.seniorsapp.adapters.BloodPressureRowItemAdaper;
 import br.com.fabricam8.seniorsapp.adapters.GlucosisRowItemAdaper;
-import br.com.fabricam8.seniorsapp.adapters.MedicationEventItemAdaper;
-import br.com.fabricam8.seniorsapp.adapters.WeightRowItemAdaper;
-import br.com.fabricam8.seniorsapp.dal.GlucosisDAL;
-import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
-import br.com.fabricam8.seniorsapp.domain.Glucosis;
-import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.dal.BloodPressureDAL;
+import br.com.fabricam8.seniorsapp.domain.BloodPressure;
 
-public class EventsGlicoseFragment extends Fragment {
+public class BloodPressurePageFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -56,31 +50,34 @@ public class EventsGlicoseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pager_health_glucosis, container, false);
+        rootView = inflater.inflate(R.layout.pager_health_pressure, container, false);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
     }
 
     private void load(View v) {
-        GlucosisDAL db = GlucosisDAL.getInstance(mContext);
-        List<Glucosis> data = db.findAll();
+        BloodPressureDAL db = BloodPressureDAL.getInstance(mContext);
+        List<BloodPressure> data = db.findAll();
 
-        GlucosisRowItemAdaper adapter = new GlucosisRowItemAdaper(mContext.getApplicationContext(), data);
+        BloodPressureRowItemAdaper adapter = new BloodPressureRowItemAdaper(mContext.getApplicationContext(), data);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
 
-        GraphView graph = (GraphView) v.findViewById(R.id.graph_glucosis);
+        GraphView graph = (GraphView) v.findViewById(R.id.graph_blood_pressure);
 
         if (data != null && data.size() > 1) {
             Date minValue = data.get(0).getDate();
             Date maxValue = minValue;
 
-            DataPoint[] arr = new DataPoint[data.size()];
-            for (int i = 0; i < arr.length; i++) {
+            DataPoint[] arr1 = new DataPoint[data.size()];
+            DataPoint[] arr2 = new DataPoint[data.size()];
+            for (int i = 0; i < data.size(); i++) {
                 Date d = data.get(i).getDate();
-                float val = data.get(i).getRate();
-                arr[i] = new DataPoint(d, val);
+                int sys = data.get(i).getSystolic();
+                int dia = data.get(i).getSystolic();
+                arr1[i] = new DataPoint(d, sys);
+                arr2[i] = new DataPoint(d, dia);
 
                 // se o valor de 'd' for menor, associe-o a minDate
                 if (d.compareTo(minValue) == -1)
@@ -91,8 +88,12 @@ public class EventsGlicoseFragment extends Fragment {
                     maxValue = d;
             }
 
-            LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(arr);
-            graph.addSeries(series);
+            LineGraphSeries<DataPoint> s1 = new LineGraphSeries<DataPoint>(arr1);
+            s1.setColor(Color.RED);
+            graph.addSeries(s1);
+
+            LineGraphSeries<DataPoint> s2 = new LineGraphSeries<DataPoint>(arr2);
+            graph.addSeries(s2);
 
             // set date label formatter
             graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(mContext));

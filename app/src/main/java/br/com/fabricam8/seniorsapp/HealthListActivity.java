@@ -14,8 +14,8 @@ import android.view.View;
 import com.astuetz.PagerSlidingTabStrip;
 
 import br.com.fabricam8.seniorsapp.fragments.EventsGlicoseFragment;
-import br.com.fabricam8.seniorsapp.fragments.EventsPesoFragment;
-import br.com.fabricam8.seniorsapp.fragments.EventsPressaoArterialFragment;
+import br.com.fabricam8.seniorsapp.fragments.WeightPageFragment;
+import br.com.fabricam8.seniorsapp.fragments.BloodPressurePageFragment;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
@@ -89,9 +89,9 @@ public class HealthListActivity extends ActionBarActivity {
 
             switch (position) {
                 case 0:
-                    return new EventsPesoFragment();
+                    return new WeightPageFragment();
                 case 1:
-                    return new EventsPressaoArterialFragment();
+                    return new BloodPressurePageFragment();
                 case 2:
                     return new EventsGlicoseFragment();
             }

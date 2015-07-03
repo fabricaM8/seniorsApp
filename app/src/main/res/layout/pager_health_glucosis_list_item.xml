@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/events_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="6dip">
+
+
+    <Button
+        android:id="@+id/btDeleteGlucosis"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_gravity="center"
+        android:layout_marginTop="7dip"
+        android:background="@android:drawable/ic_delete"
+        android:gravity="right"></Button>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/health_glucosis_val"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="#333333"
+            android:textSize="@dimen/form_label_text_size" />
+
+        <TextView
+            android:id="@+id/health_glucosis_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="#666666"
+            android:textSize="@dimen/form_label_text_size" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+

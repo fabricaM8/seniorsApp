@@ -2,7 +2,6 @@ package br.com.fabricam8.seniorsapp.fragments;
 
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,6 @@ import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jjoe64.graphview.GraphView;
@@ -22,17 +20,12 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.util.Date;
 import java.util.List;
 
-import br.com.fabricam8.seniorsapp.MedicationInfoActivity;
 import br.com.fabricam8.seniorsapp.R;
-import br.com.fabricam8.seniorsapp.adapters.GlucosisRowItemAdaper;
-import br.com.fabricam8.seniorsapp.adapters.MedicationEventItemAdaper;
 import br.com.fabricam8.seniorsapp.adapters.WeightRowItemAdaper;
-import br.com.fabricam8.seniorsapp.dal.GlucosisDAL;
-import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
-import br.com.fabricam8.seniorsapp.domain.Glucosis;
-import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.dal.WeightDAL;
+import br.com.fabricam8.seniorsapp.domain.Weight;
 
-public class EventsGlicoseFragment extends Fragment {
+public class WeightPageFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -56,30 +49,30 @@ public class EventsGlicoseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.pager_health_glucosis, container, false);
+        rootView = inflater.inflate(R.layout.pager_health_weight, container, false);
         ViewCompat.setElevation(rootView, 50);
         return rootView;
     }
 
     private void load(View v) {
-        GlucosisDAL db = GlucosisDAL.getInstance(mContext);
-        List<Glucosis> data = db.findAll();
+        WeightDAL db = WeightDAL.getInstance(mContext);
+        List<Weight> weights = db.findAll();
 
-        GlucosisRowItemAdaper adapter = new GlucosisRowItemAdaper(mContext.getApplicationContext(), data);
+        WeightRowItemAdaper adapter = new WeightRowItemAdaper(mContext.getApplicationContext(), weights);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
 
-        GraphView graph = (GraphView) v.findViewById(R.id.graph_glucosis);
+        GraphView graph = (GraphView) v.findViewById(R.id.graph_weight);
 
-        if (data != null && data.size() > 1) {
-            Date minValue = data.get(0).getDate();
+        if (weights != null && weights.size() > 1) {
+            Date minValue = weights.get(0).getDate();
             Date maxValue = minValue;
 
-            DataPoint[] arr = new DataPoint[data.size()];
+            DataPoint[] arr = new DataPoint[weights.size()];
             for (int i = 0; i < arr.length; i++) {
-                Date d = data.get(i).getDate();
-                float val = data.get(i).getRate();
+                Date d = weights.get(i).getDate();
+                float val = weights.get(i).getValue();
                 arr[i] = new DataPoint(d, val);
 
                 // se o valor de 'd' for menor, associe-o a minDate

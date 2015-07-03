@@ -110,7 +110,7 @@ public class WeightDAL extends DbCRUD<Weight> {
         try {
             // Select All Query
             String selectQuery = "SELECT %1$s, %2$s, %3$s FROM "
-                    + getTableName();
+                    + getTableName() + " ORDER BY " + Weight.KEY_DATE + " DESC";
             selectQuery = String.format(selectQuery, Weight.KEY_ID, Weight.KEY_VALUE, Weight.KEY_DATE);
             Log.i("Seniors db - query", selectQuery);
 
