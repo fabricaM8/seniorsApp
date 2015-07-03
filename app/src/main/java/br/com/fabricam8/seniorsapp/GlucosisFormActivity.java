@@ -8,7 +8,7 @@ import br.com.fabricam8.seniorsapp.domain.Medication;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
-public class PressaoFormActivity extends ActionBarActivity
+public class GlucosisFormActivity extends ActionBarActivity
 {
 
     private static String[] PICKER_QUANTITY_DEC = {
@@ -21,11 +21,12 @@ public class PressaoFormActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pressao_form);
+        setContentView(R.layout.activity_glicose_form);
 
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_navy));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_orange));
+        mToolbar.setAlpha(0.5f);
 
         // adicionando edit listeners aos campos de texto
         // addTextChangeListeners();

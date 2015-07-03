@@ -4,10 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -20,7 +20,7 @@ import br.com.fabricam8.seniorsapp.fragments.EventsPressaoArterialFragment;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
-public class EventsListSaude extends ActionBarActivity {
+public class HealthListActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private ViewPager mPager;
@@ -32,7 +32,7 @@ public class EventsListSaude extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         
-        setContentView(R.layout.activity_saude_list);
+        setContentView(R.layout.activity_health_list);
 
         // create toolbar
         mToolbar = ToolbarBuilder.build(this, true);
@@ -46,40 +46,32 @@ public class EventsListSaude extends ActionBarActivity {
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
     }
-    public void viewAddPeso(View v) {
-        startActivity(new Intent(EventsListSaude.this, PesoFormActivity.class));
+
+    public void viewAddWeightMeasure(View v) {
+        startActivity(new Intent(HealthListActivity.this, WeightFormActivity.class));
     }
 
-    public void viewAddPressaoArterial(View v) {
-        startActivity(new Intent(EventsListSaude.this, PressaoFormActivity.class));
+    public void viewAddBloodPreasureMeasure(View v) {
+        startActivity(new Intent(HealthListActivity.this, BloodPreasureFormActivity.class));
     }
 
-    public void viewAddGlicose(View v) {
-        startActivity(new Intent(EventsListSaude.this, GlicoseFormActivity.class));
+    public void viewAddGlucosisMeasure(View v) {
+        startActivity(new Intent(HealthListActivity.this, GlucosisFormActivity.class));
     }
+
     public void viewAddBatimento(View v) {
-        startActivity(new Intent(EventsListSaude.this, BatimentoFormActivity.class));
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_list_saude_list, menu);
-        return true;
+        startActivity(new Intent(HealthListActivity.this, BatimentoFormActivity.class));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -87,8 +79,7 @@ public class EventsListSaude extends ActionBarActivity {
      */
     private class SeniorTabProvider extends FragmentPagerAdapter {
 
-        private final String[] TABS = {"Peso", "Pressão Arterial", "Glicose","Batimentos Cardiacos"};
-//        private final String[] TABS = {"Todos", "Medicamentos", "Atividades", "Consultas"};
+        private final String[] TABS = {"Peso", "Pressão Arterial", "Glicose"};//, "Batimentos Cardiacos"};
 
         public SeniorTabProvider(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);
@@ -104,9 +95,6 @@ public class EventsListSaude extends ActionBarActivity {
                     return new EventsPressaoArterialFragment();
                 case 2:
                     return new EventsGlicoseFragment();
-                case 3:
-                    return new EventsBatimentoCardiocoFragment();
-
             }
 
             return null;

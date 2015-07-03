@@ -20,7 +20,7 @@
     <ImageButton
         android:id="@+id/btEventsAddMedication"
         android:src="@drawable/ic_action_add"
-        android:onClick="viewAddGlicose"
+        android:onClick="viewAddGlucosisMeasure"
         style="@style/bt_action_active"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

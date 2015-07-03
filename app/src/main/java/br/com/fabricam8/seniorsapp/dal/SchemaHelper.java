@@ -6,10 +6,13 @@ import android.util.Log;
 
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.AlertEventReportEntry;
+import br.com.fabricam8.seniorsapp.domain.BloodPressure;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
 import br.com.fabricam8.seniorsapp.domain.EmergencyContact;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
+import br.com.fabricam8.seniorsapp.domain.Glucosis;
 import br.com.fabricam8.seniorsapp.domain.Medication;
+import br.com.fabricam8.seniorsapp.domain.Weight;
 
 /**
  * Created by Aercio on 1/27/15.
@@ -87,12 +90,37 @@ public class SchemaHelper {
                 EmergencyContact.KEY_PHONE + " TEXT" +
                 ")";
 
+        String weightTableSchema = "CREATE TABLE " + WeightDAL.TABLE_NAME + "(" +
+                Weight.KEY_ID + " INTEGER PRIMARY KEY," +
+                Weight.KEY_CLOUD_ID + " INTEGER," +
+                Weight.KEY_VALUE + " REAL," +
+                Weight.KEY_DATE + " INTEGER" +
+                ")";
+
+        String glucosisTableSchema = "CREATE TABLE " + GlucosisDAL.TABLE_NAME + "(" +
+                Glucosis.KEY_ID + " INTEGER PRIMARY KEY," +
+                Glucosis.KEY_CLOUD_ID + " INTEGER," +
+                Glucosis.KEY_RATE + " INTEGER," +
+                Glucosis.KEY_DATE + " INTEGER" +
+                ")";
+
+        String bloodPressureTableSchema = "CREATE TABLE " + BloodPressureDAL.TABLE_NAME + "(" +
+                BloodPressure.KEY_ID + " INTEGER PRIMARY KEY," +
+                BloodPressure.KEY_CLOUD_ID + " INTEGER," +
+                BloodPressure.KEY_SYSTOLIC + " INTEGER," +
+                BloodPressure.KEY_DIASTOLIC + " INTEGER," +
+                BloodPressure.KEY_DATE + " INTEGER" +
+                ")";
+
         db.execSQL(medTableSchema);
         db.execSQL(alertTableSchema);
         db.execSQL(alertReportTableSchema);
         db.execSQL(excTableSchema);
         db.execSQL(consultTableSchema);
         db.execSQL(contactsTableSchema);
+        db.execSQL(weightTableSchema);
+        db.execSQL(glucosisTableSchema);
+        db.execSQL(bloodPressureTableSchema);
 
     }
 
@@ -108,6 +136,9 @@ public class SchemaHelper {
             db.execSQL("DROP TABLE IF EXISTS " + AlertEventReportEntryDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + ConsultationDAL.TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + EmergencyContactDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + WeightDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + GlucosisDAL.TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + BloodPressureDAL.TABLE_NAME);
             // Create tables again
             createTable(db);
         }

@@ -4,10 +4,10 @@
     android:id="@+id/medication_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.fabricam8.seniorsapp.ContactsFormActivity">
+    tools:context="br.com.fabricam8.seniorsapp.WeightFormActivity">
 
     <include layout="@layout/seniors_toolbar"/>
 
-    <include layout="@layout/fragment_peso_form"/>
+    <include layout="@layout/fragment_weight_form"/>
 
 </LinearLayout>

@@ -13,16 +13,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import br.com.fabricam8.seniorsapp.alarm.AlarmPlayerService;
 import br.com.fabricam8.seniorsapp.dal.AlertEventDAL;
-import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.AlertEvent;
 import br.com.fabricam8.seniorsapp.domain.Consultation;
 import br.com.fabricam8.seniorsapp.domain.Exercise;
@@ -65,9 +62,9 @@ public class DashboardActivity extends ActionBarActivity {
         startActivity(i);
     }
 
-    public void viewEventsListSaude(View v)
+    public void viewHealthList(View v)
     {
-        Intent i = new Intent(DashboardActivity.this, EventsListSaude.class);
+        Intent i = new Intent(DashboardActivity.this, HealthListActivity.class);
         startActivity(i);
     }
 

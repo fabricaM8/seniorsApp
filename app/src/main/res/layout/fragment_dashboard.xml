@@ -235,7 +235,7 @@
                     style="@style/bt_action_dash_orange"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_heart"
-                    android:onClick="viewEventsListSaude" />
+                    android:onClick="viewHealthList" />
 
                 <TextView
                     android:layout_width="match_parent"

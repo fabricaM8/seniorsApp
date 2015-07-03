@@ -20,7 +20,7 @@
     <ImageButton
         android:id="@+id/btSaudeAddPressao"
         android:src="@drawable/ic_action_add"
-        android:onClick="viewAddPressaoArterial"
+        android:onClick="viewAddBloodPreasureMeasure"
         style="@style/bt_action_active"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
