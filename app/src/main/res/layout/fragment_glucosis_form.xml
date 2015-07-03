@@ -12,15 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/nome1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:hint="Glicose"
-            android:textColor="#222222"
-            android:textSize="@dimen/form_input_text_size" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,18 +20,33 @@
             android:text="Data"
             android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold" />
-
-
         <TextView
-            android:id="@+id/exc_form_start_date"
+            android:id="@+id/health_glucosis_form_date"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Taxa de Glicose"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/health_glucosis_form_qty"
+            android:onClick="openDialogQuantity"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
 
         <!--ACTION BUTTONS-->
-
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"></View>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -48,7 +54,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btCancelExercise"
+                android:id="@+id/btCancelGlucosis"
                 style="@style/bt_action_inactive"
                 android:onClick="cancel"
                 android:src="@drawable/ic_action_cancel" />
@@ -59,9 +65,9 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/btsaveContacts"
+                android:id="@+id/btSaveGlucosis"
                 style="@style/bt_action_active"
-                android:onClick="saveContacts"
+                android:onClick="saveGlucosis"
                 android:src="@drawable/ic_action_confirm"
                 android:focusableInTouchMode="true"
                 android:nestedScrollingEnabled="false"
