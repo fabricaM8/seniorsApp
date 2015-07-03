@@ -25,7 +25,7 @@ import br.com.fabricam8.seniorsapp.adapters.WeightRowItemAdaper;
 import br.com.fabricam8.seniorsapp.dal.WeightDAL;
 import br.com.fabricam8.seniorsapp.domain.Weight;
 
-public class WeightPageFragment extends Fragment {
+public class HealthWeightPageFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -58,7 +58,7 @@ public class WeightPageFragment extends Fragment {
         WeightDAL db = WeightDAL.getInstance(mContext);
         List<Weight> weights = db.findAll();
 
-        WeightRowItemAdaper adapter = new WeightRowItemAdaper(mContext.getApplicationContext(), weights);
+        WeightRowItemAdaper adapter = new WeightRowItemAdaper(mContext, weights);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
@@ -100,6 +100,8 @@ public class WeightPageFragment extends Fragment {
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
             graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.argb(255, 255, 165, 0));
             graph.getGridLabelRenderer().setVerticalLabelsColor(Color.argb(255, 255, 165, 0));
+            graph.setVisibility(View.VISIBLE);
+
         } else {
             graph.setVisibility(View.GONE);
         }

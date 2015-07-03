@@ -26,7 +26,7 @@ import br.com.fabricam8.seniorsapp.adapters.GlucosisRowItemAdaper;
 import br.com.fabricam8.seniorsapp.dal.BloodPressureDAL;
 import br.com.fabricam8.seniorsapp.domain.BloodPressure;
 
-public class BloodPressurePageFragment extends Fragment {
+public class HealthBloodPressurePageFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -59,7 +59,7 @@ public class BloodPressurePageFragment extends Fragment {
         BloodPressureDAL db = BloodPressureDAL.getInstance(mContext);
         List<BloodPressure> data = db.findAll();
 
-        BloodPressureRowItemAdaper adapter = new BloodPressureRowItemAdaper(mContext.getApplicationContext(), data);
+        BloodPressureRowItemAdaper adapter = new BloodPressureRowItemAdaper(mContext, data);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
@@ -108,6 +108,7 @@ public class BloodPressurePageFragment extends Fragment {
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
             graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.argb(255, 255, 165, 0));
             graph.getGridLabelRenderer().setVerticalLabelsColor(Color.argb(255, 255, 165, 0));
+            graph.setVisibility(View.VISIBLE);
         } else {
             graph.setVisibility(View.GONE);
         }

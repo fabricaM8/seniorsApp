@@ -13,9 +13,9 @@ import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import br.com.fabricam8.seniorsapp.fragments.EventsGlicoseFragment;
-import br.com.fabricam8.seniorsapp.fragments.WeightPageFragment;
-import br.com.fabricam8.seniorsapp.fragments.BloodPressurePageFragment;
+import br.com.fabricam8.seniorsapp.fragments.HealthGlicosePageFragment;
+import br.com.fabricam8.seniorsapp.fragments.HealthWeightPageFragment;
+import br.com.fabricam8.seniorsapp.fragments.HealthBloodPressurePageFragment;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
 
@@ -25,12 +25,12 @@ public class HealthListActivity extends ActionBarActivity {
     private ViewPager mPager;
     private PagerSlidingTabStrip mTabs;
 
+    public static final String BUNDLE_KEY = "PAGER_POSITION";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
-        
         setContentView(R.layout.activity_health_list);
 
         // create toolbar
@@ -44,6 +44,14 @@ public class HealthListActivity extends ActionBarActivity {
         // Bind the mTabs to the ViewPager
         mTabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
+
+        // Load appropriate page
+        int viewItem = getIntent().getIntExtra(BUNDLE_KEY, 0);
+        mPager.setCurrentItem(viewItem);
+    }
+
+    protected void onResume() {
+        super.onResume();
     }
 
     public void viewAddWeightMeasure(View v) {
@@ -89,11 +97,11 @@ public class HealthListActivity extends ActionBarActivity {
 
             switch (position) {
                 case 0:
-                    return new WeightPageFragment();
+                    return new HealthWeightPageFragment();
                 case 1:
-                    return new BloodPressurePageFragment();
+                    return new HealthBloodPressurePageFragment();
                 case 2:
-                    return new EventsGlicoseFragment();
+                    return new HealthGlicosePageFragment();
             }
 
             return null;

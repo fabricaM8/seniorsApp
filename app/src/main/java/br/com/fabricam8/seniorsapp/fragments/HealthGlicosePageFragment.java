@@ -32,7 +32,7 @@ import br.com.fabricam8.seniorsapp.dal.MedicationDAL;
 import br.com.fabricam8.seniorsapp.domain.Glucosis;
 import br.com.fabricam8.seniorsapp.domain.Medication;
 
-public class EventsGlicoseFragment extends Fragment {
+public class HealthGlicosePageFragment extends Fragment {
 
     private Activity mContext;
     private View rootView;
@@ -65,7 +65,7 @@ public class EventsGlicoseFragment extends Fragment {
         GlucosisDAL db = GlucosisDAL.getInstance(mContext);
         List<Glucosis> data = db.findAll();
 
-        GlucosisRowItemAdaper adapter = new GlucosisRowItemAdaper(mContext.getApplicationContext(), data);
+        GlucosisRowItemAdaper adapter = new GlucosisRowItemAdaper(mContext, data);
         ListView listView = (ListView) v.findViewById(R.id.listView);
         listView.setAdapter(adapter);
         listView.setEmptyView(v.findViewById(R.id.empty_list));
@@ -107,6 +107,7 @@ public class EventsGlicoseFragment extends Fragment {
             graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.BOTH);
             graph.getGridLabelRenderer().setHorizontalLabelsColor(Color.argb(255, 255, 165, 0));
             graph.getGridLabelRenderer().setVerticalLabelsColor(Color.argb(255, 255, 165, 0));
+            graph.setVisibility(View.VISIBLE);
         } else {
             graph.setVisibility(View.GONE);
         }

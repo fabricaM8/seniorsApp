@@ -1,6 +1,9 @@
 package br.com.fabricam8.seniorsapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import br.com.fabricam8.seniorsapp.HealthListActivity;
 import br.com.fabricam8.seniorsapp.R;
 import br.com.fabricam8.seniorsapp.dal.BloodPressureDAL;
 import br.com.fabricam8.seniorsapp.domain.BloodPressure;
@@ -59,7 +63,12 @@ public class BloodPressureRowItemAdaper extends ArrayAdapter {
                     if(w != null) {
                         db.remove(w);
                     }
-                    notifyDataSetChanged();
+
+                    Intent i = new Intent(mContext, HealthListActivity.class);
+                    i.putExtra(HealthListActivity.BUNDLE_KEY, 1);
+                    mContext.startActivity(i);
+                    // close this activity
+                    ((Activity) mContext).finish();
                 }
             });
 
