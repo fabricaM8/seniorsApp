@@ -110,7 +110,7 @@ public class GlucosisDAL extends DbCRUD<Glucosis> {
         try {
             // Select All Query
             String selectQuery = "SELECT %1$s, %2$s, %3$s FROM "
-                    + getTableName();
+                    + getTableName() + " ORDER BY " + Glucosis.KEY_DATE + " DESC";
             selectQuery = String.format(selectQuery, Glucosis.KEY_ID, Glucosis.KEY_RATE, Glucosis.KEY_DATE);
             Log.i("Seniors db - query", selectQuery);
 

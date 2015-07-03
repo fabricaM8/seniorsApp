@@ -41,7 +41,7 @@ public class GlucosisRowItemAdaper extends ArrayAdapter {
         txtVal.setText(mGlucosis.get(position).getRate() + "");
 
         TextView txtDate = (TextView) row.findViewById(R.id.health_glucosis_date);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         txtDate.setText(dateFormat.format(mGlucosis.get(position).getDate()));
 
         Button but = (Button) row.findViewById(R.id.btDeleteGlucosis);

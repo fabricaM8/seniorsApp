@@ -112,7 +112,7 @@ public class BloodPressureDAL extends DbCRUD<BloodPressure> {
         try {
             // Select All Query
             String selectQuery = "SELECT %1$s, %2$s, %3$s, %4$s FROM "
-                    + getTableName();
+                    + getTableName() + " ORDER BY " + BloodPressure.KEY_DATE + " DESC";
             selectQuery = String.format(selectQuery, BloodPressure.KEY_ID, BloodPressure.KEY_SYSTOLIC,
                     BloodPressure.KEY_DIASTOLIC, BloodPressure.KEY_DATE);
             Log.i("Seniors db - query", selectQuery);

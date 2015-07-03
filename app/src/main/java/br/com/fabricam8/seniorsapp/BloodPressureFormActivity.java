@@ -209,7 +209,7 @@ public class BloodPressureFormActivity extends ActionBarActivity
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), (GlucosisFormActivity) getActivity(), year,
+            return new DatePickerDialog(getActivity(), (BloodPressureFormActivity) getActivity(), year,
                     month, day);
         }
     }
@@ -223,7 +223,7 @@ public class BloodPressureFormActivity extends ActionBarActivity
             int minute = c.get(Calendar.MINUTE);
 
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), (GlucosisFormActivity) getActivity(), hour,
+            return new TimePickerDialog(getActivity(), (BloodPressureFormActivity) getActivity(), hour,
                     minute, DateFormat.is24HourFormat(getActivity()));
         }
     }

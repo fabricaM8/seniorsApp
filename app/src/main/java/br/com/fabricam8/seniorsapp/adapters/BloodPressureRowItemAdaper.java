@@ -42,7 +42,7 @@ public class BloodPressureRowItemAdaper extends ArrayAdapter {
                 mBloodPressure.get(position).getDiastolic());
 
         TextView txtDate = (TextView) row.findViewById(R.id.health_pressure_date);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         txtDate.setText(dateFormat.format(mBloodPressure.get(position).getDate()));
 
         Button but = (Button) row.findViewById(R.id.btDeleteBloodPressure);
