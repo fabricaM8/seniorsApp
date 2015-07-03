@@ -44,7 +44,7 @@ public class WeightFormActivity extends ActionBarActivity implements DatePickerD
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
         mToolbar.setBackgroundColor(getResources().getColor(R.color.seniors_active_dash_button_color_orange));
-        mToolbar.setAlpha(0.9f);
+        mToolbar.setAlpha(0.6f);
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, 0);

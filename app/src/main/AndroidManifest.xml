@@ -216,8 +216,8 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".BloodPreasureFormActivity"
-            android:label="Meu pressão arterial"
+            android:name=".BloodPressureFormActivity"
+            android:label="Minha pressão arterial"
             android:parentActivityName=".HealthListActivity"
             android:screenOrientation="portrait" >
         </activity>

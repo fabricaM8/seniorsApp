@@ -12,54 +12,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <EditText
-            android:id="@+id/nome1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:hint="Pressão"
-            android:textColor="#222222"
-            android:textSize="@dimen/form_input_text_size" />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            android:text="Data"
+            android:text="Sístole"
             android:textSize="@dimen/form_input_text_size"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/health_pressure_form_systolic"
+            android:onClick="openDialogSystolicValue"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
 
         <TextView
-            android:id="@+id/exc_form_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Diástole"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/health_pressure_form_diastolic"
+            android:onClick="openDialogDiatolicValue"
+            android:layout_width="fill_parent"
+            style="@style/vw_input_box" />
+
+        <!--ACTION BUTTONS-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Data da Medição"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/health_pressure_form_date"
             style="@style/vw_input_box"
             android:layout_width="fill_parent"
             android:onClick="openDatePickerDialogActivity" />
 
-        <EditText
-            android:id="@+id/sitole"
+        <TextView
+            android:id="@+id/health_pressure_form_time"
+            android:onClick="openTimePickerDialog"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:hint="Sítole"
-            android:textColor="#222222"
-            android:textSize="@dimen/form_input_text_size" />
-        <EditText
-            android:id="@+id/diastole"
+            style="@style/vw_input_box" />
+
+        <View
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="-6dp"
-            android:layout_marginTop="10dp"
-            android:hint="Diástole"
-            android:textColor="#222222"
-            android:textSize="@dimen/form_input_text_size" />
-
-
-
-        <!--ACTION BUTTONS-->
-
+            android:layout_height="fill_parent"
+            android:layout_weight="1"></View>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -67,7 +77,7 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btCancelExercise"
+                android:id="@+id/btCancelPressure"
                 style="@style/bt_action_inactive"
                 android:onClick="cancel"
                 android:src="@drawable/ic_action_cancel" />
@@ -78,9 +88,9 @@
                 android:layout_weight="1" />
 
             <ImageButton
-                android:id="@+id/btsaveContacts"
+                android:id="@+id/btSavePressure"
                 style="@style/bt_action_active"
-                android:onClick="saveContacts"
+                android:onClick="saveBloodPressure"
                 android:src="@drawable/ic_action_confirm"
                 android:focusableInTouchMode="true"
                 android:nestedScrollingEnabled="false"

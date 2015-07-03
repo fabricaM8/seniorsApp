@@ -68,6 +68,7 @@
     <string name="error_form_submit">Ocorreu um problema e os dados não foram salvos.</string>
     <string name="success_weight_form_submit">Peso cadastrado com sucesso!</string>
     <string name="success_glucosis_form_submit">Taxa de glicose cadastrada com sucesso!</string>
+    <string name="success_pressure_form_submit">Pressão arterial cadastrada com sucesso!</string>
     <string name="success_medication_form_submit">Medicamento salvo com sucesso!</string>
     <string name="success_medication_deletion">Medicamento excluído com sucesso!</string>
     <string name="success_exercise_deletion">Atividade excluída com sucesso!</string>

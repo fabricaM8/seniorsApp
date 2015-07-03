@@ -23,21 +23,22 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import br.com.fabricam8.seniorsapp.dal.GlucosisDAL;
-import br.com.fabricam8.seniorsapp.domain.Glucosis;
+import br.com.fabricam8.seniorsapp.dal.BloodPressureDAL;
+import br.com.fabricam8.seniorsapp.domain.BloodPressure;
 import br.com.fabricam8.seniorsapp.util.FormHelper;
 import br.com.fabricam8.seniorsapp.util.ToolbarBuilder;
 
-public class GlucosisFormActivity extends ActionBarActivity
+public class BloodPressureFormActivity extends ActionBarActivity
         implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
 
-    private int selectedRate;
+    private int selectedSystolic;
+    private int selectedDiastolic;
     private Date selecteDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_glucosis_form);
+        setContentView(R.layout.activity_pressure_form);
 
         // create toolbar
         Toolbar mToolbar = ToolbarBuilder.build(this, true);
@@ -50,15 +51,18 @@ public class GlucosisFormActivity extends ActionBarActivity
     }
 
     private void updateView() {
-        if (selectedRate > 30) {
-            FormHelper.setTextBoxValue(this, R.id.health_glucosis_form_qty, "" + selectedRate);
+        if (selectedSystolic > 0) {
+            FormHelper.setTextBoxValue(this, R.id.health_pressure_form_systolic, "" + selectedSystolic);
+        }
+        if (selectedDiastolic > 0) {
+            FormHelper.setTextBoxValue(this, R.id.health_pressure_form_diastolic, "" + selectedDiastolic);
         }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        FormHelper.setTextBoxValue(this, R.id.health_glucosis_form_date, dateFormat.format(selecteDate));
+        FormHelper.setTextBoxValue(this, R.id.health_pressure_form_date, dateFormat.format(selecteDate));
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        FormHelper.setTextBoxValue(this, R.id.health_glucosis_form_time, timeFormat.format(selecteDate));
+        FormHelper.setTextBoxValue(this, R.id.health_pressure_form_time, timeFormat.format(selecteDate));
     }
 
     @Override
@@ -83,42 +87,66 @@ public class GlucosisFormActivity extends ActionBarActivity
         finish();
     }
 
-    public void saveGlucosis(View view) {
+    public void saveBloodPressure(View view) {
         Context context = this;
 
         try {
-            GlucosisDAL db = GlucosisDAL.getInstance(context);
+            BloodPressureDAL db = BloodPressureDAL.getInstance(context);
 
-            if (selectedRate > 0) {
-                Glucosis g = new Glucosis();
+            if (selectedSystolic > 0) {
+                BloodPressure g = new BloodPressure();
                 g.setDate(selecteDate);
-                g.setRate(selectedRate);
+                g.setSystolic(selectedSystolic);
+                g.setDiastolic(selectedDiastolic);
                 db.create(g);
 
-                Toast.makeText(this, getString(R.string.success_glucosis_form_submit), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.success_pressure_form_submit), Toast.LENGTH_LONG).show();
                 finish();
             }
         } catch (Exception ex) {
             Toast.makeText(this, getString(R.string.error_form_submit), Toast.LENGTH_LONG).show();
         }
-
     }
 
-    public void openDialogQuantity(View view) {
+    public void openDialogSystolicValue(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
         // Pass null as the parent view because its going in the dialog layout
         final View dialogView = inflater.inflate(R.layout.dialog_general_number, null);
-        FormHelper.setupPicker(dialogView, R.id.dg_general_number, 30, 250, null, 100);
+        FormHelper.setupPicker(dialogView, R.id.dg_general_number, 0, 300, null, 120);
 
         // montando dialog
-        builder.setTitle("Selecione a taxa de glicose")
+        builder.setTitle("Selecione o valor sistólico")
                 .setView(dialogView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        selectedRate = FormHelper.getPickerValue(dialogView, R.id.dg_general_number);
+                        selectedSystolic = FormHelper.getPickerValue(dialogView, R.id.dg_general_number);
+                        updateView();
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                }).create().show();
+    }
+    public void openDialogDiatolicValue(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+        // Pass null as the parent view because its going in the dialog layout
+        final View dialogView = inflater.inflate(R.layout.dialog_general_number, null);
+        FormHelper.setupPicker(dialogView, R.id.dg_general_number, 0, 250, null, 80);
+
+        // montando dialog
+        builder.setTitle("Selecione o valor diastólico")
+                .setView(dialogView)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        selectedDiastolic = FormHelper.getPickerValue(dialogView, R.id.dg_general_number);
                         updateView();
                     }
                 })

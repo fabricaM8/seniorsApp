@@ -13,7 +13,6 @@ import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-import br.com.fabricam8.seniorsapp.fragments.EventsBatimentoCardiocoFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsGlicoseFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPesoFragment;
 import br.com.fabricam8.seniorsapp.fragments.EventsPressaoArterialFragment;
@@ -52,7 +51,7 @@ public class HealthListActivity extends ActionBarActivity {
     }
 
     public void viewAddBloodPreasureMeasure(View v) {
-        startActivity(new Intent(HealthListActivity.this, BloodPreasureFormActivity.class));
+        startActivity(new Intent(HealthListActivity.this, BloodPressureFormActivity.class));
     }
 
     public void viewAddGlucosisMeasure(View v) {

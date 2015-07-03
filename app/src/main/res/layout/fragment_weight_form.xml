@@ -12,19 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:text="Data"
-            android:textSize="@dimen/form_input_text_size"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/health_form_date"
-            style="@style/vw_input_box"
-            android:layout_width="fill_parent"
-            android:onClick="openDatePickerDialogActivity" />
 
 
         <TextView
@@ -43,6 +30,21 @@
             style="@style/vw_input_box" />
 
         <!--ACTION BUTTONS-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:text="Data de Medição"
+            android:textSize="@dimen/form_input_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/health_form_date"
+            style="@style/vw_input_box"
+            android:layout_width="fill_parent"
+            android:onClick="openDatePickerDialogActivity" />
+
         <View
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
