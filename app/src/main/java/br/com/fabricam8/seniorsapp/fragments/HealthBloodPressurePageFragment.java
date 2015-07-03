@@ -75,7 +75,7 @@ public class HealthBloodPressurePageFragment extends Fragment {
             for (int i = 0; i < data.size(); i++) {
                 Date d = data.get(i).getDate();
                 int sys = data.get(i).getSystolic();
-                int dia = data.get(i).getSystolic();
+                int dia = data.get(i).getDiastolic();
                 arr1[i] = new DataPoint(d, sys);
                 arr2[i] = new DataPoint(d, dia);
 

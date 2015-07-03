@@ -10,7 +10,7 @@
         android:id="@+id/btDeleteGlucosis"
         android:layout_width="30dip"
         android:layout_height="30dip"
-        android:layout_gravity="center"
+        android:layout_gravity="top"
         android:layout_marginTop="7dip"
         android:background="@android:drawable/ic_delete"
         android:gravity="right"></Button>
