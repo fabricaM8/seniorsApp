@@ -465,15 +465,15 @@ public class LocationActivity extends ActionBarActivity implements
             if(contacts != null && !contacts.isEmpty()) {
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(contacts.get(0).getPhone(), null, "Minha localização: " + uri, null, null);
-                Toast.makeText(this, "Mensagem enviada!", Toast.LENGTH_LONG);
+                Toast.makeText(this, "Mensagem enviada via SMS para " + contacts.get(0).getName() + "!", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(this, "Não foi possível enviar sua localização. Por favor, cadastre pelo menos um contato de emergência.", Toast.LENGTH_LONG);
+                Toast.makeText(this, "Não foi possível enviar sua localização. Por favor, cadastre pelo menos um contato de emergência.", Toast.LENGTH_LONG).show();
             }
 
         } else {
             // show error
-            Toast.makeText(this, "Não foi possível enviar sua localização. Verifique se o seu aparelho está com a localização ativada.", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Não foi possível enviar sua localização. Verifique se o seu aparelho está com a localização ativada.", Toast.LENGTH_LONG).show();
         }
     }
 

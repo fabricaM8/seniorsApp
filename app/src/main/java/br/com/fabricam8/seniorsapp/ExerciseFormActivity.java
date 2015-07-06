@@ -352,7 +352,8 @@ public class ExerciseFormActivity extends ActionBarActivity
                     alert.setID(alertId);
 
                     // setando alarme
-                    NotificationEventService.setupAlarm(this, alert);
+                    // TODO religar alarme
+                    //NotificationEventService.setupAlarm(this, alert);
 
                     Toast.makeText(this, "A atividade foi cadastrada com sucesso.", Toast.LENGTH_LONG).show();
                     finish(); // finalizando activty e retornando para tela anterior

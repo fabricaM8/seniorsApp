@@ -67,6 +67,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textStyle="bold|italic"
+                    android:visibility="invisible"
                     android:text="-- Próximos Eventos --"/>
                 <include layout="@layout/fragment_dashboard_events"/>
 
