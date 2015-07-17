@@ -8,11 +8,11 @@ import java.util.List;
  */
 public enum ReminderType {
 
-    NONE(0, "Hoje"),
-    UM_DIA_ANTES(1, "Um dia antes"),
-    DOIS_DIAS_ANTES(2, "Dois dias antes"),
-    TRES_DIAS_ANTES(3, "Três dias antes"),
-    QUATRO_DIAS_ANTES(4, "Quatro dias antes");
+    NONE(0, ""),
+    UMA_HORA_ANTES(1, "Uma hora antes"),
+    DUAS_HORAS_ANTES(2, "Duas horas antes"),
+    TRES_HORAS_ANTES(3, "Três horas antes"),
+    UM_DIA_ANTES(4, "Um dia antes");
 
     private final int value;
     private final String name;
